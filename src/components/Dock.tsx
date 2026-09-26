@@ -4,15 +4,17 @@ import gsap from "gsap";
 import { useRef } from "react";
 import { dockApps } from "../constants";
 import { useGSAP } from "@gsap/react";
+import useWindowStore, { type WindowKey } from "../store/window";
 
 const Dock = () => {
+  const { windows, openWindow, closeWindow } = useWindowStore();
   const dockRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(() => {
     const dock = dockRef.current;
     if (!dock) return;
 
-    const icons = dock.querySelectorAll<HTMLButtonElement>('.dock-icon');
+    const icons = dock.querySelectorAll<HTMLButtonElement>(".dock-icon");
     const animateIcons = (mouseX: number) => {
       const { left } = dock.getBoundingClientRect();
 
@@ -56,8 +58,20 @@ const Dock = () => {
     };
   }, []);
 
-  const toggleApp = (app: Pick<(typeof dockApps)[number], "id" | "canOpen">) => {
-    void app;
+  const toggleApp = (
+    app: Pick<(typeof dockApps)[number], "id" | "canOpen">,
+  ) => {
+    const isWindowKey = (id: string): id is WindowKey => id in windows;
+
+    if (!app.canOpen || !isWindowKey(app.id)) return;
+
+    const window = windows[app.id];
+
+    if (window.isOpen) {
+      closeWindow(app.id);
+    } else {
+      openWindow(app.id);
+    }
   };
 
   return (
