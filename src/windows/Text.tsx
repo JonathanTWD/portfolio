@@ -1,0 +1,39 @@
+import WindowControls from "../components/WindowControls";
+import WindowWrapper from "../hoc/WindowWrapper";
+import useWindowStore from "../store/window";
+
+type TextData = {
+  name: string;
+  image?: string;
+  subtitle?: string;
+  description?: string[];
+};
+
+const Text = () => {
+  const { windows } = useWindowStore();
+  const data = windows.txtfile.data as TextData | null;
+
+  if (!data) return null;
+
+  return (
+    <>
+      <div id="window-header">
+        <WindowControls target="txtfile" />
+        <h2>{data.name}</h2>
+      </div>
+
+      <article className="p-5 space-y-5">
+        <h1>{data.name}</h1>
+        {data.image && <img src={data.image} alt={data.name} />}
+        {data.subtitle && <h2>{data.subtitle}</h2>}
+        {data.description?.map((description, index) => (
+          <p key={`${data.name}-${index}`}>{description}</p>
+        ))}
+      </article>
+    </>
+  );
+};
+
+const TextWindow = WindowWrapper(Text, "txtfile");
+
+export default TextWindow;

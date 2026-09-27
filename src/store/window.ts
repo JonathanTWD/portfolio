@@ -3,7 +3,7 @@ import { INITIAL_Z_INDEX, WINDOW_CONFIG } from "../constants";
 
 type WindowConfig = typeof WINDOW_CONFIG;
 export type WindowKey = keyof WindowConfig;
-type WindowData = WindowConfig[WindowKey]["data"];
+type WindowData = Record<string, unknown> | null;
 
 type WindowState = {
   windows: WindowConfig;

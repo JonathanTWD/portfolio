@@ -1,3 +1,5 @@
+import type { WindowKey } from "../store/window";
+
 const navLinks = [
   {
     id: 1,
@@ -14,7 +16,7 @@ const navLinks = [
     name: "Resume",
     type: "resume",
   },
-];
+] satisfies { id: number; name: string; type: WindowKey }[];
 
 const navIcons = [
   {
