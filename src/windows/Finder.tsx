@@ -5,7 +5,6 @@ import { locations } from "../constants";
 import useLocationStore from "../store/location";
 import clsx from "clsx";
 import useWindowStore from "../store/window";
-import type { WindowKey } from "../store/window";
 
 type FinderItem = {
   id: number;
@@ -26,9 +25,11 @@ const Finder = () => {
     if (item.fileType === "pdf") return openWindow("resume");
     if (item.kind === "folder") return setActiveLocation(item);
     if (item.fileType && ["fig", "url"].includes(item.fileType) && item.href)
-      return window.open(item.href, "blank");
+      return window.open(item.href, "_blank");
 
-    const windowKey = `${item.fileType}${item.kind}` as WindowKey;
+    const windowKey = `${item.fileType ?? ""}${item.kind ?? ""}`;
+    if (windowKey !== "txtfile" && windowKey !== "imgfile") return;
+
     openWindow(windowKey, item);
   };
 

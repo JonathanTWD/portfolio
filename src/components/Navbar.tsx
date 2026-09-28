@@ -25,7 +25,7 @@ const Navbar = () => {
       <div>
         <ul>
             {navIcons.map(({ id, img }) => (
-                <li key={id}>
+                <li key={id} className="cursor-pointer">
                     <img src={img} alt={`icon-${id}`} />
                 </li>
             ))}
