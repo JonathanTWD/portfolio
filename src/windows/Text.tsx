@@ -1,17 +1,11 @@
 import WindowControls from "../components/WindowControls";
 import WindowWrapper from "../hoc/WindowWrapper";
 import useWindowStore from "../store/window";
-
-type TextData = {
-  name: string;
-  image?: string;
-  subtitle?: string;
-  description?: string[];
-};
+import type { FileLocation } from "../constants";
 
 const Text = () => {
   const { windows } = useWindowStore();
-  const data = windows.txtfile.data as TextData | null;
+  const data = windows.txtfile.data as FileLocation | null;
 
   if (!data) return null;
 

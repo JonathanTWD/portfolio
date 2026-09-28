@@ -1,4 +1,107 @@
-import type { WindowKey } from "../store/window";
+export type WindowKey =
+  | "finder"
+  | "contact"
+  | "resume"
+  | "safari"
+  | "photos"
+  | "terminal"
+  | "txtfile"
+  | "imgfile";
+
+export type NavLink = {
+  id: number;
+  name: string;
+  type: WindowKey;
+};
+
+export type NavIcon = {
+  id: number;
+  img: string;
+};
+
+export type DockApp = {
+  id: string;
+  name: string;
+  icon: string;
+  canOpen: boolean;
+};
+
+export type BlogPost = {
+  id: number;
+  date: string;
+  title: string;
+  image: string;
+  link: string;
+};
+
+export type TechStackItem = {
+  category: string;
+  items: string[];
+};
+
+export type Social = {
+  id: number;
+  text: string;
+  icon: string;
+  bg: string;
+  link: string;
+};
+
+export type PhotoLink = {
+  id: number;
+  icon: string;
+  title: string;
+};
+
+export type GalleryItem = {
+  id: number;
+  img: string;
+};
+
+export type FileType = "txt" | "url" | "img" | "fig" | "pdf";
+
+type LocationBase = {
+  id: number;
+  name: string;
+  icon: string;
+  position?: string;
+};
+
+export type FileLocation = LocationBase & {
+  kind: "file";
+  fileType: FileType;
+  href?: string;
+  description?: string[];
+  subtitle?: string;
+  image?: string;
+  imageUrl?: string;
+};
+
+export interface FolderLocation extends LocationBase {
+  kind: "folder";
+  type?: string;
+  windowPosition?: string;
+  children: Location[];
+}
+
+export type Location = FileLocation | FolderLocation;
+
+export type WorkLocation = Omit<FolderLocation, "children"> & {
+  children: FolderLocation[];
+};
+
+export type WindowConfigEntry = {
+  isOpen: boolean;
+  zIndex: number;
+  data: Location | null;
+};
+
+export type Locations = {
+  work: WorkLocation;
+  about: FolderLocation;
+  resume: FolderLocation;
+  trash: FolderLocation;
+};
 
 const navLinks = [
   {
@@ -16,7 +119,7 @@ const navLinks = [
     name: "Resume",
     type: "resume",
   },
-] satisfies { id: number; name: string; type: WindowKey }[];
+] satisfies NavLink[];
 
 const navIcons = [
   {
@@ -35,7 +138,7 @@ const navIcons = [
     id: 4,
     img: "/icons/mode.svg",
   },
-];
+] satisfies NavIcon[];
 
 const dockApps = [
   {
@@ -74,7 +177,7 @@ const dockApps = [
     icon: "trash.png",
     canOpen: false,
   },
-];
+] satisfies DockApp[];
 
 const blogPosts = [
   {
@@ -99,7 +202,7 @@ const blogPosts = [
     image: "/images/blog3.png",
     link: "https://jsmastery.com/blog/the-ultimate-guide-to-mastering-gsap-animations",
   },
-];
+] satisfies BlogPost[];
 
 const techStack = [
   {
@@ -126,38 +229,24 @@ const techStack = [
     category: "Dev Tools",
     items: ["Git", "GitHub", "Docker"],
   },
-];
+] satisfies TechStackItem[];
 
 const socials = [
   {
     id: 1,
     text: "Github",
     icon: "/icons/github.svg",
-    bg: "#f4656b",
-    link: "https://github.com/JavaScript-Mastery-Pro",
-  },
-  {
-    id: 2,
-    text: "Platform",
-    icon: "/icons/atom.svg",
-    bg: "#4bcb63",
-    link: "https://jsmastery.com/",
-  },
-  {
-    id: 3,
-    text: "Twitter/X",
-    icon: "/icons/twitter.svg",
-    bg: "#ff866b",
-    link: "https://x.com/jsmasterypro",
+    bg: "#0D1117",
+    link: "https://github.com/JonathanTWD",
   },
   {
     id: 4,
     text: "LinkedIn",
     icon: "/icons/linkedin.svg",
     bg: "#05b6f6",
-    link: "https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all",
+    link: "https://www.linkedin.com/in/jonathan-m-856238315/",
   },
-];
+] satisfies Social[];
 
 const photosLinks = [
   {
@@ -185,7 +274,7 @@ const photosLinks = [
     icon: "/icons/gicon5.svg",
     title: "Favorites",
   },
-];
+] satisfies PhotoLink[];
 
 const gallery = [
   {
@@ -204,7 +293,7 @@ const gallery = [
     id: 4,
     img: "/images/gal4.png",
   },
-];
+] satisfies GalleryItem[];
 
 export {
   navLinks,
@@ -217,7 +306,7 @@ export {
   gallery,
 };
 
-const WORK_LOCATION = {
+const WORK_LOCATION: WorkLocation = {
   id: 1,
   type: "work",
   name: "Work",
@@ -385,7 +474,7 @@ const WORK_LOCATION = {
   ],
 };
 
-const ABOUT_LOCATION = {
+const ABOUT_LOCATION: FolderLocation = {
   id: 2,
   type: "about",
   name: "About me",
@@ -438,7 +527,7 @@ const ABOUT_LOCATION = {
   ],
 };
 
-const RESUME_LOCATION = {
+const RESUME_LOCATION: FolderLocation = {
   id: 3,
   type: "resume",
   name: "Resume",
@@ -457,7 +546,7 @@ const RESUME_LOCATION = {
   ],
 };
 
-const TRASH_LOCATION = {
+const TRASH_LOCATION: FolderLocation = {
   id: 4,
   type: "trash",
   name: "Trash",
@@ -485,7 +574,7 @@ const TRASH_LOCATION = {
   ],
 };
 
-export const locations = {
+export const locations: Locations = {
   work: WORK_LOCATION,
   about: ABOUT_LOCATION,
   resume: RESUME_LOCATION,
@@ -494,7 +583,7 @@ export const locations = {
 
 const INITIAL_Z_INDEX = 1000;
 
-const WINDOW_CONFIG = {
+const WINDOW_CONFIG: Record<WindowKey, WindowConfigEntry> = {
   finder: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   contact: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   resume: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },

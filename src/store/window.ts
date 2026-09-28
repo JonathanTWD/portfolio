@@ -1,9 +1,15 @@
 import { create } from "zustand";
-import { INITIAL_Z_INDEX, WINDOW_CONFIG } from "../constants";
+import {
+  INITIAL_Z_INDEX,
+  WINDOW_CONFIG,
+  type WindowKey,
+  type Location,
+} from "../constants";
+
+export type { WindowKey } from "../constants";
 
 type WindowConfig = typeof WINDOW_CONFIG;
-export type WindowKey = keyof WindowConfig;
-type WindowData = Record<string, unknown> | null;
+type WindowData = Location | null;
 
 type WindowState = {
   windows: WindowConfig;
