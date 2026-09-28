@@ -1,28 +1,18 @@
 import WindowControls from "../components/WindowControls";
 import { Search } from "lucide-react";
 import WindowWrapper from "../hoc/WindowWrapper";
-import { locations } from "../constants";
+import { locations, type FolderLocation, type Location } from "../constants";
 import useLocationStore from "../store/location";
 import clsx from "clsx";
 import useWindowStore from "../store/window";
-
-type FinderItem = {
-  id: number;
-  name: string;
-  icon: string;
-  children?: FinderItem[];
-  position?: string;
-  fileType?: string;
-  kind?: string;
-  href?: string;
-};
 
 const Finder = () => {
   const { openWindow } = useWindowStore();
   const { activeLocation, setActiveLocation } = useLocationStore();
 
-  const openItem = (item: FinderItem) => {
-    if (item.fileType === "pdf") return openWindow("resume");
+  const openItem = (item: Location) => {
+    if (item.kind === "file" && item.fileType === "pdf")
+      return openWindow("resume");
     if (item.kind === "folder") return setActiveLocation(item);
     if (item.fileType && ["fig", "url"].includes(item.fileType) && item.href)
       return window.open(item.href, "_blank");
@@ -33,7 +23,7 @@ const Finder = () => {
     openWindow(windowKey, item);
   };
 
-  const renderList = (name: string, items: FinderItem[]) => (
+  const renderList = (name: string, items: FolderLocation[]) => (
     <div>
       <h3>{name}</h3>
       <ul>

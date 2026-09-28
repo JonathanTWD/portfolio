@@ -31,6 +31,8 @@ const WindowWrapper = <Props extends object>(
       if (!el || !isOpen) return;
 
       const [instance] = Draggable.create(el, {
+        cursor: "default",
+        activeCursor: "default",
         onPress: () => focusWindow(windowKey),
       });
 

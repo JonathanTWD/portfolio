@@ -1,15 +1,11 @@
 import WindowControls from "../components/WindowControls";
 import WindowWrapper from "../hoc/WindowWrapper";
 import useWindowStore from "../store/window";
-
-type ImageData = {
-  name: string;
-  imageUrl?: string;
-};
+import type { FileLocation } from "../constants";
 
 const Image = () => {
   const { windows } = useWindowStore();
-  const data = windows.imgfile.data as ImageData | null;
+  const data = windows.imgfile.data as FileLocation | null;
 
   if (!data) return null;
 

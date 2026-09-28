@@ -1,20 +1,12 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { locations } from "../constants";
-
-type Location = {
-  id: number;
-  name: string;
-  icon: string;
-  children?: Location[];
-  position?: string;
-};
+import { locations, type FolderLocation } from "../constants";
 
 const DEFAULT_LOCATION = locations.work;
 
 type LocationState = {
-  activeLocation: Location;
-  setActiveLocation: (location: Location) => void;
+  activeLocation: FolderLocation;
+  setActiveLocation: (location: FolderLocation) => void;
   resetActiveLocation: () => void;
 };
 
