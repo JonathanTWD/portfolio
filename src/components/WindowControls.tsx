@@ -5,12 +5,27 @@ type WindowControlsProps = {
 };
 
 const WindowControls = ({ target }: WindowControlsProps) => {
-  const { closeWindow } = useWindowStore();
+  const { closeWindow, minimizeWindow, toggleMaximizeWindow } = useWindowStore();
   return (
     <div id="window-controls">
-      <div className="close" onClick={() => closeWindow(target)} />
-      <div className="minimize" />
-      <div className="maximize" />
+      <button
+        type="button"
+        className="close"
+        aria-label="Close window"
+        onClick={() => closeWindow(target)}
+      />
+      <button
+        type="button"
+        className="minimize"
+        aria-label="Minimize window"
+        onClick={() => minimizeWindow(target)}
+      />
+      <button
+        type="button"
+        className="maximize"
+        aria-label="Maximize window"
+        onClick={() => toggleMaximizeWindow(target)}
+      />
     </div>
   );
 };

@@ -95,6 +95,46 @@ body {
         @apply object-cover object-center;
       }
     }
+
+    .window-preview {
+      @apply absolute bottom-[calc(100%+0.35rem)] left-1/2 w-72 h-40 overflow-hidden rounded-xl border border-white/60 bg-white/80 shadow-2xl backdrop-blur-sm cursor-pointer;
+
+      .window-preview-header {
+        @apply flex h-7 items-center gap-2 border-b border-black/10 bg-white/90 px-2 text-[10px] text-gray-600;
+      }
+
+      .window-preview-dots {
+        @apply flex gap-1;
+
+        i {
+          @apply size-1.5 rounded-full;
+
+          &:nth-child(1) {
+            @apply bg-[#ff6157];
+          }
+
+          &:nth-child(2) {
+            @apply bg-[#ffc030];
+          }
+
+          &:nth-child(3) {
+            @apply bg-[#2acb42];
+          }
+        }
+      }
+
+      .window-preview-title {
+        @apply min-w-0 flex-1 truncate font-medium;
+      }
+
+      .window-preview-hint {
+        @apply text-[9px] text-gray-400;
+      }
+
+      .window-preview-content {
+        @apply relative h-[132px] overflow-hidden bg-white;
+      }
+    }
   }
 
   #window-controls {
@@ -105,11 +145,15 @@ body {
     }
 
     .minimize {
-      @apply size-3.5 rounded-full bg-[#ffc030];
+      @apply size-3.5 rounded-full bg-[#ffc030] cursor-pointer;
     }
 
     .maximize {
-      @apply size-3.5 rounded-full bg-[#2acb42];
+      @apply size-3.5 rounded-full bg-[#2acb42] cursor-pointer;
+    }
+
+    button {
+      @apply border-0 p-0;
     }
   }
 
@@ -296,7 +340,32 @@ body {
   }
 
   #resume {
-    @apply w-fit h-fit absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply absolute top-16 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden flex flex-col;
+
+    width: min(90vw, 720px);
+    height: min(720px, calc(100vh - 7rem));
+    max-height: calc(100vh - 7rem);
+    left: max(1rem, min(58vw, calc(100vw - 760px)));
+
+    .resume-document {
+      @apply flex min-h-0 min-w-0 flex-none items-start justify-center overflow-y-auto bg-gray-100 p-4;
+
+      height: calc(100% - 3.5rem);
+
+      .react-pdf__Document {
+        @apply flex flex-none justify-center;
+      }
+    }
+
+    &.is-maximized {
+      height: 100vh;
+      max-height: none;
+
+      .resume-document {
+        height: calc(100vh - 3.5rem);
+        max-height: none;
+      }
+    }
 
     #window-header {
       h2 {
@@ -393,3 +462,4 @@ body {
     }
   }
 }
+
