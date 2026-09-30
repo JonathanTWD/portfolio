@@ -16,6 +16,9 @@ type WindowState = {
   nextZ: number;
   openWindow: (windowKey: WindowKey, data?: WindowData) => void;
   closeWindow: (windowKey: WindowKey) => void;
+  minimizeWindow: (windowKey: WindowKey) => void;
+  restoreWindow: (windowKey: WindowKey) => void;
+  toggleMaximizeWindow: (windowKey: WindowKey) => void;
   focusWindow: (windowKey: WindowKey) => void;
 };
 
@@ -30,6 +33,7 @@ const useWindowStore = create<WindowState>((set) => ({
         [windowKey]: {
           ...state.windows[windowKey],
           isOpen: true,
+          isMinimized: false,
           zIndex: state.nextZ,
           data: data ?? state.windows[windowKey].data,
         },
@@ -44,10 +48,51 @@ const useWindowStore = create<WindowState>((set) => ({
         [windowKey]: {
           ...state.windows[windowKey],
           isOpen: false,
+          isMinimized: false,
+          isMaximized: false,
           zIndex: INITIAL_Z_INDEX,
           data: null,
         },
       },
+    })),
+
+  minimizeWindow: (windowKey) =>
+    set((state) => ({
+      windows: {
+        ...state.windows,
+        [windowKey]: {
+          ...state.windows[windowKey],
+          isMinimized: true,
+        },
+      },
+    })),
+
+  restoreWindow: (windowKey) =>
+    set((state) => ({
+      windows: {
+        ...state.windows,
+        [windowKey]: {
+          ...state.windows[windowKey],
+          isOpen: true,
+          isMinimized: false,
+          zIndex: state.nextZ,
+        },
+      },
+      nextZ: state.nextZ + 1,
+    })),
+
+  toggleMaximizeWindow: (windowKey) =>
+    set((state) => ({
+      windows: {
+        ...state.windows,
+        [windowKey]: {
+          ...state.windows[windowKey],
+          isMinimized: false,
+          isMaximized: !state.windows[windowKey].isMaximized,
+          zIndex: state.nextZ,
+        },
+      },
+      nextZ: state.nextZ + 1,
     })),
 
   focusWindow: (windowKey) =>

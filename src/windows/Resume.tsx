@@ -2,6 +2,7 @@ import { Download } from "lucide-react";
 import WindowControls from "../components/WindowControls";
 import WindowWrapper from "../hoc/WindowWrapper";
 import { Document, Page, pdfjs } from "react-pdf";
+import { useEffect, useRef, useState } from "react";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
@@ -11,6 +12,24 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString();
 
 const Resume = () => {
+  const documentRef = useRef<HTMLDivElement | null>(null);
+  const [pageWidth, setPageWidth] = useState<number>();
+
+  useEffect(() => {
+    const container = documentRef.current;
+    if (!container) return;
+
+    const updatePageWidth = () => {
+      setPageWidth(Math.min(820, Math.max(280, container.clientWidth - 32)));
+    };
+
+    updatePageWidth();
+    const observer = new ResizeObserver(updatePageWidth);
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <div id="window-header">
@@ -26,9 +45,16 @@ const Resume = () => {
           <Download className="icon" />
         </a>
       </div>
-      <Document file={"files/resume.pdf"}>
-        <Page pageNumber={1} renderTextLayer renderAnnotationLayer />
-      </Document>
+      <div ref={documentRef} className="resume-document">
+        <Document file="files/resume.pdf">
+          <Page
+            pageNumber={1}
+            width={pageWidth}
+            renderTextLayer
+            renderAnnotationLayer
+          />
+        </Document>
+      </div>
     </>
   );
 };
