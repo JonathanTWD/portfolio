@@ -16,8 +16,7 @@ const Text = () => {
         <h2>{data.name}</h2>
       </div>
 
-      <article className="p-5 space-y-5">
-        <h1>{data.name}</h1>
+      <article className="text-document p-5 space-y-5">
         {data.image && <img src={data.image} alt={data.name} />}
         {data.subtitle && <h2>{data.subtitle}</h2>}
         {data.description?.map((description, index) => (
