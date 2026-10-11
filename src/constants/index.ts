@@ -58,6 +58,16 @@ export type GalleryItem = {
   img: string;
 };
 
+export type GalleryImage = GalleryItem & {
+  alt: string;
+};
+
+export type GalleryProject = {
+  id: string;
+  name: string;
+  images: GalleryImage[];
+};
+
 export type FileType = "txt" | "url" | "img" | "fig" | "pdf";
 
 type LocationBase = {
@@ -173,12 +183,6 @@ const dockApps = [
     icon: "terminal.png",
     canOpen: true,
   },
-  {
-    id: "trash",
-    name: "Archive", // was "Trash"
-    icon: "trash.png",
-    canOpen: false,
-  },
 ] satisfies DockApp[];
 
 const blogPosts = [
@@ -209,27 +213,27 @@ const blogPosts = [
 const techStack = [
   {
     category: "Frontend",
-    items: ["React.js", "Next.js", "TypeScript"],
-  },
-  {
-    category: "Mobile",
-    items: ["React Native", "Expo"],
-  },
-  {
-    category: "Styling",
-    items: ["Tailwind CSS", "Sass", "CSS"],
+    items: ["React", "TypeScript"],
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express", "NestJS", "Hono"],
+    items: ["Node.js", "Express", "NestJS", "Spring Boot"],
   },
   {
     category: "Database",
-    items: ["MongoDB", "PostgreSQL"],
+    items: ["PostgreSQL", "MySQL", "Oracle"],
   },
   {
-    category: "Dev Tools",
-    items: ["Git", "GitHub", "Docker"],
+    category: "UI & Styling",
+    items: ["Tailwind CSS", "shadcn/ui", "CSS"],
+  },
+  {
+    category: "Testing",
+    items: ["Vitest", "Jest", "Supertest"],
+  },
+  {
+    category: "DevOps & Tools",
+    items: ["Git", "Docker", "SonarQube"],
   },
 ] satisfies TechStackItem[];
 
@@ -297,6 +301,55 @@ const gallery = [
   },
 ] satisfies GalleryItem[];
 
+const galleryProjects = [
+  {
+    id: "canaccesible",
+    name: "CanAccesible",
+    images: [
+      {
+        id: 1,
+        img: "/images/canaccesible-project/canaccesible-8.png",
+        alt: "CanAccesible about page",
+      },
+      {
+        id: 2,
+        img: "/images/canaccesible-project/canaccesible-7.png",
+        alt: "CanAccesible login page",
+      },
+      {
+        id: 3,
+        img: "/images/canaccesible-project/canaccesible-1.png",
+        alt: "CanAccesible landing page",
+      },
+      {
+        id: 4,
+        img: "/images/canaccesible-project/canaccesible-6.png",
+        alt: "CanAccesible incidents map",
+      },
+      {
+        id: 5,
+        img: "/images/canaccesible-project/canaccesible-2.png",
+        alt: "CanAccesible incident detail",
+      },
+      {
+        id: 6,
+        img: "/images/canaccesible-project/canaccesible-3.png",
+        alt: "CanAccesible contact page",
+      },
+      {
+        id: 7,
+        img: "/images/canaccesible-project/canaccesible-4.png",
+        alt: "CanAccesible blog page",
+      },
+      {
+        id: 8,
+        img: "/images/canaccesible-project/canaccesible-5.png",
+        alt: "CanAccesible incident management page",
+      },
+    ],
+  },
+] satisfies GalleryProject[];
+
 export {
   navLinks,
   navIcons,
@@ -306,6 +359,7 @@ export {
   socials,
   photosLinks,
   gallery,
+  galleryProjects,
 };
 
 const WORK_LOCATION: WorkLocation = {
@@ -366,7 +420,7 @@ const WORK_LOCATION: WorkLocation = {
           kind: "file",
           fileType: "url",
           href: "https://canaccesible.es",
-          position: "top-5 right-23",
+          position: "top-5 left-80",
         },
         {
           id: 3,
@@ -410,7 +464,7 @@ const WORK_LOCATION: WorkLocation = {
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
-          position: "top-36 right-23",
+          position: "top-36 left-80",
           imageUrl: "/images/canaccesible-project/canaccesible-4.png",
         },
         {
@@ -419,7 +473,7 @@ const WORK_LOCATION: WorkLocation = {
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
-          position: "bottom-12 left-5",
+          position: "top-69 left-5",
           imageUrl: "/images/canaccesible-project/canaccesible-5.png",
         },
         {
@@ -428,7 +482,7 @@ const WORK_LOCATION: WorkLocation = {
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
-          position: "bottom-12 left-30",
+          position: "top-69 left-30",
           imageUrl: "/images/canaccesible-project/canaccesible-6.png",
         },
         {
@@ -437,7 +491,7 @@ const WORK_LOCATION: WorkLocation = {
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
-          position: "bottom-12 left-55",
+          position: "top-69 left-55",
           imageUrl: "/images/canaccesible-project/canaccesible-7.png",
         },
         {
@@ -446,7 +500,7 @@ const WORK_LOCATION: WorkLocation = {
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
-          position: "bottom-12 right-23",
+          position: "top-69  left-80",
           imageUrl: "/images/canaccesible-project/canaccesible-8.png",
         },
       ],

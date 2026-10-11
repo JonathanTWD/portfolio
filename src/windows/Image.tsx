@@ -16,7 +16,7 @@ const Image = () => {
         <p>{data.name}</p>
       </div>
 
-      <div className="p-5 bg-white">
+      <div className="image-content p-5 bg-white">
         {data.imageUrl && (
           <div className="w-full">
             <img src={data.imageUrl} alt={data.name} className="w-full h-auto max-h-[70vh] object-contain" />

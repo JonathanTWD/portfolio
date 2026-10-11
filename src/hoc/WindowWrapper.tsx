@@ -12,13 +12,32 @@ const WindowWrapper = <Props extends object>(
     const { focusWindow, windows } = useWindowStore();
     const { isOpen, isMinimized, isMaximized, zIndex } = windows[windowKey];
     const ref = useRef<HTMLElement | null>(null);
-    const restoreTransform = useRef({ x: 0, y: 0 });
+    const normalTransform = useRef({ x: 0, y: 0 });
+    const previousState = useRef({
+      isOpen: false,
+      isMinimized: false,
+      isMaximized: false,
+    });
 
     useGSAP(() => {
       const el = ref.current;
-      if (!el || !isOpen) return;
+      if (!el) return;
+
+      gsap.killTweensOf(el);
+
+      if (!isOpen) {
+        gsap.set(el, { clearProps: "transform,opacity,pointerEvents" });
+        normalTransform.current = { x: 0, y: 0 };
+        previousState.current = { isOpen, isMinimized, isMaximized };
+        return;
+      }
 
       el.style.display = "block";
+
+      const wasNormal =
+        previousState.current.isOpen &&
+        !previousState.current.isMinimized &&
+        !previousState.current.isMaximized;
 
       if (isMinimized) {
         const dockIcon = document.querySelector<HTMLElement>(
@@ -29,7 +48,7 @@ const WindowWrapper = <Props extends object>(
         const currentX = Number(gsap.getProperty(el, "x"));
         const currentY = Number(gsap.getProperty(el, "y"));
 
-        restoreTransform.current = { x: currentX, y: currentY };
+        if (wasNormal) normalTransform.current = { x: currentX, y: currentY };
 
         const targetX = targetRect
           ? currentX +
@@ -53,6 +72,7 @@ const WindowWrapper = <Props extends object>(
           ease: "power2.in",
           pointerEvents: "none",
         });
+        previousState.current = { isOpen, isMinimized, isMaximized };
         return;
       }
 
@@ -60,7 +80,7 @@ const WindowWrapper = <Props extends object>(
         const currentX = Number(gsap.getProperty(el, "x"));
         const currentY = Number(gsap.getProperty(el, "y"));
 
-        restoreTransform.current = { x: currentX, y: currentY };
+        if (wasNormal) normalTransform.current = { x: currentX, y: currentY };
 
         gsap.fromTo(
           el,
@@ -75,6 +95,7 @@ const WindowWrapper = <Props extends object>(
             pointerEvents: "auto",
           },
         );
+        previousState.current = { isOpen, isMinimized, isMaximized };
         return;
       }
 
@@ -82,8 +103,8 @@ const WindowWrapper = <Props extends object>(
         el,
         { x: 0, y: 0, scale: 0.96, opacity: 0.8 },
         {
-          x: restoreTransform.current.x,
-          y: restoreTransform.current.y,
+          x: normalTransform.current.x,
+          y: normalTransform.current.y,
           scale: 1,
           opacity: 1,
           duration: 0.35,
@@ -91,6 +112,7 @@ const WindowWrapper = <Props extends object>(
           pointerEvents: "auto",
         },
       );
+      previousState.current = { isOpen, isMinimized, isMaximized };
     }, [isOpen, isMinimized, isMaximized]);
 
     useGSAP(() => {
