@@ -256,6 +256,26 @@ body {
 
     &.is-maximized {
       max-width: none;
+
+      .contact-content {
+        @apply mx-auto grid min-h-0 w-full max-w-5xl items-center gap-16;
+
+        grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+        min-height: calc(100vh - 3.5rem);
+        padding: clamp(2rem, 7vw, 7rem);
+      }
+
+      .contact-intro {
+        @apply flex flex-col items-center text-center;
+      }
+
+      .contact-details {
+        @apply max-w-2xl;
+      }
+
+      ul {
+        @apply flex-wrap;
+      }
     }
 
     h2 {
@@ -543,6 +563,20 @@ body {
 
   #imgfile {
     @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+    &.is-maximized {
+      .image-content {
+        @apply flex min-h-0 items-center justify-center bg-gray-100 p-4;
+
+        height: calc(100vh - 3.5rem);
+
+        img {
+          width: auto;
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+    }
 
     #window-header {
       p {
