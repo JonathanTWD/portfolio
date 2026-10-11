@@ -6,7 +6,7 @@ body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-image: url("/images/wallpaper.png");
+  background-image: url("/images/wallpaper-light.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -526,7 +526,11 @@ body {
         }
 
         p {
-          @apply text-sm text-center font-medium w-40;
+          @apply w-40 rounded-md px-2 py-1 text-center text-sm font-medium text-gray-800;
+        }
+
+        &:hover p {
+          @apply bg-gray-100;
         }
       }
     }
@@ -696,6 +700,15 @@ html[data-theme="dark"] {
 
   body {
     @apply text-gray-100;
+    background-image: url("/images/wallpaper-dark.png");
+  }
+
+  #welcome {
+    @apply text-white;
+
+    .small-screen p {
+      @apply text-gray-200;
+    }
   }
 
   nav {
@@ -749,10 +762,40 @@ html[data-theme="dark"] {
   #finder {
     .sidebar {
       @apply border-gray-700 bg-gray-800;
+
+      h3 {
+        @apply text-gray-400;
+      }
+
+      .not-active {
+        @apply text-gray-300 hover:bg-gray-700;
+      }
+
+      .active {
+        @apply bg-blue-100 text-blue-700;
+      }
+
+      img {
+        @apply opacity-100;
+      }
+    }
+
+    > .bg-white {
+      @apply bg-gray-900;
     }
 
     .content {
       @apply bg-gray-900;
+
+      li {
+        p {
+          @apply rounded-md bg-transparent px-2 py-1 text-gray-100;
+        }
+
+        &:hover p {
+          @apply bg-blue-900/60;
+        }
+      }
     }
   }
 }
