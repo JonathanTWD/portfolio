@@ -13,7 +13,7 @@ const Settings = () => {
   return (
     <>
       <div id="window-header">
-        <WindowControls target="settings" />
+        <WindowControls target="settings" canMaximize={false} />
         <h2>Settings</h2>
       </div>
 
