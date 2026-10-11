@@ -3,8 +3,12 @@ import { techStack } from "../constants";
 import WindowWrapper from "../hoc/WindowWrapper";
 
 import { Check, Flag } from "lucide-react";
+import useThemeStore from "../store/theme";
 
 const Terminal = () => {
+
+  const theme = useThemeStore((state) => state.theme);
+
   return (
     <>
       <div id="window-header">
@@ -44,8 +48,8 @@ const Terminal = () => {
           <p>
             <Check size={20} /> 5 of 5 stacks loaded succesfully (100%)
           </p>
-          <p className="text-black">
-            <Flag size={15} fill="black" />
+          <p className={theme === "dark" ? "text-white" : "text-black"}>
+            <Flag size={15} fill={theme === "dark" ? "white" : "black"} />
             Render time: 6ms
           </p>
         </div>

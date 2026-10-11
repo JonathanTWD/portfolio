@@ -2,9 +2,10 @@ import useWindowStore, { type WindowKey } from "../store/window";
 
 type WindowControlsProps = {
   target: WindowKey;
+  canMaximize?: boolean;
 };
 
-const WindowControls = ({ target }: WindowControlsProps) => {
+const WindowControls = ({ target, canMaximize = true }: WindowControlsProps) => {
   const { closeWindow, minimizeWindow, toggleMaximizeWindow } = useWindowStore();
   return (
     <div id="window-controls">
@@ -20,12 +21,14 @@ const WindowControls = ({ target }: WindowControlsProps) => {
         aria-label="Minimize window"
         onClick={() => minimizeWindow(target)}
       />
-      <button
-        type="button"
-        className="maximize"
-        aria-label="Maximize window"
-        onClick={() => toggleMaximizeWindow(target)}
-      />
+      {canMaximize && (
+        <button
+          type="button"
+          className="maximize"
+          aria-label="Maximize window"
+          onClick={() => toggleMaximizeWindow(target)}
+        />
+      )}
     </div>
   );
 };

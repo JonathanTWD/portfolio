@@ -6,7 +6,7 @@ body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-image: url("/images/wallpaper.png");
+  background-image: url("/images/wallpaper-light.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -526,7 +526,11 @@ body {
         }
 
         p {
-          @apply text-sm text-center font-medium w-40;
+          @apply w-40 rounded-md px-2 py-1 text-center text-sm font-medium text-gray-800;
+        }
+
+        &:hover p {
+          @apply bg-gray-100;
         }
       }
     }
@@ -608,7 +612,190 @@ body {
           @apply text-sm text-white text-center px-1 rounded-md group-hover:bg-blue-500 transition-colors max-w-40;
         }
       }
+
     }
   }
 }
 
+#settings {
+  @apply absolute left-1/2 top-24 w-[min(92vw,680px)] -translate-x-1/2 overflow-hidden rounded-xl bg-white shadow-2xl drop-shadow-2xl;
+
+  #window-header h2 {
+    @apply flex-1 text-center text-sm font-bold;
+  }
+
+  .settings-content {
+    @apply flex min-h-[300px];
+  }
+
+  .settings-sidebar {
+    @apply flex w-56 flex-col items-center gap-3 border-r border-gray-200 bg-gray-50 p-8 text-center;
+  }
+
+  .settings-panel {
+    @apply flex flex-1 flex-col gap-7 p-8;
+
+    h3 {
+      @apply text-lg font-semibold;
+    }
+  }
+
+  .settings-description {
+    @apply mt-1 text-sm text-gray-500;
+  }
+
+  .theme-options {
+    @apply grid grid-cols-2 gap-4;
+  }
+
+  .theme-option {
+    @apply relative flex flex-col gap-3 rounded-xl border border-gray-200 p-3 text-left text-sm font-medium capitalize transition-all hover:border-blue-400 hover:shadow-md;
+
+    &.selected {
+      @apply border-2 border-blue-500 bg-blue-50 text-blue-700;
+    }
+  }
+
+  .theme-preview {
+    @apply flex h-24 flex-col gap-1 rounded-lg border border-gray-200 bg-white p-2 shadow-sm;
+
+    span {
+      @apply block rounded;
+
+      &:first-child {
+        @apply h-3 bg-gray-200;
+      }
+
+      &:nth-child(2) {
+        @apply h-10 bg-gray-100;
+      }
+
+      &:last-child {
+        @apply h-2 w-1/2 bg-blue-400;
+      }
+    }
+
+    &.dark {
+      @apply border-gray-700 bg-gray-900;
+
+      span {
+        &:first-child {
+          @apply bg-gray-700;
+        }
+
+        &:nth-child(2) {
+          @apply bg-gray-800;
+        }
+      }
+    }
+  }
+
+  .theme-check {
+    @apply absolute right-3 top-3 text-base;
+  }
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  body {
+    @apply text-gray-100;
+    background-image: url("/images/wallpaper-dark.png");
+  }
+
+  #welcome {
+    @apply text-white;
+
+    .small-screen p {
+      @apply text-gray-200;
+    }
+  }
+
+  nav {
+    @apply bg-gray-950/80 text-gray-100;
+
+    time {
+      @apply text-gray-200;
+    }
+
+    .navbar-status-icon {
+      filter: invert(1);
+    }
+  }
+
+  #dock .dock-container {
+    @apply bg-gray-950/50;
+  }
+
+  #window-header {
+    @apply border-gray-700 bg-gray-800 text-gray-300;
+  }
+
+  #safari,
+  #terminal,
+  #contact,
+  #photos,
+  #resume,
+  #finder,
+  #txtfile,
+  #imgfile,
+  #settings {
+    @apply bg-gray-900 text-gray-100;
+  }
+
+  #settings .settings-sidebar {
+    @apply border-gray-700 bg-gray-800;
+  }
+
+  #settings .settings-description {
+    @apply text-gray-400;
+  }
+
+  #settings .theme-option {
+    @apply border-gray-700 hover:border-blue-400;
+
+    &.selected {
+      @apply bg-blue-950/60 text-blue-300;
+    }
+  }
+
+  #finder {
+    .sidebar {
+      @apply border-gray-700 bg-gray-800;
+
+      h3 {
+        @apply text-gray-400;
+      }
+
+      .not-active {
+        @apply text-gray-300 hover:bg-gray-700;
+      }
+
+      .active {
+        @apply bg-blue-100 text-blue-700;
+      }
+
+      img {
+        @apply opacity-100;
+      }
+    }
+
+    > .bg-white {
+      @apply bg-gray-900;
+    }
+
+    .content {
+      @apply bg-gray-900;
+
+      li {
+        p {
+          @apply rounded-md bg-transparent px-2 py-1 text-gray-100;
+        }
+
+        &:hover p {
+          @apply bg-blue-900/60;
+        }
+      }
+    }
+  }
+}

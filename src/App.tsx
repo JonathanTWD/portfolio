@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
+import { useEffect } from "react";
 
 import Dock from "./components/Dock";
 import Navbar from "./components/Navbar";
@@ -13,10 +14,18 @@ import Image from "./windows/Image";
 import Contact from "./windows/Contact";
 import Photos from "./windows/Gallery";
 import Home from "./components/Home";
+import Settings from "./windows/Settings";
+import useThemeStore from "./store/theme";
 
 gsap.registerPlugin(Draggable);
 
 const App = () => {
+  const theme = useThemeStore((state) => state.theme);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
   return (
     <main>
       <Navbar />
@@ -32,6 +41,7 @@ const App = () => {
       <Contact />
       <Photos />
       <Home />
+      <Settings />
     </main>
   );
 };
