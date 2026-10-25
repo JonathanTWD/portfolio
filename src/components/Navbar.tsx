@@ -5,11 +5,9 @@ import { navIcons, navLinks } from "../constants";
 import { useTranslation } from "../i18n";
 import useLanguageStore from "../store/language";
 import useWindowStore from "../store/window";
-import useThemeStore from "../store/theme";
 
 const Navbar = () => {
   const { openWindow } = useWindowStore();
-  const theme = useThemeStore((state) => state.theme);
   const language = useLanguageStore((state) => state.language);
   const t = useTranslation();
 
@@ -17,8 +15,9 @@ const Navbar = () => {
     <nav>
       <div>
         <img
-          src={theme === "dark" ? "/images/logo-white.svg" : "/images/logo.svg"}
+          src="/images/logo-white.svg"
           alt={t.navbar.logoAlt}
+          className="navbar-logo"
         />
         <p className="font-bold">{t.navbar.brand}</p>
 

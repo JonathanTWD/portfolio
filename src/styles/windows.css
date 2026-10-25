@@ -6,11 +6,11 @@
 
     li > button,
     li {
-      @apply flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-medium text-ink/80 transition-colors;
+      @apply flex w-full items-center gap-2 rounded-control px-2.5 py-1.5 text-left text-label text-ink transition-colors;
     }
 
     .active {
-      @apply bg-accent-soft text-accent-ink;
+      @apply bg-accent-soft font-semibold text-accent-ink;
     }
 
     .not-active {
@@ -22,7 +22,7 @@
     @apply w-2xl top-30 left-1/4;
 
     .techstack {
-      @apply text-sm font-mono p-5;
+      @apply text-label font-mono p-5;
 
       .label {
         @apply flex items-center ms-10 mt-7 text-ink-muted;
@@ -60,7 +60,7 @@
     @apply max-w-2xl top-30 left-1/6;
 
     h3 {
-      @apply text-xl font-semibold;
+      @apply text-title font-semibold;
     }
 
     .contact-email {
@@ -101,7 +101,7 @@
       @apply w-48 flex-none border-r border-line bg-surface-chrome p-4;
 
       h3 {
-        @apply mb-2 text-xs font-medium text-ink-subtle;
+        @apply mb-2 px-2.5 text-caption font-semibold text-ink-muted;
       }
 
       button span:first-child {
@@ -142,7 +142,7 @@
     }
 
     .gallery-tile {
-      @apply flex min-h-0 cursor-pointer self-start items-center justify-center overflow-hidden rounded-xl border-0 bg-surface p-2 shadow-sm col-span-5;
+      @apply flex min-h-0 cursor-pointer self-start items-center justify-center overflow-hidden rounded-panel border-0 bg-surface-raised p-2 shadow-sm col-span-5;
 
       aspect-ratio: 16 / 10;
 
@@ -220,14 +220,14 @@
     @apply w-3xl left-40 top-20;
 
     .finder-body {
-      @apply flex h-full bg-surface;
+      @apply flex h-full;
     }
 
     .sidebar {
       @apply w-48 bg-surface-chrome border-r border-line flex flex-col p-5 space-y-3;
 
       h3 {
-        @apply text-xs font-medium text-ink-subtle mb-1;
+        @apply px-2.5 mb-1 text-caption font-semibold text-ink-muted;
       }
 
       li {
@@ -236,7 +236,7 @@
     }
 
     .content {
-      @apply relative min-h-[420px] max-w-2xl flex-1 overflow-y-auto bg-surface p-8;
+      @apply relative min-h-[420px] max-w-2xl flex-1 overflow-y-auto p-8;
 
       li {
         @apply absolute flex items-center flex-col gap-3 cursor-pointer;
@@ -246,7 +246,7 @@
         }
 
         p {
-          @apply w-40 rounded-md px-2 py-1 text-center text-sm font-medium;
+          @apply w-40 rounded-control px-2 py-0.5 text-center text-label;
         }
 
         &:hover p {
@@ -256,7 +256,7 @@
     }
 
     .empty-folder {
-      @apply absolute inset-0 flex items-center justify-center text-sm text-ink-subtle;
+      @apply absolute inset-0 flex items-center justify-center text-body text-ink-muted;
     }
   }
 
@@ -268,13 +268,17 @@
     max-height: calc(100vh - 7rem);
 
     .text-document {
-      @apply min-h-0 flex-1 overflow-y-auto p-5 space-y-5;
+      @apply min-h-0 flex-1 overflow-y-auto px-8 py-6 space-y-4 text-body;
 
       height: calc(100% - 3.5rem);
       box-sizing: border-box;
 
       h2 {
-        @apply font-bold text-sm text-center w-full;
+        @apply text-title font-semibold text-center w-full;
+      }
+
+      p {
+        @apply mx-auto max-w-[65ch];
       }
     }
 
@@ -309,7 +313,7 @@
     }
 
     .image-content {
-      @apply bg-surface p-5;
+      @apply p-5;
 
       img {
         @apply h-auto max-h-[70vh] w-full object-contain;
@@ -340,7 +344,7 @@
       @apply flex w-56 flex-col items-center gap-3 border-r border-line bg-surface-chrome p-8 text-center;
 
       p:last-child {
-        @apply text-xs text-ink-muted;
+        @apply text-caption text-ink-muted;
       }
     }
 
@@ -348,62 +352,84 @@
       @apply flex flex-1 flex-col gap-7 p-8;
 
       h3 {
-        @apply text-lg font-semibold;
+        @apply text-title font-semibold;
       }
     }
 
     .settings-description {
-      @apply mt-1 text-sm text-ink-muted;
+      @apply mt-1 text-label text-ink-muted;
     }
 
     .settings-options {
-      @apply grid grid-cols-2 gap-4;
+      @apply grid grid-cols-2 gap-3;
+
+      &.theme-options {
+        @apply grid-cols-3;
+      }
     }
 
     .settings-option {
-      @apply relative flex flex-col gap-3 rounded-xl border border-line p-3 text-left text-sm font-medium transition-all hover:border-accent/70 hover:shadow-md;
+      @apply relative flex flex-col gap-2.5 rounded-panel border border-line bg-surface-raised/50 p-2.5 text-left text-label font-medium transition-colors hover:border-accent/60;
 
       &.selected {
-        @apply border-2 border-accent bg-accent-soft text-accent-ink;
+        @apply border-accent bg-accent-soft text-accent-ink;
+
+        box-shadow: 0 0 0 1px var(--color-accent);
+      }
+
+      &:focus-visible {
+        @apply outline-2 outline-offset-2 outline-accent;
       }
     }
 
+    /* Miniature desktops of each theme, painted with the real wallpapers. */
     .theme-preview {
-      @apply flex h-24 flex-col gap-1 rounded-lg border border-gray-200 bg-white p-2 shadow-sm;
+      @apply relative block h-20 overflow-hidden rounded-control;
+
+      background:
+        radial-gradient(60% 70% at 92% 6%, #2e4bf0 0%, rgb(46 75 240 / 0) 70%),
+        linear-gradient(165deg, #5d76f2, #aebdff 55%, #f4e2dc);
 
       span {
-        @apply block rounded;
+        @apply absolute inset-x-3 top-3 bottom-0 z-10 rounded-t-md;
 
-        &:first-child {
-          @apply h-3 bg-gray-200;
-        }
-
-        &:nth-child(2) {
-          @apply h-10 bg-gray-100;
-        }
-
-        &:last-child {
-          @apply h-2 w-1/2 bg-blue-400;
-        }
+        background: rgb(255 255 255 / 0.7);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
       }
 
       &.dark {
-        @apply border-gray-700 bg-gray-900;
+        background:
+          radial-gradient(70% 60% at 12% 100%, #7a3e66 0%, rgb(122 62 102 / 0) 70%),
+          linear-gradient(165deg, #070b2e, #141b5c 55%, #25183f);
 
         span {
-          &:first-child {
-            @apply bg-gray-700;
-          }
-
-          &:nth-child(2) {
-            @apply bg-gray-800;
-          }
+          background: rgb(22 27 66 / 0.75);
+          box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16);
         }
+      }
+
+      /* Auto: light on the left half, dark on the right half. */
+      &.system::after {
+        @apply absolute inset-0;
+
+        content: "";
+        background:
+          radial-gradient(70% 60% at 12% 100%, #7a3e66 0%, rgb(122 62 102 / 0) 70%),
+          linear-gradient(165deg, #070b2e, #141b5c 55%, #25183f);
+        clip-path: inset(0 0 0 50%);
+      }
+
+      &.system span {
+        background: linear-gradient(
+          to right,
+          rgb(255 255 255 / 0.7) 50%,
+          rgb(22 27 66 / 0.75) 50%
+        );
       }
     }
 
     .option-check {
-      @apply absolute right-3 top-3 text-base;
+      @apply absolute right-2.5 bottom-2.5 text-label;
     }
   }
 }

@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JonathanOS, dirección visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Instrument+Sans:wght@400..700&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page: #f2f2f4;
+    --page-ink: #1c1c21;
+    --page-muted: #6b6b75;
+    --page-line: #dcdce2;
+    --page-card: #ffffff;
+    --font-ui: "Instrument Sans", sans-serif;
+    --font-display: "Georama", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --page: #151518;
+      --page-ink: #ececf1;
+      --page-muted: #9a9aa6;
+      --page-line: #2c2c33;
+      --page-card: #1e1e23;
+    }
+  }
+  :root[data-theme="dark"] {
+    --page: #151518;
+    --page-ink: #ececf1;
+    --page-muted: #9a9aa6;
+    --page-line: #2c2c33;
+    --page-card: #1e1e23;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--page-ink);
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .page { max-width: 1240px; margin: 0 auto; padding: 40px 24px 80px; }
+  .intro { max-width: 62ch; }
+  .intro h1 { font-family: var(--font-display); font-weight: 300; font-size: 40px; line-height: 1.1; margin: 0 0 12px; }
+  .intro p { margin: 0; color: var(--page-muted); }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 32px 0 20px; align-items: center; }
+  .control { display: flex; align-items: center; gap: 10px; }
+  .control > span { font-size: 13px; color: var(--page-muted); }
+  .segmented { display: inline-flex; padding: 3px; border-radius: 10px; background: var(--page-line); }
+  .segmented button {
+    font: inherit; font-size: 13px; border: 0; background: transparent; color: var(--page-ink);
+    padding: 6px 12px; border-radius: 8px; cursor: pointer;
+  }
+  .segmented button[aria-pressed="true"] { background: var(--page-card); box-shadow: 0 1px 2px rgb(0 0 0 / .12); font-weight: 600; }
+  .segmented button:focus-visible { outline: 2px solid #2f54eb; outline-offset: 2px; }
+
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 24px; align-items: start; }
+  .frame { position: relative; overflow: hidden; border-radius: 14px; box-shadow: 0 20px 50px -20px rgb(0 0 0 / .35); }
+  .frame.desktop { aspect-ratio: 16 / 10; }
+  .frame.phone { aspect-ratio: 390 / 844; border-radius: 34px; outline: 6px solid #0d0d10; outline-offset: -1px; }
+  .mock { position: absolute; top: 0; left: 0; transform-origin: top left; transform: scale(var(--s, 1)); }
+  .desktop .mock { width: 1280px; height: 800px; }
+  .phone .mock { width: 390px; height: 844px; }
+  .caption { font-size: 13px; color: var(--page-muted); margin-top: 10px; }
+
+  /* ---------- JonathanOS mock (driven by palette variables) ---------- */
+  .os { font-family: var(--font-ui); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .wall { position: absolute; inset: 0; background: var(--wallpaper); }
+  .wall::after {
+    content: ""; position: absolute; inset: 0; opacity: .09; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 1px 0 var(--glass-highlight), var(--shadow);
+  }
+
+  .menubar {
+    position: absolute; top: 0; left: 0; right: 0; height: 34px; display: flex; align-items: center;
+    padding: 0 16px; gap: 22px; font-size: 13px; color: var(--on-wall);
+    background: var(--menubar); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%);
+  }
+  .menubar .brand { font-weight: 650; }
+  .menubar .spacer { flex: 1; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 999px; background: var(--menubar-pill); font-size: 12px; font-weight: 600; }
+  .menubar svg { width: 15px; height: 15px; }
+
+  .welcome { position: absolute; left: 84px; bottom: 120px; color: var(--on-wall); }
+  .welcome p { margin: 0 0 4px 6px; font-family: var(--font-display); font-weight: 200; font-size: 30px; letter-spacing: .01em; }
+  .welcome h1 { margin: 0; font-family: var(--font-display); font-style: italic; font-weight: 420; font-size: 168px; line-height: .95; letter-spacing: -.02em; }
+  .welcome h1 span:nth-child(1) { font-weight: 300; }
+  .welcome h1 span:nth-child(2) { font-weight: 520; }
+  .welcome h1 span:nth-child(3) { font-weight: 800; }
+  .welcome h1 span:nth-child(4) { font-weight: 520; }
+  .welcome h1 span:nth-child(5) { font-weight: 300; }
+
+  .widgets { position: absolute; top: 58px; left: 32px; display: grid; gap: 14px; width: 176px; }
+  .widget { border-radius: 22px; padding: 16px; }
+  .widget .time { font-size: 44px; font-weight: 600; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .widget .date { margin-top: 6px; font-size: 13px; color: var(--ink-muted); }
+  .widget .title { font-size: 12px; color: var(--ink-muted); }
+  .widget .now { margin-top: 8px; font-size: 15px; font-weight: 600; line-height: 1.3; }
+  .widget .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #2ec27e; margin-right: 6px; vertical-align: 1px; box-shadow: 0 0 0 3px rgb(46 194 126 / .2); }
+
+  .window { position: absolute; top: 74px; left: 590px; width: 640px; height: 430px; border-radius: 20px; overflow: hidden; display: flex; background: var(--window); }
+  .window .sidebar { margin: 8px; width: 186px; border-radius: 14px; padding: 12px 10px; display: flex; flex-direction: column; gap: 4px; }
+  .traffic { display: flex; gap: 8px; padding: 4px 6px 14px; }
+  .traffic i { width: 12px; height: 12px; border-radius: 50%; display: block; box-shadow: inset 0 0 0 .5px rgb(0 0 0 / .18); }
+  .traffic i:nth-child(1) { background: #ff5f57; }
+  .traffic i:nth-child(2) { background: #febc2e; }
+  .traffic i:nth-child(3) { background: #28c840; }
+  .sidebar h4 { margin: 8px 8px 2px; font-size: 11px; font-weight: 600; color: var(--ink-muted); }
+  .sidebar a { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; font-size: 13px; color: var(--ink); text-decoration: none; }
+  .sidebar a svg { width: 15px; height: 15px; color: var(--accent); flex: none; }
+  .sidebar a.selected { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
+  .window .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .toolbar { height: 56px; display: flex; align-items: center; gap: 14px; padding: 0 16px 0 6px; }
+  .toolbar .nav { display: flex; gap: 2px; color: var(--ink-muted); }
+  .toolbar .nav svg { width: 18px; height: 18px; }
+  .toolbar strong { font-size: 15px; font-weight: 650; flex: 1; }
+  .search { display: flex; align-items: center; gap: 6px; width: 170px; padding: 6px 10px; border-radius: 999px; background: var(--field); font-size: 13px; color: var(--ink-muted); }
+  .search svg { width: 14px; height: 14px; }
+  .files { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); align-content: start; gap: 18px 8px; padding: 14px 18px; }
+  .file { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 12px; text-align: center; }
+  .file .ic { width: 58px; height: 58px; display: grid; place-items: center; }
+  .file .doc { width: 44px; height: 56px; border-radius: 6px; background: #fff; box-shadow: 0 1px 2px rgb(0 0 0 / .15), 0 0 0 .5px rgb(0 0 0 / .1); position: relative; }
+  .file .doc::before { content: ""; position: absolute; left: 9px; right: 9px; top: 16px; height: 24px; background: repeating-linear-gradient(#c9cdd8 0 2px, transparent 2px 6px); }
+  .file .thumb { width: 58px; height: 42px; border-radius: 6px; box-shadow: 0 1px 2px rgb(0 0 0 / .2), 0 0 0 2px #fff; }
+  .file .link { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; color: #fff; background: linear-gradient(160deg, #5aa9ff, #2f6bff); }
+  .file .link svg { width: 26px; height: 26px; }
+  .file.selected span { background: var(--accent); color: #fff; padding: 1px 7px; border-radius: 6px; }
+
+  .dock { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; padding: 9px; border-radius: 26px; }
+  .app { width: 58px; height: 58px; border-radius: 15px; display: grid; place-items: center; color: #fff; position: relative; box-shadow: inset 0 1px 0 rgb(255 255 255 / .45), 0 6px 14px -6px rgb(0 0 0 / .45); }
+  .app svg { width: 30px; height: 30px; }
+  .app.running::after { content: ""; position: absolute; bottom: -6px; width: 4px; height: 4px; border-radius: 50%; background: var(--on-wall); opacity: .8; }
+  .app.finder { background: linear-gradient(160deg, #6fc3ff, #2f6bff); }
+  .app.gallery { background: linear-gradient(160deg, #ffb36b, #ff5e7e); }
+  .app.contact { background: linear-gradient(160deg, #6ee7a8, #13a86b); }
+  .app.terminal { background: linear-gradient(160deg, #4a4f63, #16182a); }
+  .app.settings { background: linear-gradient(160deg, #c9ced8, #7b8396); }
+  .app.resume { background: linear-gradient(160deg, #ff8a8a, #e0404f); }
+  .app.about { background: linear-gradient(160deg, #b8a4ff, #6a4df0); }
+
+  /* phone */
+  .phone .status { position: absolute; top: 16px; left: 30px; right: 26px; display: flex; justify-content: space-between; font-size: 15px; font-weight: 650; color: var(--on-wall); }
+  .phone .welcome { left: 26px; top: 78px; bottom: auto; }
+  .phone .welcome p { font-size: 17px; margin-left: 3px; }
+  .phone .welcome h1 { font-size: 78px; }
+  .phone .row { position: absolute; left: 22px; right: 22px; top: 236px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .phone .widget { aspect-ratio: 1; padding: 14px; }
+  .phone .widget .time { font-size: 36px; }
+  .phone .grid { position: absolute; left: 22px; right: 22px; top: 430px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 0; justify-items: center; }
+  .phone .grid figure { margin: 0; display: grid; justify-items: center; gap: 6px; font-size: 11px; color: var(--on-wall); }
+  .phone .app { width: 62px; height: 62px; border-radius: 16px; }
+  .phone .dock { bottom: 20px; left: 14px; right: 14px; transform: none; justify-content: space-around; border-radius: 34px; padding: 14px 10px; }
+  .phone .home { position: absolute; bottom: 7px; left: 50%; width: 130px; height: 5px; border-radius: 3px; transform: translateX(-50%); background: var(--on-wall); opacity: .7; }
+
+  /* ---------- specs ---------- */
+  .specs { display: grid; grid-template-columns: 1.1fr 1.3fr 1fr; gap: 24px; margin-top: 40px; }
+  .card { background: var(--page-card); border-radius: 14px; padding: 22px; }
+  .card h2 { font-size: 15px; margin: 0 0 16px; }
+  .swatches { display: grid; gap: 10px; }
+  .swatch { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; }
+  .swatch i { width: 40px; height: 40px; border-radius: 10px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .08); }
+  .swatch b { display: block; font-size: 13px; font-weight: 600; }
+  .swatch code { font-family: var(--font-mono); font-size: 12px; color: var(--page-muted); }
+  .scale { display: grid; gap: 12px; }
+  .scale div { display: grid; grid-template-columns: 76px 1fr; gap: 12px; align-items: baseline; }
+  .scale small { font-size: 12px; color: var(--page-muted); font-family: var(--font-mono); }
+  .scale .sample { font-family: var(--font-ui); }
+  .card ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
+  .card li { color: var(--page-ink); }
+  .card li span { color: var(--page-muted); }
+
+  .questions { margin-top: 40px; max-width: 70ch; }
+  .questions h2 { font-size: 20px; margin: 0 0 12px; }
+  .questions ol { padding-left: 20px; display: grid; gap: 10px; margin: 0; }
+
+  @media (max-width: 960px) {
+    .stage { grid-template-columns: 1fr; }
+    .frame.phone { max-width: 300px; }
+    .specs { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .page { padding: 28px 16px 60px; }
+    .intro h1 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="intro">
+    <h1>JonathanOS, dirección visual</h1>
+    <p>Dos propuestas para la fase 2 sobre el mismo diseño. Cambia la dirección, el tema y la tipografía para compararlas. Todo lo que ves aquí sale de las mismas variables que usará el portfolio.</p>
+  </header>
+
+  <div class="controls" role="toolbar" aria-label="Opciones de la propuesta">
+    <div class="control"><span id="l-dir">Dirección</span>
+      <div class="segmented" role="group" aria-labelledby="l-dir" data-key="dir">
+        <button type="button" data-value="azul" aria-pressed="true">Hora azul</button>
+        <button type="button" data-value="opalo" aria-pressed="false">Ópalo</button>
+      </div>
+    </div>
+    <div class="control"><span id="l-theme">Tema</span>
+      <div class="segmented" role="group" aria-labelledby="l-theme" data-key="theme">
+        <button type="button" data-value="light" aria-pressed="true">Claro</button>
+        <button type="button" data-value="dark" aria-pressed="false">Oscuro</button>
+      </div>
+    </div>
+    <div class="control"><span id="l-font">Tipografía de interfaz</span>
+      <div class="segmented" role="group" aria-labelledby="l-font" data-key="font">
+        <button type="button" data-value="instrument" aria-pressed="true">Instrument Sans</button>
+        <button type="button" data-value="geist" aria-pressed="false">Geist</button>
+        <button type="button" data-value="system" aria-pressed="false">Sistema</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="stage">
+    <div>
+      <div class="frame desktop"><div class="mock os" id="desktop">
+        <div class="wall"></div>
+        <div class="menubar">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3 3 8v8l9 5 9-5V8z" opacity=".9"/></svg>
+          <span class="brand">Portfolio de JonathanDev</span>
+          <span>Proyectos</span><span>Sobre mí</span><span>CV</span><span>Contacto</span>
+          <span class="spacer"></span>
+          <span class="pill">ES</span>
+          <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span>
+          <span>dom 25 oct 14:28</span>
+        </div>
+
+        <div class="widgets">
+          <div class="widget glass">
+            <div class="time">14:28</div>
+            <div class="date">domingo, 25 de octubre</div>
+          </div>
+          <div class="widget glass">
+            <div class="title">Ahora mismo</div>
+            <div class="now"><span class="dot"></span>Buscando puesto fullstack</div>
+          </div>
+        </div>
+
+        <div class="welcome">
+          <p>¡Hola, soy Jonathan! Bienvenido a mi</p>
+          <h1 aria-label="portfolio"><span>p</span><span>o</span><span>r</span><span>t</span><span>f</span>olio</h1>
+        </div>
+
+        <div class="window glass">
+          <aside class="sidebar glass">
+            <div class="traffic"><i></i><i></i><i></i></div>
+            <h4>Favoritos</h4>
+            <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>Trabajo</a>
+            <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>Sobre mí</a>
+            <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>Currículum</a>
+            <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Papelera</a>
+            <h4>Proyectos</h4>
+            <a class="selected"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>CanAccesible</a>
+          </aside>
+          <div class="main">
+            <div class="toolbar">
+              <span class="nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" opacity=".4"><path d="m9 18 6-6-6-6"/></svg></span>
+              <strong>CanAccesible</strong>
+              <span class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Buscar</span>
+            </div>
+            <div class="files">
+              <div class="file selected"><div class="ic"><div class="doc"></div></div><span>Proyecto.txt</span></div>
+              <div class="file"><div class="ic"><div class="doc"></div></div><span>Stack.txt</span></div>
+              <div class="file"><div class="ic"><div class="link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div></div><span>canaccesible.es</span></div>
+              <div class="file"><div class="ic"><div class="link" style="background:linear-gradient(160deg,#3b3f52,#0f1120)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg></div></div><span>GitHub</span></div>
+              <div class="file"><div class="ic"><div class="thumb" style="background:linear-gradient(135deg,#4a3d6b,#d58a6a)"></div></div><span>inicio.png</span></div>
+              <div class="file"><div class="ic"><div class="thumb" style="background:linear-gradient(135deg,#cfe3f5,#7fb2d8)"></div></div><span>mapa.png</span></div>
+              <div class="file"><div class="ic"><div class="thumb" style="background:linear-gradient(135deg,#1d4fd1,#f3c64a)"></div></div><span>login.png</span></div>
+              <div class="file"><div class="ic"><div class="thumb" style="background:linear-gradient(135deg,#f4f4f6,#b9c2d6)"></div></div><span>incidencia.png</span></div>
+            </div>
+          </div>
+        </div>
+
+        <nav class="dock glass" aria-label="Dock">
+          <span class="app finder running"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+          <span class="app gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg></span>
+          <span class="app contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span>
+          <span class="app terminal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 8 4 4-4 4M12 16h6"/></svg></span>
+          <span class="app settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></span>
+        </nav>
+      </div></div>
+      <p class="caption">Escritorio a 1280 × 800: widgets, bienvenida, Finder con barra lateral flotante y dock.</p>
+    </div>
+
+    <div>
+      <div class="frame phone"><div class="mock os" id="phone">
+        <div class="wall"></div>
+        <div class="status"><span>14:28</span><span>ES ◐</span></div>
+        <div class="welcome">
+          <p>¡Hola, soy Jonathan!</p>
+          <h1 aria-label="portfolio"><span>p</span><span>o</span><span>r</span><span>t</span><span>f</span>olio</h1>
+        </div>
+        <div class="row">
+          <div class="widget glass"><div class="time">14:28</div><div class="date">dom, 25 oct</div></div>
+          <div class="widget glass"><div class="title">Ahora mismo</div><div class="now"><span class="dot"></span>Buscando puesto fullstack</div></div>
+        </div>
+        <div class="grid">
+          <figure><span class="app resume"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg></span><figcaption>CV</figcaption></figure>
+          <figure><span class="app about"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><figcaption>Sobre mí</figcaption></figure>
+          <figure><span class="app settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></span><figcaption>Ajustes</figcaption></figure>
+        </div>
+        <nav class="dock glass" aria-label="Dock">
+          <span class="app finder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+          <span class="app gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg></span>
+          <span class="app contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span>
+          <span class="app terminal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 8 4 4-4 4M12 16h6"/></svg></span>
+        </nav>
+        <div class="home"></div>
+      </div></div>
+      <p class="caption">Móvil a 390 px: misma identidad, apps a pantalla completa (fase 6).</p>
+    </div>
+  </section>
+
+  <section class="specs">
+    <div class="card">
+      <h2 id="palette-title">Paleta</h2>
+      <div class="swatches" id="swatches"></div>
+    </div>
+    <div class="card">
+      <h2>Escala tipográfica</h2>
+      <div class="scale">
+        <div><small>128 / 200–800</small><span style="font-family:var(--font-display);font-style:italic;font-size:44px;line-height:1">portfolio</span></div>
+        <div><small>28 / 650</small><span class="sample" style="font-size:28px;font-weight:650;line-height:1.15">CanAccesible</span></div>
+        <div><small>20 / 600</small><span class="sample" style="font-size:20px;font-weight:600">Mi aportación</span></div>
+        <div><small>15 / 400</small><span class="sample" style="font-size:15px;line-height:1.6">Autenticación con JWT, recuperación de contraseña y correo transaccional con Resend.</span></div>
+        <div><small>13 / 500</small><span class="sample" style="font-size:13px;font-weight:500">Favoritos, Trabajo, Sobre mí</span></div>
+        <div><small>11 / 600</small><span class="sample" style="font-size:11px;font-weight:600">Proyectos</span></div>
+        <div><small>13 mono</small><span style="font-family:var(--font-mono);font-size:13px">@jonathandev % skills</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Material y reglas</h2>
+      <ul>
+        <li>Ventana <span>cristal denso, desenfoque 28 px, borde de luz arriba</span></li>
+        <li>Barra lateral <span>cristal flotante dentro de la ventana, como en macOS Tahoe</span></li>
+        <li>Radios <span>ventana 20, panel 14, botones 8, iconos 15</span></li>
+        <li>Jerarquía <span>la ventana activa tiene más sombra; las inactivas se aclaran</span></li>
+        <li>Texto <span>nunca directamente sobre cristal fino: contraste AA mínimo</span></li>
+        <li>Fondo <span>generado en CSS con grano, sin imágenes de 4,5 MB</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="questions">
+    <h2>Lo que necesito que decidas</h2>
+    <ol>
+      <li><strong>Dirección:</strong> Hora azul (mi recomendación) u Ópalo, o una mezcla. Por ejemplo, el fondo de una con el acento de la otra.</li>
+      <li><strong>Tipografía de interfaz:</strong> Instrument Sans (mi recomendación), Geist o la del sistema. La del sistema da SF Pro en Mac, pero Segoe UI en Windows.</li>
+      <li><strong>Iconos del dock:</strong> ahora son los iconos oficiales de Apple. Propongo iconos propios como los de este boceto, para que el portfolio tenga identidad y no dependa de la marca de Apple.</li>
+      <li><strong>Saludo:</strong> «Bienvenido a mi» o una forma neutra como «Te doy la bienvenida a mi».</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+  const palettes = {
+    azul: {
+      name: "Hora azul",
+      light: {
+        wallpaper: "radial-gradient(70% 60% at 12% 100%, #ffc6a3 0%, rgb(255 198 163 / 0) 70%), radial-gradient(60% 70% at 92% 6%, #2e4bf0 0%, rgb(46 75 240 / 0) 70%), radial-gradient(55% 55% at 55% 45%, #a9b9ff 0%, rgb(169 185 255 / 0) 75%), linear-gradient(165deg, #5d76f2 0%, #b7c5ff 52%, #f4e2dc 100%)",
+        ink: "#10163a", inkMuted: "#585f82", onWall: "#ffffff",
+        accent: "#2f54eb", accentInk: "#2343c9", accentSoft: "rgb(47 84 235 / .14)",
+        window: "rgb(255 255 255 / .62)", glass: "rgb(255 255 255 / .5)", glassBorder: "rgb(255 255 255 / .7)", glassHighlight: "rgb(255 255 255 / .9)",
+        field: "rgb(16 22 58 / .06)", menubar: "rgb(255 255 255 / .16)", menubarPill: "rgb(255 255 255 / .22)",
+        shadow: "0 40px 80px -30px rgb(20 32 110 / .5), 0 0 0 .5px rgb(16 22 58 / .14)",
+        swatches: [["Cobalto", "#2f54eb", "acento, selección, enlaces"], ["Tinta", "#10163a", "texto principal"], ["Pizarra", "#585f82", "texto secundario"], ["Bruma", "#b7c5ff", "fondo, zona media"], ["Albaricoque", "#ffc6a3", "fondo, luz del horizonte"]]
+      },
+      dark: {
+        wallpaper: "radial-gradient(70% 60% at 12% 100%, #7a3e66 0%, rgb(122 62 102 / 0) 70%), radial-gradient(60% 70% at 92% 6%, #2b45e0 0%, rgb(43 69 224 / 0) 70%), radial-gradient(55% 55% at 55% 45%, #263289 0%, rgb(38 50 137 / 0) 75%), linear-gradient(165deg, #070b2e 0%, #141b5c 55%, #25183f 100%)",
+        ink: "#eef1ff", inkMuted: "#a5abd0", onWall: "#ffffff",
+        accent: "#7d97ff", accentInk: "#b4c3ff", accentSoft: "rgb(125 151 255 / .2)",
+        window: "rgb(16 20 50 / .62)", glass: "rgb(22 27 66 / .5)", glassBorder: "rgb(255 255 255 / .13)", glassHighlight: "rgb(255 255 255 / .16)",
+        field: "rgb(255 255 255 / .08)", menubar: "rgb(7 11 46 / .3)", menubarPill: "rgb(255 255 255 / .14)",
+        shadow: "0 40px 80px -30px rgb(0 0 0 / .75), 0 0 0 .5px rgb(255 255 255 / .1)",
+        swatches: [["Cobalto claro", "#7d97ff", "acento, selección, enlaces"], ["Nieve", "#eef1ff", "texto principal"], ["Lavanda gris", "#a5abd0", "texto secundario"], ["Medianoche", "#141b5c", "fondo, zona media"], ["Ciruela", "#7a3e66", "fondo, último resplandor"]]
+      }
+    },
+    opalo: {
+      name: "Ópalo",
+      light: {
+        wallpaper: "radial-gradient(60% 60% at 10% 15%, #bfebdd 0%, rgb(191 235 221 / 0) 70%), radial-gradient(55% 60% at 90% 25%, #d9ccf7 0%, rgb(217 204 247 / 0) 70%), radial-gradient(70% 60% at 60% 100%, #f8d5df 0%, rgb(248 213 223 / 0) 70%), linear-gradient(140deg, #eef6f4, #f3eff9 50%, #fbf0f2)",
+        ink: "#0f2526", inkMuted: "#4f6a6b", onWall: "#12302f",
+        accent: "#0e7c74", accentInk: "#0a645e", accentSoft: "rgb(14 124 116 / .13)",
+        window: "rgb(255 255 255 / .58)", glass: "rgb(255 255 255 / .46)", glassBorder: "rgb(255 255 255 / .85)", glassHighlight: "rgb(255 255 255 / 1)",
+        field: "rgb(15 37 38 / .06)", menubar: "rgb(255 255 255 / .3)", menubarPill: "rgb(15 37 38 / .07)",
+        shadow: "0 40px 80px -30px rgb(40 60 70 / .4), 0 0 0 .5px rgb(15 37 38 / .12)",
+        swatches: [["Laguna", "#0e7c74", "acento, selección, enlaces"], ["Abeto", "#0f2526", "texto principal"], ["Liquen", "#4f6a6b", "texto secundario"], ["Menta perla", "#bfebdd", "fondo, reflejo frío"], ["Lila", "#d9ccf7", "fondo, reflejo cálido"]]
+      },
+      dark: {
+        wallpaper: "radial-gradient(60% 60% at 10% 15%, #1c4a44 0%, rgb(28 74 68 / 0) 70%), radial-gradient(55% 60% at 90% 25%, #3a2e63 0%, rgb(58 46 99 / 0) 70%), radial-gradient(70% 60% at 60% 100%, #4a2638 0%, rgb(74 38 56 / 0) 70%), linear-gradient(140deg, #0c1517, #141325 50%, #1a1219)",
+        ink: "#e9f4f2", inkMuted: "#9db6b3", onWall: "#e9f4f2",
+        accent: "#46d1be", accentInk: "#8be6d9", accentSoft: "rgb(70 209 190 / .17)",
+        window: "rgb(14 24 28 / .6)", glass: "rgb(20 32 36 / .48)", glassBorder: "rgb(255 255 255 / .12)", glassHighlight: "rgb(255 255 255 / .14)",
+        field: "rgb(255 255 255 / .07)", menubar: "rgb(12 21 23 / .35)", menubarPill: "rgb(255 255 255 / .1)",
+        shadow: "0 40px 80px -30px rgb(0 0 0 / .8), 0 0 0 .5px rgb(255 255 255 / .09)",
+        swatches: [["Laguna clara", "#46d1be", "acento, selección, enlaces"], ["Espuma", "#e9f4f2", "texto principal"], ["Salvia", "#9db6b3", "texto secundario"], ["Pino nocturno", "#1c4a44", "fondo, reflejo frío"], ["Berenjena", "#3a2e63", "fondo, reflejo cálido"]]
+      }
+    }
+  };
+  const fonts = {
+    instrument: '"Instrument Sans", sans-serif',
+    geist: '"Geist", sans-serif',
+    system: '-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif'
+  };
+  const vars = { wallpaper: "--wallpaper", ink: "--ink", inkMuted: "--ink-muted", onWall: "--on-wall", accent: "--accent", accentInk: "--accent-ink", accentSoft: "--accent-soft", window: "--window", glass: "--glass", glassBorder: "--glass-border", glassHighlight: "--glass-highlight", field: "--field", menubar: "--menubar", menubarPill: "--menubar-pill", shadow: "--shadow" };
+  const state = { dir: "azul", theme: "light", font: "instrument" };
+
+  function apply() {
+    const p = palettes[state.dir][state.theme];
+    const root = document.documentElement.style;
+    for (const [k, v] of Object.entries(vars)) root.setProperty(v, p[k]);
+    root.setProperty("--font-ui", fonts[state.font]);
+    document.getElementById("palette-title").textContent = `Paleta: ${palettes[state.dir].name}, tema ${state.theme === "light" ? "claro" : "oscuro"}`;
+    document.getElementById("swatches").innerHTML = p.swatches.map(([n, hex, use]) =>
+      `<div class="swatch"><i style="background:${hex}"></i><div><b>${n}</b><code>${hex}</code> <span style="font-size:12px;color:var(--page-muted)">${use}</span></div></div>`).join("");
+  }
+
+  document.querySelectorAll(".segmented").forEach(group => {
+    group.addEventListener("click", e => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      state[group.dataset.key] = btn.dataset.value;
+      group.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
+      apply();
+    });
+  });
+
+  const fit = () => document.querySelectorAll(".frame").forEach(f => {
+    const mock = f.querySelector(".mock");
+    f.style.setProperty("--s", f.clientWidth / mock.offsetWidth);
+  });
+  new ResizeObserver(fit).observe(document.body);
+  apply();
+  fit();
+</script>
+</body>
+</html>

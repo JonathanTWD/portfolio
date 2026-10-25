@@ -141,6 +141,7 @@ const en: Dictionary = {
       options: {
         light: "Light",
         dark: "Dark",
+        system: "Auto",
       },
     },
     language: {

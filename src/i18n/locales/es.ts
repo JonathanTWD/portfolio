@@ -159,6 +159,7 @@ const es = {
       options: {
         light: "Claro",
         dark: "Oscuro",
+        system: "Automático",
       },
     },
     language: {
