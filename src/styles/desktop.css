@@ -1,0 +1,121 @@
+/* Desktop elements that sit on the wallpaper: menu bar, welcome text, dock and icons. */
+
+@layer components {
+  nav {
+    @apply flex justify-between items-center bg-menubar backdrop-blur-3xl p-2 px-5 select-none text-ink;
+
+    div {
+      @apply flex items-center max-sm:w-full max-sm:justify-center gap-5;
+
+      &:last-child {
+        @apply max-sm:hidden;
+      }
+    }
+
+    ul {
+      @apply flex items-center gap-5 max-sm:hidden;
+
+      p {
+        @apply text-sm cursor-pointer hover:underline transition-all;
+      }
+    }
+
+    time {
+      @apply text-sm font-medium;
+    }
+
+    .navbar-status-icon {
+      filter: var(--filter-icon);
+    }
+  }
+
+  #welcome {
+    @apply text-on-wallpaper flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10;
+
+    .small-screen {
+      @apply sm:hidden m-7 bg-red-300/20 backdrop-blur-lg p-3 rounded-md absolute top-10;
+
+      p {
+        @apply flex-1 text-[16px] text-center font-mono text-on-wallpaper;
+      }
+    }
+  }
+
+  #dock {
+    @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:hidden;
+
+    .dock-container {
+      @apply bg-dock backdrop-blur-md justify-between rounded-2xl p-1.5 flex items-end gap-1.5;
+    }
+
+    .tooltip {
+      @apply py-1! px-3! w-fit! text-center! text-xs! rounded-md! bg-tooltip! text-tooltip-ink! shadow-2xl!;
+    }
+
+    .dock-icon {
+      @apply size-14 3xl:size-20 cursor-pointer;
+
+      img {
+        @apply object-cover object-center;
+      }
+    }
+
+    .window-preview {
+      @apply absolute bottom-[calc(100%+0.35rem)] left-1/2 w-72 h-40 overflow-hidden rounded-xl border border-white/60 bg-surface/80 shadow-2xl backdrop-blur-sm cursor-pointer;
+
+      .window-preview-header {
+        @apply flex h-7 items-center gap-2 border-b border-line bg-surface-chrome/90 px-2 text-[10px] text-ink-muted;
+      }
+
+      .window-preview-dots {
+        @apply flex gap-1;
+
+        i {
+          @apply size-1.5 rounded-full;
+
+          &:nth-child(1) {
+            @apply bg-traffic-close;
+          }
+
+          &:nth-child(2) {
+            @apply bg-traffic-minimize;
+          }
+
+          &:nth-child(3) {
+            @apply bg-traffic-maximize;
+          }
+        }
+      }
+
+      .window-preview-title {
+        @apply min-w-0 flex-1 truncate font-medium;
+      }
+
+      .window-preview-hint {
+        @apply text-[9px] text-ink-subtle;
+      }
+
+      .window-preview-content {
+        @apply relative h-[132px] overflow-hidden bg-surface;
+      }
+    }
+  }
+
+  #home {
+    @apply relative z-0 max-sm:hidden;
+
+    ul {
+      li {
+        @apply absolute z-0 select-none flex items-center flex-col;
+
+        img {
+          @apply group-hover:bg-gray-950/10 p-1 rounded-md;
+        }
+
+        p {
+          @apply text-sm text-white text-center px-1 rounded-md group-hover:bg-accent transition-colors max-w-40;
+        }
+      }
+    }
+  }
+}

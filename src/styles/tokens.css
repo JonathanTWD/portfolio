@@ -1,0 +1,82 @@
+/*
+ * Design tokens.
+ *
+ * Every color, radius and shadow used by the interface lives here. Components
+ * use them through Tailwind utilities (bg-surface, text-ink-muted, border-line,
+ * rounded-window, shadow-window...) or as var(--token).
+ *
+ * The dark theme only redefines variables: components never need a dark
+ * override of their own.
+ */
+
+@theme {
+  --font-display: "Georama", sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+
+  --breakpoint-3xl: 1920px;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-surface-chrome: #f9fafb;
+  --color-surface-sunken: #f3f4f6;
+  --color-surface-hover: #e5e7eb;
+  --color-line: #e5e7eb;
+
+  /* Text */
+  --color-ink: #111827;
+  --color-ink-muted: #6b7280;
+  --color-ink-subtle: #9ca3af;
+  --color-on-wallpaper: #e5e7eb;
+
+  /* Accent and states */
+  --color-accent: #3b82f6;
+  --color-accent-soft: #dbeafe;
+  --color-accent-ink: #1d4ed8;
+  --color-success: #00a154;
+
+  /* Desktop chrome over the wallpaper */
+  --color-menubar: rgb(255 255 255 / 0.5);
+  --color-dock: rgb(255 255 255 / 0.2);
+  --color-tooltip: #bfdbfe;
+  --color-tooltip-ink: #1e3a8a;
+
+  /* Window traffic lights */
+  --color-traffic-close: #ff6157;
+  --color-traffic-minimize: #ffc030;
+  --color-traffic-maximize: #2acb42;
+
+  --radius-window: 0.75rem;
+  --radius-control: 0.375rem;
+
+  --shadow-window: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+:root {
+  --wallpaper: url("/images/wallpaper-light.jpg");
+  --filter-icon: none;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-surface: #111827;
+  --color-surface-chrome: #1f2937;
+  --color-surface-sunken: #030712;
+  --color-surface-hover: #374151;
+  --color-line: #374151;
+
+  --color-ink: #f3f4f6;
+  --color-ink-muted: #9ca3af;
+  --color-ink-subtle: #9ca3af;
+  --color-on-wallpaper: #ffffff;
+
+  --color-accent-soft: rgb(59 130 246 / 0.25);
+  --color-accent-ink: #93c5fd;
+  --color-success: #34d399;
+
+  --color-menubar: rgb(3 7 18 / 0.8);
+  --color-dock: rgb(3 7 18 / 0.5);
+
+  --wallpaper: url("/images/wallpaper-dark.png");
+  --filter-icon: invert(1);
+}

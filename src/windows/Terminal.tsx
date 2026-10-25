@@ -1,40 +1,44 @@
 import WindowControls from "../components/WindowControls";
 import { techStack } from "../constants";
 import WindowWrapper from "../hoc/WindowWrapper";
+import { useTranslation } from "../i18n";
 
-import { Check, Flag } from "lucide-react";
-import useThemeStore from "../store/theme";
+import { Check } from "lucide-react";
+
+const technologyCount = techStack.reduce(
+  (total, { items }) => total + items.length,
+  0,
+);
 
 const Terminal = () => {
-
-  const theme = useThemeStore((state) => state.theme);
+  const t = useTranslation();
 
   return (
     <>
-      <div id="window-header">
+      <div className="window-header">
         <WindowControls target="terminal" />
-        <h2>Tech Stack</h2>
+        <h2>{t.terminal.title}</h2>
       </div>
 
       <div className="techstack">
         <p>
           <span className="font-bold">@jonathandev % </span>
-          show tech stack
+          {t.terminal.command}
         </p>
 
         <div className="label">
-          <p className="w-32">Category</p>
-          <p>Technologies</p>
+          <p className="w-56">{t.terminal.category}</p>
+          <p>{t.terminal.technologies}</p>
         </div>
 
         <ul className="content">
           {techStack.map(({ category, items }) => (
             <li key={category} className="flex items-center">
               <Check className="check" size={20} />
-              <h3>{category}</h3>
+              <h3>{t.terminal.categories[category]}</h3>
               <ul>
                 {items.map((item, i) => (
-                  <li key={i}>
+                  <li key={item}>
                     {item}
                     {i < items.length - 1 ? "," : ""}
                   </li>
@@ -44,15 +48,10 @@ const Terminal = () => {
           ))}
         </ul>
 
-        <div className="footnote">
-          <p>
-            <Check size={20} /> 5 of 5 stacks loaded succesfully (100%)
-          </p>
-          <p className={theme === "dark" ? "text-white" : "text-black"}>
-            <Flag size={15} fill={theme === "dark" ? "white" : "black"} />
-            Render time: 6ms
-          </p>
-        </div>
+        <p className="footnote">
+          <Check size={20} />
+          {t.terminal.summary(techStack.length, technologyCount)}
+        </p>
       </div>
     </>
   );

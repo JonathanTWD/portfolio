@@ -2,11 +2,13 @@ import WindowControls from "../components/WindowControls";
 import { Search } from "lucide-react";
 import WindowWrapper from "../hoc/WindowWrapper";
 import { locations, type FolderLocation, type Location } from "../constants";
+import { getLocationText, useTranslation } from "../i18n";
 import useLocationStore from "../store/location";
 import clsx from "clsx";
 import useWindowStore from "../store/window";
 
 const Finder = () => {
+  const t = useTranslation();
   const { openWindow } = useWindowStore();
   const { activeLocation, setActiveLocation } = useLocationStore();
 
@@ -26,47 +28,60 @@ const Finder = () => {
   const renderList = (name: string, items: FolderLocation[]) => (
     <div>
       <h3>{name}</h3>
-      <ul>
-        {items.map((item) => (
-          <li
-            key={item.id}
-            onClick={() => setActiveLocation(item)}
-            className={clsx(
-              item.id === activeLocation.id ? "active" : "not-active",
-            )}
-          >
-            <img src={item.icon} alt={item.name} className="w-4" />
-            <p className="text-sm font-medium truncate">{item.name}</p>
-          </li>
-        ))}
+      <ul className="sidebar-list">
+        {items.map((item) => {
+          const itemName = getLocationText(t, item).name;
+
+          return (
+            <li
+              key={item.id}
+              onClick={() => setActiveLocation(item)}
+              className={clsx(
+                item === activeLocation ? "active" : "not-active",
+              )}
+            >
+              <img src={item.icon} alt="" className="w-4" />
+              <p className="text-sm font-medium truncate">{itemName}</p>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 
+  const items = activeLocation?.children ?? [];
+
   return (
     <>
-      <div id="window-header">
+      <div className="window-header">
         <WindowControls target="finder" />
-        <Search className="icon" />
+        <Search className="icon" aria-label={t.finder.search} />
       </div>
 
-      <div className="bg-white flex h-full">
+      <div className="finder-body">
         <div className="sidebar">
-          {renderList("Favorites", Object.values(locations))}
-          {renderList("Work", locations.work.children)}
+          {renderList(t.finder.favorites, Object.values(locations))}
+          {renderList(t.finder.work, locations.work.children)}
         </div>
 
         <ul className="content">
-          {activeLocation?.children?.map((item) => (
-            <li
-              key={item.id}
-              className={item.position}
-              onClick={() => openItem(item)}
-            >
-              <img src={item.icon} alt={item.name} />
-              <p>{item.name}</p>
-            </li>
-          ))}
+          {items.length === 0 && (
+            <p className="empty-folder">{t.finder.emptyFolder}</p>
+          )}
+          {items.map((item) => {
+            const itemName = getLocationText(t, item).name;
+
+            return (
+              <li
+                key={item.id}
+                className={item.position}
+                onClick={() => openItem(item)}
+              >
+                <img src={item.icon} alt="" />
+                <p>{itemName}</p>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>

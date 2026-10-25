@@ -1,0 +1,409 @@
+/* Layout and content of each window. The shared frame lives in window.css. */
+
+@layer components {
+  .sidebar-list {
+    @apply space-y-1;
+
+    li > button,
+    li {
+      @apply flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-medium text-ink/80 transition-colors;
+    }
+
+    .active {
+      @apply bg-accent-soft text-accent-ink;
+    }
+
+    .not-active {
+      @apply hover:bg-surface-hover;
+    }
+  }
+
+  #terminal {
+    @apply w-2xl top-30 left-1/4;
+
+    .techstack {
+      @apply text-sm font-mono p-5;
+
+      .label {
+        @apply flex items-center ms-10 mt-7 text-ink-muted;
+      }
+
+      .content {
+        @apply py-5 my-5 border-y border-dashed border-line space-y-1;
+
+        li {
+          .check {
+            @apply text-success w-5;
+          }
+
+          h3 {
+            @apply font-semibold text-success w-56 ms-5;
+          }
+
+          ul {
+            @apply flex flex-wrap items-center gap-x-3;
+          }
+        }
+      }
+
+      .footnote {
+        @apply flex items-center text-success;
+
+        svg {
+          @apply w-5 me-5;
+        }
+      }
+    }
+  }
+
+  #contact {
+    @apply max-w-2xl top-30 left-1/6;
+
+    h3 {
+      @apply text-xl font-semibold;
+    }
+
+    .contact-email {
+      @apply block w-fit text-ink-muted hover:text-accent-ink hover:underline;
+    }
+
+    ul {
+      @apply flex items-center gap-3;
+
+      li {
+        @apply rounded-lg p-3 w-60 hover:-translate-y-0.5 hover:scale-105 origin-center transition-all duration-300;
+
+        a {
+          @apply block space-y-5;
+        }
+
+        p {
+          @apply font-semibold text-sm text-white;
+        }
+      }
+    }
+  }
+
+  #photos {
+    @apply left-1/2 top-20 flex h-[min(78vh,680px)] w-[min(92vw,1040px)] -translate-x-1/2 flex-col;
+
+    .window-header p {
+      @apply w-32 truncate text-right text-xs;
+    }
+
+    .gallery-shell {
+      @apply flex min-h-0 flex-1;
+
+      height: calc(100% - 3.5rem);
+    }
+
+    .gallery-sidebar {
+      @apply w-48 flex-none border-r border-line bg-surface-chrome p-4;
+
+      h3 {
+        @apply mb-2 text-xs font-medium text-ink-subtle;
+      }
+
+      button span:first-child {
+        @apply flex size-6 items-center justify-center rounded bg-surface-hover text-xs;
+      }
+
+      .active span:first-child {
+        @apply bg-accent/20;
+      }
+    }
+
+    .gallery-canvas {
+      @apply min-h-0 flex-1 overflow-y-scroll bg-surface-sunken p-5;
+
+      height: 100%;
+    }
+
+    &.is-maximized {
+      height: 100vh;
+      max-height: none;
+      width: 100vw;
+      max-width: none;
+      border-radius: 0;
+      transform: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+
+      .gallery-shell {
+        height: calc(100vh - 3.5rem);
+      }
+    }
+
+    .gallery-grid {
+      @apply grid min-h-[680px] grid-cols-12 gap-3;
+
+      grid-template-rows: repeat(4, max-content);
+      align-items: start;
+    }
+
+    .gallery-tile {
+      @apply flex min-h-0 cursor-pointer self-start items-center justify-center overflow-hidden rounded-xl border-0 bg-surface p-2 shadow-sm col-span-5;
+
+      aspect-ratio: 16 / 10;
+
+      img {
+        @apply block h-full w-full object-contain;
+
+        max-height: 100%;
+      }
+
+      /* Alternating wide/narrow rows: 7+5, 5+7, ... */
+      &:nth-child(4n + 1),
+      &:nth-child(4n + 4) {
+        @apply col-span-7;
+      }
+    }
+
+    @media (max-width: 640px) {
+      @apply top-12 h-[calc(100vh-5rem)] w-[calc(100vw-1rem)];
+
+      .gallery-sidebar {
+        @apply w-32 p-2;
+
+        button {
+          @apply px-2 text-xs;
+        }
+      }
+
+      .gallery-canvas {
+        @apply p-2;
+      }
+
+      .gallery-grid {
+        @apply min-h-[620px] grid-cols-2 gap-2;
+
+        grid-template-rows: max-content max-content;
+      }
+
+      .gallery-tile,
+      .gallery-tile:nth-child(n) {
+        @apply col-span-1;
+      }
+    }
+  }
+
+  #resume {
+    @apply top-16 flex flex-col;
+
+    width: min(90vw, 720px);
+    height: min(720px, calc(100vh - 7rem));
+    max-height: calc(100vh - 7rem);
+    left: max(1rem, min(58vw, calc(100vw - 760px)));
+
+    .resume-document {
+      @apply flex min-h-0 min-w-0 flex-none items-start justify-center overflow-y-auto bg-surface-sunken p-4;
+
+      height: calc(100% - 3.5rem);
+
+      .react-pdf__Document {
+        @apply flex flex-none justify-center;
+      }
+    }
+
+    &.is-maximized {
+      height: 100vh;
+      max-height: none;
+
+      .resume-document {
+        height: calc(100vh - 3.5rem);
+        max-height: none;
+      }
+    }
+  }
+
+  #finder {
+    @apply w-3xl left-40 top-20;
+
+    .finder-body {
+      @apply flex h-full bg-surface;
+    }
+
+    .sidebar {
+      @apply w-48 bg-surface-chrome border-r border-line flex flex-col p-5 space-y-3;
+
+      h3 {
+        @apply text-xs font-medium text-ink-subtle mb-1;
+      }
+
+      li {
+        @apply cursor-pointer;
+      }
+    }
+
+    .content {
+      @apply relative min-h-[420px] max-w-2xl flex-1 overflow-y-auto bg-surface p-8;
+
+      li {
+        @apply absolute flex items-center flex-col gap-3 cursor-pointer;
+
+        img {
+          @apply object-contain object-center size-16 relative;
+        }
+
+        p {
+          @apply w-40 rounded-md px-2 py-1 text-center text-sm font-medium;
+        }
+
+        &:hover p {
+          @apply bg-surface-hover;
+        }
+      }
+    }
+
+    .empty-folder {
+      @apply absolute inset-0 flex items-center justify-center text-sm text-ink-subtle;
+    }
+  }
+
+  #txtfile {
+    @apply top-24 right-32 flex min-h-0 flex-col;
+
+    width: min(90vw, 640px);
+    height: min(560px, calc(100vh - 7rem));
+    max-height: calc(100vh - 7rem);
+
+    .text-document {
+      @apply min-h-0 flex-1 overflow-y-auto p-5 space-y-5;
+
+      height: calc(100% - 3.5rem);
+      box-sizing: border-box;
+
+      h2 {
+        @apply font-bold text-sm text-center w-full;
+      }
+    }
+
+    .photo-slot {
+      @apply mx-auto flex size-28 flex-col items-center justify-center gap-1 rounded-full border border-dashed border-line bg-surface-sunken text-ink-subtle;
+
+      span:first-child {
+        @apply font-display text-3xl font-light;
+      }
+
+      span:last-child {
+        @apply text-[10px];
+      }
+    }
+
+    &.is-maximized {
+      height: 100vh;
+      max-height: none;
+
+      .text-document {
+        height: calc(100vh - 3.5rem);
+        max-height: none;
+      }
+    }
+  }
+
+  #imgfile {
+    @apply w-xl top-40 left-2/12;
+
+    .window-header p {
+      @apply font-bold;
+    }
+
+    .image-content {
+      @apply bg-surface p-5;
+
+      img {
+        @apply h-auto max-h-[70vh] w-full object-contain;
+      }
+    }
+
+    &.is-maximized .image-content {
+      @apply flex min-h-0 items-center justify-center bg-surface-sunken p-4;
+
+      height: calc(100vh - 3.5rem);
+
+      img {
+        width: auto;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+
+  #settings {
+    @apply left-1/2 top-24 w-[min(92vw,680px)] -translate-x-1/2;
+
+    .settings-content {
+      @apply flex min-h-[300px];
+    }
+
+    .settings-sidebar {
+      @apply flex w-56 flex-col items-center gap-3 border-r border-line bg-surface-chrome p-8 text-center;
+
+      p:last-child {
+        @apply text-xs text-ink-muted;
+      }
+    }
+
+    .settings-panel {
+      @apply flex flex-1 flex-col gap-7 p-8;
+
+      h3 {
+        @apply text-lg font-semibold;
+      }
+    }
+
+    .settings-description {
+      @apply mt-1 text-sm text-ink-muted;
+    }
+
+    .settings-options {
+      @apply grid grid-cols-2 gap-4;
+    }
+
+    .settings-option {
+      @apply relative flex flex-col gap-3 rounded-xl border border-line p-3 text-left text-sm font-medium transition-all hover:border-accent/70 hover:shadow-md;
+
+      &.selected {
+        @apply border-2 border-accent bg-accent-soft text-accent-ink;
+      }
+    }
+
+    .theme-preview {
+      @apply flex h-24 flex-col gap-1 rounded-lg border border-gray-200 bg-white p-2 shadow-sm;
+
+      span {
+        @apply block rounded;
+
+        &:first-child {
+          @apply h-3 bg-gray-200;
+        }
+
+        &:nth-child(2) {
+          @apply h-10 bg-gray-100;
+        }
+
+        &:last-child {
+          @apply h-2 w-1/2 bg-blue-400;
+        }
+      }
+
+      &.dark {
+        @apply border-gray-700 bg-gray-900;
+
+        span {
+          &:first-child {
+            @apply bg-gray-700;
+          }
+
+          &:nth-child(2) {
+            @apply bg-gray-800;
+          }
+        }
+      }
+    }
+
+    .option-check {
+      @apply absolute right-3 top-3 text-base;
+    }
+  }
+}

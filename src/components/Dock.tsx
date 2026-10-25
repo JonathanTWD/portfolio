@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { dockApps } from "../constants";
 import { useGSAP } from "@gsap/react";
 import useWindowStore, { type WindowKey } from "../store/window";
+import { useTranslation } from "../i18n";
 
 type WindowPreviewProps = {
   windowKey: WindowKey;
@@ -25,6 +26,7 @@ const WindowPreview = ({
   isClosing,
   onExitComplete,
 }: WindowPreviewProps) => {
+  const t = useTranslation();
   const previewRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,7 +38,7 @@ const WindowPreview = ({
 
     const clone = source.cloneNode(true) as HTMLElement;
     clone.id = `${windowKey}-preview`;
-    clone.querySelector("#window-header")?.remove();
+    clone.querySelector(".window-header")?.remove();
     clone.style.position = "relative";
     clone.style.top = "0";
     clone.style.left = "0";
@@ -98,7 +100,7 @@ const WindowPreview = ({
       className="window-preview"
       role="button"
       tabIndex={0}
-      aria-label={`Restore ${name}`}
+      aria-label={t.dock.restore(name)}
       onClick={onRestore}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") onRestore();
@@ -113,7 +115,7 @@ const WindowPreview = ({
           <i />
         </span>
         <span className="window-preview-title">{name}</span>
-        <span className="window-preview-hint">Click to restore</span>
+        <span className="window-preview-hint">{t.dock.restoreHint}</span>
       </div>
       <div ref={contentRef} className="window-preview-content" />
     </div>
@@ -122,6 +124,7 @@ const WindowPreview = ({
 
 const Dock = () => {
   const { windows, openWindow, closeWindow, restoreWindow } = useWindowStore();
+  const t = useTranslation();
   const dockRef = useRef<HTMLDivElement | null>(null);
   const hidePreviewTimeout = useRef<number | null>(null);
   const [previewWindow, setPreviewWindow] = useState<WindowKey | null>(null);
@@ -222,66 +225,68 @@ const Dock = () => {
   return (
     <section id="dock">
       <div ref={dockRef} className="dock-container">
-        {dockApps.map(({ id, name, icon, canOpen }) => (
-          <div
-            key={id}
-            className="relative flex justify-center"
-            onMouseEnter={() => {
-              cancelPreviewHide();
-              if (isWindowKey(id) && windows[id].isMinimized) {
-                showPreview(id);
-              } else {
-                closePreview();
-              }
-            }}
-            onMouseLeave={hidePreview}
-          >
-            {isWindowKey(id) &&
-              windows[id].isMinimized &&
-              previewWindow === id && (
-                <WindowPreview
-                  windowKey={id}
-                  name={name}
-                  onRestore={() => {
-                    cancelPreviewHide();
-                    setPreviewWindow(null);
-                    setIsPreviewClosing(false);
-                    restoreWindow(id);
-                  }}
-                  onMouseEnter={cancelPreviewHide}
-                  onMouseLeave={hidePreview}
-                  isClosing={isPreviewClosing}
-                  onExitComplete={() => {
-                    setPreviewWindow(null);
-                    setIsPreviewClosing(false);
-                  }}
-                />
-              )}
-            <button
-              type="button"
-              className="dock-icon"
-              data-dock-window={id}
-              aria-label={name}
-              data-tooltip-id="dock-tooltip"
-              data-tooltip-content={
-                isWindowKey(id) && windows[id].isMinimized ? undefined : name
-              }
-              data-tooltip-hidden={
-                isWindowKey(id) && windows[id].isMinimized
-              }
-              data-tooltip-delay-show={99}
-              disabled={!canOpen}
-              onClick={() => toggleApp({ id, canOpen })}
+        {dockApps.map(({ id, icon, canOpen }) => {
+          const name = t.dock.apps[id];
+
+          return (
+            <div
+              key={id}
+              className="relative flex justify-center"
+              onMouseEnter={() => {
+                cancelPreviewHide();
+                if (isWindowKey(id) && windows[id].isMinimized) {
+                  showPreview(id);
+                } else {
+                  closePreview();
+                }
+              }}
+              onMouseLeave={hidePreview}
             >
-              <img
-                src={`/images/${icon}`}
-                alt={name}
-                loading="lazy"
-                className={canOpen ? "" : "opacity-60"}
-              />
-            </button>
-          </div>
-        ))}
+              {isWindowKey(id) &&
+                windows[id].isMinimized &&
+                previewWindow === id && (
+                  <WindowPreview
+                    windowKey={id}
+                    name={name}
+                    onRestore={() => {
+                      cancelPreviewHide();
+                      setPreviewWindow(null);
+                      setIsPreviewClosing(false);
+                      restoreWindow(id);
+                    }}
+                    onMouseEnter={cancelPreviewHide}
+                    onMouseLeave={hidePreview}
+                    isClosing={isPreviewClosing}
+                    onExitComplete={() => {
+                      setPreviewWindow(null);
+                      setIsPreviewClosing(false);
+                    }}
+                  />
+                )}
+              <button
+                type="button"
+                className="dock-icon"
+                data-dock-window={id}
+                aria-label={name}
+                data-tooltip-id="dock-tooltip"
+                data-tooltip-content={
+                  isWindowKey(id) && windows[id].isMinimized ? undefined : name
+                }
+                data-tooltip-hidden={isWindowKey(id) && windows[id].isMinimized}
+                data-tooltip-delay-show={99}
+                disabled={!canOpen}
+                onClick={() => toggleApp({ id, canOpen })}
+              >
+                <img
+                  src={`/images/${icon}`}
+                  alt={name}
+                  loading="lazy"
+                  className={canOpen ? "" : "opacity-60"}
+                />
+              </button>
+            </div>
+          );
+        })}
         <Tooltip id="dock-tooltip" place="top" className="tooltip" />
       </div>
     </section>
