@@ -21,3 +21,10 @@ pnpm dev
 - `src/windows` — una ventana por archivo, envuelta con `hoc/WindowWrapper`.
 
 El plan de rediseño está en [`docs/redesign-brief.md`](docs/redesign-brief.md).
+
+## Despliegue en Vercel
+
+- **Root Directory:** `frontend` (el proyecto está en esta subcarpeta del repositorio).
+- **Framework:** Vite. Build `pnpm build`, salida `dist`.
+- **URL del sitio:** las vistas previas al compartir el enlace (Open Graph) y los datos estructurados necesitan una URL absoluta. En Vercel se usa automáticamente la URL de producción del proyecto. Si conectas un dominio propio, define la variable de entorno `SITE_URL` (por ejemplo `https://jonathanmorera.dev`) para que se use ese.
+- La imagen para compartir está en `public/og-image.jpg` (1200 × 630).

@@ -4,14 +4,84 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="description" content="Portfolio de Jonathan Morera, desarrollador fullstack: proyectos, experiencia y contacto." />
+    <title>Portfolio de Jonathan Morera</title>
+    <meta
+      name="description"
+      content="Jonathan Morera, desarrollador fullstack en Las Palmas de Gran Canaria. React, TypeScript, Java y Spring Boot: proyectos, experiencia y contacto."
+    />
+    <meta name="author" content="Jonathan Morera" />
+    <meta name="theme-color" content="#5d76f2" />
+
+    <!-- Link previews (LinkedIn, WhatsApp, Slack, X). %SITE_URL% is filled in at build time. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jonathan Morera" />
+    <meta property="og:title" content="Jonathan Morera, desarrollador fullstack" />
+    <meta
+      property="og:description"
+      content="Portfolio interactivo con forma de escritorio: proyectos, experiencia, CV y contacto."
+    />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:image" content="%SITE_URL%/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Escritorio del portfolio de Jonathan Morera con widgets y dock"
+    />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jonathan Morera, desarrollador fullstack" />
+    <meta
+      name="twitter:description"
+      content="Portfolio interactivo con forma de escritorio: proyectos, experiencia, CV y contacto."
+    />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.jpg" />
+
+    <!-- Structured data, so search engines can relate the site to its author. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Jonathan Morera",
+        "alternateName": "Jonathan Josué Morera Apaza",
+        "jobTitle": "Desarrollador fullstack",
+        "url": "%SITE_URL%/",
+        "image": "%SITE_URL%/images/jonathan-1.jpeg",
+        "email": "mailto:jonathanmoreraapaza@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Las Palmas de Gran Canaria",
+          "addressCountry": "ES"
+        },
+        "alumniOf": {
+          "@type": "EducationalOrganization",
+          "name": "IES El Rincón"
+        },
+        "knowsAbout": [
+          "React",
+          "TypeScript",
+          "Java",
+          "Spring Boot",
+          "Node.js",
+          "REST APIs",
+          "PostgreSQL",
+          "MySQL"
+        ],
+        "knowsLanguage": ["es", "en"],
+        "sameAs": [
+          "https://github.com/JonathanTWD",
+          "https://www.linkedin.com/in/jonathan-m-856238315/"
+        ]
+      }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&family=Georama:ital,wght@0,100..900;1,100..900&display=swap"
     />
-    <title>Portfolio de Jonathan Morera</title>
     <script>
       // Apply the saved theme before the first paint to avoid a flash.
       try {
@@ -28,6 +98,56 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Readable content for crawlers and browsers without JavaScript. -->
+    <noscript>
+      <main
+        style="max-width: 40rem; margin: 3rem auto; padding: 2rem; border-radius: 1.25rem; background: #ffffff; color: #10163a; font-family: system-ui, sans-serif; line-height: 1.6; overflow-y: auto; max-height: calc(100dvh - 6rem);"
+      >
+        <h1 style="margin: 0; font-size: 2rem">Jonathan Morera</h1>
+        <p style="margin: 0.25rem 0 1.5rem; color: #585f82">
+          Desarrollador fullstack en Las Palmas de Gran Canaria, España.
+        </p>
+        <p>
+          Desarrollador fullstack con experiencia práctica en React, TypeScript, Java y Spring
+          Boot. He desarrollado APIs REST, interfaces web e integraciones con bases de datos, y
+          busco mi próximo puesto como desarrollador fullstack.
+        </p>
+
+        <h2 style="font-size: 1.25rem">Experiencia</h2>
+        <p>
+          <strong>Desarrollador fullstack en prácticas en The Wise Dreams</strong> (enero – mayo
+          2026). Sistema de facturación para una cadena hotelera con React (TypeScript) y Spring
+          Boot: API REST, WebSocket y un tour interactivo para nuevos usuarios.
+        </p>
+
+        <h2 style="font-size: 1.25rem">Proyectos</h2>
+        <p>
+          <strong>CanAccesible</strong>: plataforma comunitaria para reportar barreras de
+          accesibilidad en Canarias y consultarlas en un mapa interactivo. React, Express,
+          Sequelize, MySQL y Socket.io, desplegada en DigitalOcean.
+          <a href="https://canaccesible.es">canaccesible.es</a>
+        </p>
+
+        <h2 style="font-size: 1.25rem">Formación</h2>
+        <p>
+          Curso de especialización en IA y Big Data (2026 – actualidad) y Desarrollo de
+          Aplicaciones Web (2024 – 2026), IES El Rincón.
+        </p>
+
+        <h2 style="font-size: 1.25rem">Contacto</h2>
+        <p>
+          <a href="mailto:jonathanmoreraapaza@gmail.com">jonathanmoreraapaza@gmail.com</a>,
+          <a href="https://github.com/JonathanTWD">GitHub</a>,
+          <a href="https://www.linkedin.com/in/jonathan-m-856238315/">LinkedIn</a> y
+          <a href="/files/resume.pdf">CV en PDF</a>.
+        </p>
+        <p style="color: #585f82; font-size: 0.875rem">
+          Activa JavaScript para ver el portfolio interactivo.
+        </p>
+      </main>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
