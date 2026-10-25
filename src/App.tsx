@@ -13,6 +13,8 @@ import Image from "./windows/Image";
 import Contact from "./windows/Contact";
 import Photos from "./windows/Gallery";
 import Home from "./components/Home";
+import Widgets from "./components/Widgets";
+import Onboarding from "./components/Onboarding";
 import Settings from "./windows/Settings";
 import Showcase from "./windows/Showcase";
 import { useResolvedTheme } from "./store/theme";
@@ -39,6 +41,8 @@ const App = () => {
     <main>
       <Navbar />
       <Welcome />
+      <Widgets />
+      <Onboarding />
       <Dock />
 
       <Terminal />

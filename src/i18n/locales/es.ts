@@ -161,6 +161,26 @@ const es = {
     restoreHint: "Clic para restaurar",
     restore: (name: string) => `Restaurar ${name}`,
   },
+  widgets: {
+    label: "Widgets",
+    dateFormat: "dddd, D [de] MMMM",
+    now: {
+      title: "Ahora mismo",
+      status: "Buscando puesto fullstack",
+      detail: "Disponible para entrevistas",
+      action: "Contactar",
+    },
+    featured: {
+      title: "Proyecto destacado",
+      action: "Ver en el Escaparate",
+    },
+  },
+  onboarding: {
+    title: "Cómo moverte por el portfolio",
+    text: "Abre las apps desde el dock de abajo. Arrastra las ventanas por su barra superior y usa los botones de colores para cerrar, minimizar o maximizar.",
+    start: "Empezar por Sobre mí",
+    dismiss: "Entendido",
+  },
   windowControls: {
     close: "Cerrar ventana",
     minimize: "Minimizar ventana",

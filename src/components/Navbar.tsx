@@ -1,7 +1,5 @@
-import dayjs from "dayjs";
 import "dayjs/locale/es";
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
 
 import { locations, navLinks, type NavLink } from "../constants";
 import { LANGUAGES, useTranslation } from "../i18n";
@@ -9,29 +7,7 @@ import useLanguageStore from "../store/language";
 import useLocationStore from "../store/location";
 import useThemeStore, { useResolvedTheme } from "../store/theme";
 import useWindowStore from "../store/window";
-
-/** Current time, refreshed at the start of every minute. */
-const useMinuteClock = () => {
-  const [now, setNow] = useState(() => dayjs());
-
-  useEffect(() => {
-    let interval: number | undefined;
-    const timeout = window.setTimeout(
-      () => {
-        setNow(dayjs());
-        interval = window.setInterval(() => setNow(dayjs()), 60_000);
-      },
-      60_000 - (Date.now() % 60_000),
-    );
-
-    return () => {
-      window.clearTimeout(timeout);
-      window.clearInterval(interval);
-    };
-  }, []);
-
-  return now;
-};
+import useMinuteClock from "../hooks/useMinuteClock";
 
 const Navbar = () => {
   const t = useTranslation();
