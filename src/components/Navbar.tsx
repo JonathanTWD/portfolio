@@ -1,11 +1,10 @@
 import "dayjs/locale/es";
-import { Moon, Sun } from "lucide-react";
 
 import { locations, navLinks, type NavLink } from "../constants";
-import { LANGUAGES, useTranslation } from "../i18n";
+import { useTranslation } from "../i18n";
+import QuickToggles from "./QuickToggles";
 import useLanguageStore from "../store/language";
 import useLocationStore from "../store/location";
-import useThemeStore, { useResolvedTheme } from "../store/theme";
 import useWindowStore from "../store/window";
 import useMinuteClock from "../hooks/useMinuteClock";
 
@@ -15,13 +14,8 @@ const Navbar = () => {
   const setActiveLocation = useLocationStore(
     (state) => state.setActiveLocation,
   );
-  const { language, setLanguage } = useLanguageStore();
-  const setTheme = useThemeStore((state) => state.setTheme);
-  const resolvedTheme = useResolvedTheme();
+  const language = useLanguageStore((state) => state.language);
   const now = useMinuteClock();
-
-  const nextLanguage = LANGUAGES.find((option) => option !== language) ?? "es";
-  const isDark = resolvedTheme === "dark";
 
   const openLink = (link: NavLink) => {
     if ("folder" in link) {
@@ -34,7 +28,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav aria-label={t.navbar.menu}>
+    <nav className="menubar" aria-label={t.navbar.menu}>
       <div>
         <span className="navbar-logo" aria-hidden="true">
           J
@@ -53,27 +47,7 @@ const Navbar = () => {
       </div>
 
       <div>
-        <button
-          type="button"
-          className="navbar-pill"
-          aria-label={t.navbar.switchLanguage(
-            t.settings.language.options[nextLanguage],
-          )}
-          title={t.settings.language.options[nextLanguage]}
-          onClick={() => setLanguage(nextLanguage)}
-        >
-          {language.toUpperCase()}
-        </button>
-
-        <button
-          type="button"
-          className="navbar-pill"
-          aria-label={isDark ? t.navbar.switchToLight : t.navbar.switchToDark}
-          title={isDark ? t.navbar.switchToLight : t.navbar.switchToDark}
-          onClick={() => setTheme(isDark ? "light" : "dark")}
-        >
-          {isDark ? <Sun /> : <Moon />}
-        </button>
+        <QuickToggles className="navbar-pill" />
 
         <time dateTime={now.format("YYYY-MM-DDTHH:mm")}>
           {now.locale(language).format(t.navbar.dateFormat)}

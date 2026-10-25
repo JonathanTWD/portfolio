@@ -2,7 +2,7 @@
 
 @layer components {
   /* Menu bar: always above windows, like macOS. */
-  nav {
+  .menubar {
     @apply relative z-[100000] flex h-(--menubar-height) items-center justify-between bg-menubar px-3 select-none text-label text-on-wallpaper;
 
     backdrop-filter: blur(20px) saturate(160%);
@@ -55,15 +55,6 @@
 
     text-shadow: var(--text-shadow-wallpaper);
 
-    .small-screen {
-      @apply sm:hidden m-7 rounded-panel bg-surface p-3 absolute top-10 glass;
-
-      text-shadow: none;
-
-      p {
-        @apply flex-1 text-body text-center text-ink;
-      }
-    }
   }
 
   #dock {
@@ -170,6 +161,18 @@
       background: linear-gradient(160deg, #b39bff, #6a4df0);
     }
 
+    &.app-resume {
+      background: linear-gradient(160deg, #ff8a8a, #e0404f);
+    }
+
+    &.app-about {
+      background: linear-gradient(160deg, #7fd1ff, #2b8fe0);
+    }
+
+    &.app-experience {
+      background: linear-gradient(160deg, #ffc46b, #e8892b);
+    }
+
     &.app-photos {
       background: linear-gradient(160deg, #ffb36b, #ff5e7e);
     }
@@ -210,6 +213,14 @@
 
   .widget-muted {
     @apply mt-1 text-label text-ink-muted;
+  }
+
+  .widget-location {
+    @apply flex items-center gap-1;
+
+    svg {
+      @apply size-3.5 flex-none;
+    }
   }
 
   .status-dot {

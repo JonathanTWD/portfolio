@@ -1,5 +1,6 @@
 import { MousePointerClick, X } from "lucide-react";
 import { locations } from "../constants";
+import useIsMobile from "../hooks/useIsMobile";
 import { useTranslation } from "../i18n";
 import useLocationStore from "../store/location";
 import useOnboardingStore from "../store/onboarding";
@@ -9,6 +10,7 @@ import useWindowStore from "../store/window";
 const Onboarding = () => {
   const t = useTranslation();
   const { dismissed, dismiss } = useOnboardingStore();
+  const isMobile = useIsMobile();
   const openWindow = useWindowStore((state) => state.openWindow);
   const setActiveLocation = useLocationStore(
     (state) => state.setActiveLocation,
@@ -27,7 +29,7 @@ const Onboarding = () => {
       <MousePointerClick className="onboarding-icon" aria-hidden="true" />
       <div>
         <h2>{t.onboarding.title}</h2>
-        <p>{t.onboarding.text}</p>
+        <p>{isMobile ? t.onboarding.mobileText : t.onboarding.text}</p>
         <div className="onboarding-actions">
           <button type="button" className="primary" onClick={start}>
             {t.onboarding.start}

@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { locations } from "../constants";
 import useMinuteClock from "../hooks/useMinuteClock";
 import { useTranslation } from "../i18n";
@@ -32,6 +32,10 @@ const Widgets = () => {
           {t.widgets.now.status}
         </p>
         <p className="widget-muted">{t.widgets.now.detail}</p>
+        <p className="widget-muted widget-location">
+          <MapPin aria-hidden="true" />
+          {t.widgets.now.location}
+        </p>
         <button
           type="button"
           className="widget-action"

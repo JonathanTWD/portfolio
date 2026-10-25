@@ -22,8 +22,6 @@ const en: Dictionary = {
   welcome: {
     greeting: "Hey, I'm Jonathan! Welcome to my",
     title: "portfolio",
-    smallScreen:
-      "For now, this portfolio is designed for desktop and tablet screens.",
   },
   dock: {
     apps: {
@@ -44,6 +42,7 @@ const en: Dictionary = {
       title: "Right now",
       status: "Looking for a fullstack role",
       detail: "Available for interviews",
+      location: "Las Palmas de Gran Canaria, Spain",
       action: "Get in touch",
     },
     featured: {
@@ -51,7 +50,19 @@ const en: Dictionary = {
       action: "View in Showcase",
     },
   },
+  mobile: {
+    home: "Home",
+    backHome: "Back to the home screen",
+    apps: "Apps",
+    extraApps: {
+      resume: "Resume",
+      about: "About me",
+      experience: "Experience",
+    },
+  },
   onboarding: {
+    mobileText:
+      "Tap an app to open it and use Home, at the top left, to go back.",
     title: "How to get around",
     text: "Open apps from the dock at the bottom. Drag windows by their top bar and use the coloured buttons to close, minimize or maximize them.",
     start: "Start with About me",
@@ -81,11 +92,11 @@ const en: Dictionary = {
     aboutMe: {
       name: "about-me.txt",
       subtitle: "Jonathan Morera",
-      meta: "Fullstack developer",
+      meta: "Fullstack developer in Las Palmas de Gran Canaria",
       description: [
         "I'm a fullstack developer and I mostly work with React, TypeScript, Java and Spring Boot. I care as much about the business logic as about the experience of the people using the application.",
         "I've built REST APIs, web interfaces and database integrations, and I enjoy refactoring code so it's clearer and easier to maintain.",
-        "During my internship I worked on a billing system for a hotel chain, and my most complete project is CanAccesible, a community platform for reporting accessibility barriers in the Canary Islands.",
+        "During my internship at The Wise Dreams I worked on a billing system for a hotel chain, and my most complete project is CanAccesible, a community platform for reporting accessibility barriers in the Canary Islands.",
         "I'm currently taking the AI and Big Data specialization course and looking for my next role as a fullstack developer.",
       ],
       bullets: [
@@ -96,7 +107,7 @@ const en: Dictionary = {
     },
     internship: {
       name: "fullstack-internship.txt",
-      subtitle: "Fullstack developer intern",
+      subtitle: "Fullstack developer intern at The Wise Dreams",
       meta: "January 2026 – May 2026",
       description: [
         "Billing system for a hotel chain, built end to end with React (TypeScript) and Spring Boot.",
@@ -326,6 +337,7 @@ const en: Dictionary = {
     title: "Contact",
     name: "Jonathan Morera",
     role: "Fullstack developer",
+    location: "Las Palmas de Gran Canaria, Spain",
     intro:
       "Have a role, a project or a question? Write to me and I'll get back to you.",
     email: "Send an email",

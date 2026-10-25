@@ -1,26 +1,35 @@
 import clsx from "clsx";
 import {
+  BriefcaseBusiness,
   Compass,
+  FileText,
   FolderOpen,
   Images,
   Mail,
   Settings,
   SquareTerminal,
+  UserRound,
   type LucideIcon,
 } from "lucide-react";
 import type { DockAppId } from "../constants";
 
-const GLYPHS: Record<DockAppId, LucideIcon> = {
+/** Dock apps plus the extra shortcuts on the phone home screen. */
+export type AppIconId = DockAppId | "resume" | "about" | "experience";
+
+const GLYPHS: Record<AppIconId, LucideIcon> = {
   finder: FolderOpen,
   showcase: Compass,
   photos: Images,
   contact: Mail,
   terminal: SquareTerminal,
   settings: Settings,
+  resume: FileText,
+  about: UserRound,
+  experience: BriefcaseBusiness,
 };
 
 type AppIconProps = {
-  app: DockAppId;
+  app: AppIconId;
   className?: string;
 };
 

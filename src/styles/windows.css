@@ -558,6 +558,14 @@
     @apply text-label text-ink-muted;
   }
 
+  .contact-location {
+    @apply mt-1 flex items-center justify-center gap-1 text-caption text-ink-muted;
+
+    svg {
+      @apply size-3.5;
+    }
+  }
+
   .contact-intro {
     @apply max-w-[34ch] text-body text-ink-muted;
   }

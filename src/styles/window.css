@@ -9,6 +9,11 @@
       var(--shadow-window);
     transition: box-shadow 0.2s ease;
 
+    /* Focus moves here when a window opens; the window itself shows no ring. */
+    &:focus {
+      @apply outline-none;
+    }
+
     /* Windows behind the front one sit back: softer shadow, grey traffic lights. */
     &.is-inactive {
       box-shadow:

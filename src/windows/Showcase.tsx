@@ -33,20 +33,20 @@ const PROJECTS: ShowcaseProject[] = [
   {
     id: "canaccesible",
     folder: "CanAccesible",
-    hero: { src: `${IMAGES}/canaccesible-8.png`, alt: "landing" },
+    hero: { src: `${IMAGES}/canaccesible-8.webp`, alt: "landing" },
     features: [
       {
         id: "report",
         shot: {
-          src: `${IMAGES}/canaccesible-3.png`,
+          src: `${IMAGES}/canaccesible-3.webp`,
           alt: "incident",
           crop: true,
         },
       },
-      { id: "map", shot: { src: `${IMAGES}/canaccesible-1.png`, alt: "map" } },
+      { id: "map", shot: { src: `${IMAGES}/canaccesible-1.webp`, alt: "map" } },
       {
         id: "manage",
-        shot: { src: `${IMAGES}/canaccesible-2.png`, alt: "management" },
+        shot: { src: `${IMAGES}/canaccesible-2.webp`, alt: "management" },
       },
     ],
   },
