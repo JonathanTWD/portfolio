@@ -12,11 +12,11 @@ export type LocationTextId =
   | "resumePdf"
   | "aboutMe"
   | "internship"
-  | "aiBigData"
-  | "daw"
+  | "studies"
   | "awards"
   | "canaccesibleProject"
-  | "canaccesibleStack";
+  | "canaccesibleStack"
+  | "showcaseFile";
 
 export type LocationText = {
   name: string;
@@ -26,6 +26,8 @@ export type LocationText = {
   meta?: string;
   description?: string[];
   bullets?: string[];
+  /** Several entries in one document, each with its own heading. */
+  sections?: { title: string; meta?: string; description?: string[] }[];
 };
 
 export type GalleryImageId =

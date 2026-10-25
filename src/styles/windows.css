@@ -200,18 +200,22 @@
     ul {
       @apply list-disc space-y-1.5 pl-5 marker:text-accent;
     }
+
+    .document-section {
+      @apply space-y-1 border-t border-line pt-4;
+
+      h2 {
+        @apply text-title font-semibold;
+      }
+    }
   }
 
-  .text-document > .photo-slot {
-    @apply mx-0 flex size-24 flex-col items-center justify-center gap-1 rounded-full border border-dashed border-line bg-surface-sunken text-ink-muted;
+  .text-document > .document-photo {
+    @apply mx-0 size-24 rounded-full object-cover;
 
-    span:first-child {
-      @apply font-display text-3xl font-light;
-    }
-
-    span:last-child {
-      @apply text-[10px];
-    }
+    box-shadow:
+      0 0 0 3px var(--color-surface-raised),
+      0 8px 20px -8px rgb(20 32 110 / 0.5);
   }
 
   /* ---------- Image preview ---------- */
@@ -232,41 +236,299 @@
     @apply max-h-full w-auto max-w-full;
   }
 
-  /* ---------- Skills (terminal) ---------- */
+  /* ---------- Terminal ---------- */
 
   #terminal {
-    @apply top-30 left-1/4 w-[min(42rem,calc(100vw-2rem))];
+    @apply top-28 left-1/4 h-[min(520px,calc(100dvh-9rem))] w-[min(44rem,calc(100vw-2rem))];
   }
 
-  .techstack {
-    @apply min-h-0 flex-1 overflow-y-auto p-5 font-mono text-label;
+  /* A dark console in both themes, tinted with the Hora azul ink. */
+  .terminal-body {
+    @apply min-h-0 flex-1 cursor-text space-y-3 overflow-y-auto px-5 py-4 font-mono text-label;
 
-    .label {
-      @apply ms-10 mt-7 flex items-center text-ink-muted;
+    background: rgb(9 12 36 / 0.86);
+    color: #e3e7ff;
+
+    a {
+      @apply text-[#9fb2ff] underline decoration-[#9fb2ff]/40 underline-offset-2 hover:decoration-[#9fb2ff];
     }
 
-    .content {
-      @apply my-5 space-y-1 border-y border-dashed border-line py-5;
+    ul {
+      @apply list-['–_'] space-y-0.5 pl-4;
+    }
+  }
 
-      .check {
-        @apply w-5 text-success;
-      }
+  .terminal-log {
+    @apply space-y-4;
+  }
 
-      h3 {
-        @apply ms-5 w-56 font-semibold text-success;
-      }
+  .terminal-entry {
+    @apply space-y-1.5;
+  }
 
-      ul {
-        @apply flex flex-wrap items-center gap-x-3;
-      }
+  .terminal-prompt {
+    @apply font-semibold text-[#7ee2a8];
+  }
+
+  .terminal-muted {
+    @apply text-[#9aa3cf];
+  }
+
+  .terminal-heading {
+    @apply font-semibold text-white;
+  }
+
+  .terminal-success {
+    @apply text-[#7ee2a8];
+  }
+
+  .terminal-table {
+    @apply grid gap-1;
+
+    > div {
+      @apply grid grid-cols-[12rem_1fr] gap-4;
     }
 
-    .footnote {
-      @apply flex items-center text-success;
+    dt {
+      @apply flex items-center gap-2 font-semibold text-[#7ee2a8];
 
       svg {
-        @apply me-5 w-5;
+        @apply size-3.5;
       }
+    }
+  }
+
+  .terminal-input {
+    @apply flex items-center gap-2;
+
+    input {
+      @apply min-w-0 flex-1 bg-transparent caret-[#7ee2a8] outline-none;
+    }
+  }
+
+  .terminal-suggestions {
+    @apply flex flex-none flex-wrap items-center gap-2 border-t border-line px-4 py-2.5 text-caption text-ink-muted;
+
+    button {
+      @apply rounded-full border border-line bg-surface-raised/60 px-2.5 py-0.5 font-mono text-ink transition-colors hover:bg-surface-hover;
+
+      &:focus-visible {
+        @apply outline-2 outline-accent;
+      }
+    }
+  }
+
+  /* ---------- Showcase (browser) ---------- */
+
+  #showcase {
+    @apply inset-x-0 top-14 mx-auto h-[min(760px,calc(100dvh-7.5rem))] w-[min(980px,calc(100vw-2rem))];
+  }
+
+  .browser-toolbar {
+    @apply py-2.5;
+  }
+
+  .window-header > .address-bar {
+    @apply font-normal text-ink-muted;
+  }
+
+  .address-bar {
+    @apply mx-auto flex w-[min(28rem,50vw)] items-center justify-center gap-1.5 rounded-control bg-surface-sunken px-3 py-1 text-label text-ink-muted;
+
+    svg {
+      @apply size-3.5 text-success;
+    }
+
+    span {
+      @apply truncate;
+    }
+  }
+
+  .browser-tabs {
+    @apply flex flex-none gap-1 border-b border-line px-3 py-1.5;
+
+    button {
+      @apply rounded-control px-3 py-1 text-label text-ink-muted transition-colors hover:bg-surface-hover;
+
+      &.active {
+        @apply bg-surface-raised font-semibold text-ink;
+      }
+
+      &:focus-visible {
+        @apply outline-2 outline-accent;
+      }
+    }
+  }
+
+  .showcase-page {
+    @apply min-h-0 flex-1 space-y-16 overflow-y-auto bg-page px-8 pt-12 pb-28 text-body;
+
+    > * {
+      @apply mx-auto max-w-3xl;
+    }
+
+    h2 {
+      @apply mb-4 text-large-title font-semibold tracking-tight;
+    }
+
+    h3 {
+      @apply text-body font-semibold;
+    }
+
+    section > p {
+      @apply max-w-[62ch] text-ink-muted;
+    }
+  }
+
+  .showcase-hero {
+    @apply text-center;
+
+    h1 {
+      @apply font-display text-[4.5rem] leading-none font-medium italic tracking-tight;
+    }
+
+    .showcase-shot {
+      @apply mt-10;
+    }
+  }
+
+  .showcase-lede {
+    @apply mx-auto mt-4 max-w-[46ch] text-title text-ink-muted;
+  }
+
+  .showcase-note {
+    @apply mt-3 text-label text-ink-muted;
+  }
+
+  .showcase-actions {
+    @apply mt-6 flex flex-wrap justify-center gap-3;
+  }
+
+  .showcase-button {
+    @apply inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-label font-semibold transition-colors hover:bg-surface-hover;
+
+    svg {
+      @apply size-4;
+    }
+
+    &.primary {
+      @apply border-transparent bg-accent text-on-accent hover:bg-accent hover:brightness-110;
+    }
+
+    &:focus-visible {
+      @apply outline-2 outline-offset-2 outline-accent;
+    }
+  }
+
+  /* Screenshots keep their own proportions inside a small browser frame. */
+  .showcase-shot {
+    @apply overflow-hidden rounded-panel border border-line bg-page-raised;
+
+    box-shadow: 0 24px 48px -24px rgb(20 32 110 / 0.45);
+
+    .shot-bar {
+      @apply flex gap-1.5 border-b border-line px-3 py-2;
+
+      i {
+        @apply size-2 rounded-full bg-ink-subtle/40;
+      }
+    }
+
+    img {
+      @apply mx-auto block h-auto max-h-[26rem] w-auto max-w-full;
+    }
+
+    &.is-cropped img {
+      @apply aspect-[1901/866] max-h-none w-full object-cover object-top;
+    }
+  }
+
+  .showcase-features {
+    @apply space-y-12;
+  }
+
+  .showcase-feature {
+    @apply grid grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)] items-start gap-8;
+
+    /* Text lines up with the top of the screenshot, below its frame bar. */
+    > div {
+      @apply pt-10;
+    }
+
+    /* The frame hugs narrow screenshots instead of filling the column. */
+    .showcase-shot:not(.is-cropped) {
+      @apply mx-auto w-fit max-w-full;
+    }
+
+    p {
+      @apply mt-2 text-ink-muted;
+    }
+
+    &:nth-child(even) {
+      @apply grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)];
+
+      > div {
+        @apply order-2;
+      }
+    }
+  }
+
+  /* Three tiers joined by arrows, with services and deployment underneath. */
+  .showcase-architecture {
+    @apply mt-6 space-y-3;
+  }
+
+  .architecture-layers {
+    @apply grid grid-cols-3 gap-8;
+
+    > li {
+      @apply relative rounded-panel border border-line bg-page-raised p-4;
+
+      &:not(:last-child)::after {
+        @apply absolute top-1/2 -right-7 -translate-y-1/2 text-title text-accent;
+
+        content: "→";
+      }
+    }
+
+    ul {
+      @apply mt-2 space-y-1 text-label text-ink-muted;
+    }
+  }
+
+  .architecture-side {
+    @apply grid grid-cols-2 gap-3;
+
+    > div {
+      @apply rounded-panel border border-dashed border-line p-4;
+    }
+
+    p {
+      @apply mt-1 text-label text-ink-muted;
+    }
+  }
+
+  .showcase-list {
+    @apply grid grid-cols-2 gap-x-8 gap-y-2 pl-5;
+
+    li {
+      @apply list-disc marker:text-accent;
+    }
+  }
+
+  .showcase-decisions {
+    @apply divide-y divide-line border-y border-line;
+
+    > div {
+      @apply grid grid-cols-[14rem_1fr] gap-6 py-4;
+    }
+
+    dt {
+      @apply font-semibold;
+    }
+
+    dd {
+      @apply text-ink-muted;
     }
   }
 
@@ -335,7 +597,7 @@
   /* ---------- Gallery ---------- */
 
   #photos {
-    @apply left-1/2 top-20 h-[min(78vh,680px)] w-[min(92vw,1040px)] -translate-x-1/2;
+    @apply inset-x-0 top-20 mx-auto h-[min(78vh,680px)] w-[min(92vw,1040px)];
   }
 
   .gallery-shell {
@@ -430,7 +692,7 @@
   /* ---------- Settings ---------- */
 
   #settings {
-    @apply left-1/2 top-24 w-[min(92vw,680px)] -translate-x-1/2;
+    @apply inset-x-0 top-24 mx-auto w-[min(92vw,680px)];
   }
 
   .settings-content {

@@ -28,9 +28,10 @@ const en: Dictionary = {
   dock: {
     apps: {
       finder: "Portfolio",
+      showcase: "Showcase",
       photos: "Gallery",
       contact: "Contact",
-      terminal: "Skills",
+      terminal: "Terminal",
       settings: "Settings",
     },
     restoreHint: "Click to restore",
@@ -55,6 +56,7 @@ const en: Dictionary = {
     resume: { name: "Resume" },
     trash: { name: "Trash" },
     resumePdf: { name: "Resume.pdf" },
+    showcaseFile: { name: "Showcase" },
     // DRAFT: based on your resume. Rewrite it in your own words whenever you like.
     aboutMe: {
       name: "about-me.txt",
@@ -86,17 +88,21 @@ const en: Dictionary = {
         "Designed and integrated an interactive tour that made the system easier for its users to adopt.",
       ],
     },
-    aiBigData: {
-      name: "ai-and-big-data.txt",
-      subtitle: "Specialization course in AI and Big Data",
-      meta: "IES El Rincón, 2026 – present",
-    },
-    daw: {
-      name: "web-development.txt",
-      subtitle: "Web Application Development (DAW)",
-      meta: "IES El Rincón, 2024 – 2026",
-      description: [
-        "Two-year higher vocational degree in Web Application Development.",
+    studies: {
+      name: "studies.txt",
+      subtitle: "Studies",
+      sections: [
+        {
+          title: "Specialization course in AI and Big Data",
+          meta: "IES El Rincón, 2026 – present",
+        },
+        {
+          title: "Web Application Development (DAW)",
+          meta: "IES El Rincón, 2024 – 2026",
+          description: [
+            "Two-year higher vocational degree in Web Application Development. CanAccesible started in this course, as a project by a team of second-year students.",
+          ],
+        },
       ],
     },
     awards: {
@@ -115,7 +121,7 @@ const en: Dictionary = {
         "The product also includes user dashboards, administrator support chat, real-time notifications, a bilingual interface, and an accessibility-focused blog.",
         "The team follows an Agile workflow with GitHub Projects, feature branches, pull requests, tests, technical documentation, and production deployment on DigitalOcean.",
         "Team: Carlos Pérez Santana, Iriome Matos González, and Jonathan Josué Morera Apaza.",
-        "My contribution: authentication and user flows with JWT, profile and avatar features, password recovery and change-password flows, transactional email with Resend, SEO improvements, frontend test infrastructure, backend and frontend tests, and work on the User, Role, Notification, and IncidentComment domains.",
+        "My contribution: authentication and user flows with JWT, profile and avatar features, password recovery and change-password flows, transactional email with Resend, SEO improvements, frontend test infrastructure, backend and frontend tests, work on the User, Role, Notification, and IncidentComment domains, and a hand in managing and deploying the project on the DigitalOcean VPS.",
       ],
     },
     canaccesibleStack: {
@@ -134,8 +140,115 @@ const en: Dictionary = {
       ],
     },
   },
-  textFile: {
-    photoPlaceholder: "Photo coming soon",
+  showcase: {
+    title: "Showcase",
+    tabs: "Projects",
+    openSite: (site) => `Open ${site} in a new tab`,
+    projects: {
+      canaccesible: {
+        address: "canaccesible.es/showcase",
+        hero: {
+          title: "CanAccesible",
+          lede: "A community platform for reporting accessibility barriers in the Canary Islands and browsing them on an interactive map.",
+          role: "Fullstack developer in a team of three",
+          visit: "Visit the website",
+          code: "View the code",
+        },
+        features: {
+          heading: "What it does",
+          items: {
+            report: {
+              title: "Report incidents",
+              text: "Anyone can post an accessibility barrier with photos. The community comments on it, likes it and follows its progress.",
+            },
+            map: {
+              title: "Interactive map",
+              text: "Incidents are shown on a Leaflet map, and coordinates are turned into addresses with the Nominatim API.",
+            },
+            manage: {
+              title: "Management and notifications",
+              text: "Dashboards for users and administrators, a support chat and real-time notifications.",
+            },
+          },
+        },
+        architecture: {
+          heading: "Architecture",
+          intro:
+            "A three-tier web application, deployed with containers on DigitalOcean.",
+          layers: [
+            {
+              title: "Client",
+              items: [
+                "React 19 and Vite",
+                "Zustand",
+                "Tailwind CSS",
+                "react-i18next",
+              ],
+            },
+            {
+              title: "REST API",
+              items: [
+                "Node.js and Express",
+                "JWT and Express Session",
+                "Socket.io",
+                "Web Push",
+              ],
+            },
+            {
+              title: "Data",
+              items: [
+                "MySQL",
+                "Sequelize with migrations",
+                "DigitalOcean Spaces",
+              ],
+            },
+          ],
+          services: {
+            title: "External services",
+            items: ["Resend", "Nominatim", "MyMemory", "OpenLDAP"],
+          },
+          deploy: {
+            title: "Deployment",
+            items: ["Docker Compose", "Nginx", "Let's Encrypt", "DigitalOcean"],
+          },
+        },
+        contribution: {
+          heading: "My contribution",
+          items: [
+            "Authentication and user flows with JWT.",
+            "Profile and avatar, password recovery and password change.",
+            "Transactional email with Resend.",
+            "SEO: semantic structure and page metadata.",
+            "Frontend testing infrastructure, plus backend and frontend tests.",
+            "User, Role, Notification and IncidentComment domains.",
+            "Management and deployment: access to the DigitalOcean VPS and help deploying the application to production.",
+          ],
+        },
+        decisions: {
+          heading: "Technical decisions",
+          items: [
+            {
+              title: "Socket.io for real time",
+              text: "We compared implementing native WebSockets in Node with using Socket.io, and chose Socket.io for notifications and real-time updates.",
+            },
+            {
+              title: "Images outside the API",
+              text: "Photos are uploaded with Multer and stored in DigitalOcean Spaces through the S3 SDK, so the API server stores no files.",
+            },
+            {
+              title: "Content in two languages",
+              text: "The interface is translated with react-i18next, and content written by users is translated with the MyMemory API.",
+            },
+          ],
+        },
+        team: {
+          heading: "How we worked",
+          text: "Agile workflow with GitHub Projects, feature branches, pull requests, tests, technical documentation and production deployment on DigitalOcean. Besides developing, I took part in managing the project and deploying it to the VPS.",
+          members:
+            "Team: Carlos Pérez Santana, Iriome Matos González and Jonathan Morera.",
+        },
+      },
+    },
   },
   gallery: {
     title: "Gallery",
@@ -154,10 +267,30 @@ const en: Dictionary = {
     },
   },
   terminal: {
-    title: "Tech stack",
-    command: "show tech stack",
-    category: "Category",
-    technologies: "Technologies",
+    title: "Terminal",
+    inputLabel: "Type a command",
+    suggestions: "Try:",
+    intro: "Type help to see every command.",
+    notFound: (command) =>
+      `Command not found: ${command}. Type help to see the commands.`,
+    commands: {
+      help: "Show this list",
+      skills: "Technologies I work with",
+      about: "Who I am",
+      experience: "Work experience",
+      education: "Education and awards",
+      projects: "Projects",
+      contact: "How to reach me",
+      cv: "Open my resume",
+      theme: "Change the theme: theme light, dark or auto",
+      lang: "Change the language: lang es or en",
+      clear: "Clear the terminal",
+    },
+    opening: (name) => `Opening ${name}…`,
+    themeSet: (name) => `Theme set to ${name}.`,
+    languageSet: (name) => `Language set to ${name}.`,
+    usage: (usage) => `Usage: ${usage}`,
+    projectLinks: "Website and repository:",
     summary: (categories, items) =>
       `${items} technologies across ${categories} categories`,
     categories: {
@@ -173,13 +306,14 @@ const en: Dictionary = {
     title: "Contact",
     name: "Jonathan Morera",
     role: "Fullstack developer",
-    intro: "Have a role, a project or a question? Write to me and I'll get back to you.",
+    intro:
+      "Have a role, a project or a question? Write to me and I'll get back to you.",
     email: "Send an email",
     photoAlt: "Photo of Jonathan Morera",
   },
   resume: {
     title: "Resume.pdf",
-    download: "Download resume",
+    download: "Download CV",
   },
   settings: {
     title: "Settings",

@@ -14,6 +14,7 @@ import Contact from "./windows/Contact";
 import Photos from "./windows/Gallery";
 import Home from "./components/Home";
 import Settings from "./windows/Settings";
+import Showcase from "./windows/Showcase";
 import { useResolvedTheme } from "./store/theme";
 import useLanguageStore from "./store/language";
 import { useTranslation } from "./i18n";
@@ -41,6 +42,7 @@ const App = () => {
       <Dock />
 
       <Terminal />
+      <Showcase />
       <Resume />
       <Finder />
       <Text />

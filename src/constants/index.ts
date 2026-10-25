@@ -12,6 +12,7 @@ export type WindowKey =
   | "resume"
   | "photos"
   | "terminal"
+  | "showcase"
   | "txtfile"
   | "imgfile";
 
@@ -74,7 +75,10 @@ export type FileLocation = LocationBase & {
   /** Icon for links: a website, a repository or a certificate. */
   linkStyle?: "web" | "github" | "certificate";
   imageUrl?: string;
-  showPhotoSlot?: boolean;
+  /** Opens one of the portfolio's own windows instead of a link. */
+  opensWindow?: "showcase";
+  /** Portrait shown at the top of the document. */
+  photo?: string;
 };
 
 export interface FolderLocation extends LocationBase {
@@ -114,6 +118,10 @@ const navLinks = [
 const dockApps = [
   {
     id: "finder",
+    canOpen: true,
+  },
+  {
+    id: "showcase",
     canOpen: true,
   },
   {
@@ -188,32 +196,32 @@ const galleryProjects = [
       {
         id: 1,
         img: "/images/canaccesible-project/canaccesible-8.png",
-        altId: "about",
+        altId: "landing",
       },
       {
         id: 2,
         img: "/images/canaccesible-project/canaccesible-7.png",
-        altId: "login",
+        altId: "about",
       },
       {
         id: 3,
         img: "/images/canaccesible-project/canaccesible-1.png",
-        altId: "landing",
+        altId: "map",
       },
       {
         id: 4,
         img: "/images/canaccesible-project/canaccesible-6.png",
-        altId: "map",
+        altId: "login",
       },
       {
         id: 5,
         img: "/images/canaccesible-project/canaccesible-2.png",
-        altId: "incident",
+        altId: "management",
       },
       {
         id: 6,
         img: "/images/canaccesible-project/canaccesible-3.png",
-        altId: "contact",
+        altId: "incident",
       },
       {
         id: 7,
@@ -223,7 +231,7 @@ const galleryProjects = [
       {
         id: 8,
         img: "/images/canaccesible-project/canaccesible-5.png",
-        altId: "management",
+        altId: "contact",
       },
     ],
   },
@@ -262,6 +270,14 @@ const WORK_LOCATION: WorkLocation = {
       kind: "folder",
       windowPosition: "top-[8vh] left-5",
       children: [
+        {
+          id: 13,
+          textId: "showcaseFile",
+          kind: "file",
+          fileType: "url",
+          linkStyle: "web",
+          opensWindow: "showcase",
+        },
         {
           id: 1,
           textId: "canaccesibleProject",
@@ -319,13 +335,7 @@ const EDUCATION_LOCATION: FolderLocation = {
   children: [
     {
       id: 1,
-      textId: "aiBigData",
-      kind: "file",
-      fileType: "txt",
-    },
-    {
-      id: 2,
-      textId: "daw",
+      textId: "studies",
       kind: "file",
       fileType: "txt",
     },
@@ -365,7 +375,7 @@ const ABOUT_LOCATION: FolderLocation = {
       textId: "aboutMe",
       kind: "file",
       fileType: "txt",
-      showPhotoSlot: true,
+      photo: "/images/jonathan-1.jpeg",
     },
   ],
 };
@@ -420,6 +430,7 @@ const WINDOW_CONFIG: Record<WindowKey, WindowConfigEntry> = {
   resume: closedWindow(),
   photos: closedWindow(),
   terminal: closedWindow(),
+  showcase: closedWindow(),
   txtfile: closedWindow(),
   imgfile: closedWindow(),
 };

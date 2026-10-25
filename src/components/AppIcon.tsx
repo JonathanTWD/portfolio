@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import {
+  Compass,
   FolderOpen,
   Images,
   Mail,
@@ -11,6 +12,7 @@ import type { DockAppId } from "../constants";
 
 const GLYPHS: Record<DockAppId, LucideIcon> = {
   finder: FolderOpen,
+  showcase: Compass,
   photos: Images,
   contact: Mail,
   terminal: SquareTerminal,
