@@ -19,11 +19,11 @@ const locations: Record<LocationTextId, LocationText> = {
   aboutMe: {
     name: "sobre-mi.txt",
     subtitle: "Jonathan Morera",
-    meta: "Desarrollador fullstack",
+    meta: "Desarrollador fullstack en Las Palmas de Gran Canaria",
     description: [
       "Soy desarrollador fullstack y trabajo sobre todo con React, TypeScript, Java y Spring Boot. Me interesa tanto la lógica de negocio como la experiencia de quien usa la aplicación.",
       "He desarrollado APIs REST, interfaces web e integraciones con bases de datos, y disfruto refactorizando código para que sea más claro y fácil de mantener.",
-      "En mis prácticas trabajé en un sistema de facturación para una cadena hotelera, y mi proyecto más completo es CanAccesible, una plataforma comunitaria para reportar barreras de accesibilidad en Canarias.",
+      "En mis prácticas en The Wise Dreams trabajé en un sistema de facturación para una cadena hotelera, y mi proyecto más completo es CanAccesible, una plataforma comunitaria para reportar barreras de accesibilidad en Canarias.",
       "Ahora curso la especialización en IA y Big Data y busco mi próximo puesto como desarrollador fullstack.",
     ],
     bullets: [
@@ -34,7 +34,7 @@ const locations: Record<LocationTextId, LocationText> = {
   },
   internship: {
     name: "practicas-fullstack.txt",
-    subtitle: "Desarrollador fullstack en prácticas",
+    subtitle: "Desarrollador fullstack en prácticas en The Wise Dreams",
     meta: "Enero 2026 – mayo 2026",
     description: [
       "Sistema de facturación para una cadena hotelera, desarrollado de principio a fin con React (TypeScript) y Spring Boot.",
@@ -166,6 +166,7 @@ const es = {
       title: "Ahora mismo",
       status: "Buscando puesto fullstack",
       detail: "Disponible para entrevistas",
+      location: "Las Palmas de Gran Canaria, España",
       action: "Contactar",
     },
     featured: {
@@ -353,6 +354,7 @@ const es = {
     title: "Contacto",
     name: "Jonathan Morera",
     role: "Desarrollador fullstack",
+    location: "Las Palmas de Gran Canaria, España",
     intro:
       "¿Tienes un puesto, un proyecto o una pregunta? Escríbeme y te respondo.",
     email: "Escribir un correo",

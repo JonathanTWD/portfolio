@@ -215,6 +215,14 @@
     @apply mt-1 text-label text-ink-muted;
   }
 
+  .widget-location {
+    @apply flex items-center gap-1;
+
+    svg {
+      @apply size-3.5 flex-none;
+    }
+  }
+
   .status-dot {
     @apply size-2 flex-none rounded-full bg-[#2ec27e];
 

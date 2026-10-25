@@ -1,4 +1,4 @@
-import { Download, Mail } from "lucide-react";
+import { Download, Mail, MapPin } from "lucide-react";
 import BrandIcon from "../components/BrandIcon";
 import WindowControls from "../components/WindowControls";
 import { CONTACT_EMAIL, RESUME_URL, socials } from "../constants";
@@ -24,6 +24,10 @@ const Contact = () => {
         <div>
           <h3>{t.contact.name}</h3>
           <p className="contact-role">{t.contact.role}</p>
+          <p className="contact-location">
+            <MapPin aria-hidden="true" />
+            {t.contact.location}
+          </p>
         </div>
         <p className="contact-intro">{t.contact.intro}</p>
 
