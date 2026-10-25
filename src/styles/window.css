@@ -52,6 +52,18 @@
       margin: 0 !important;
       border-radius: 0;
       border-width: 0;
+
+      /* Maximized windows reach the bottom of the screen: leave room so the
+         dock never covers the end of the content. */
+      .text-document,
+      .finder-grid,
+      .terminal-body,
+      .gallery-canvas,
+      .resume-document,
+      .image-content,
+      .settings-panel {
+        padding-bottom: 7rem;
+      }
     }
   }
 

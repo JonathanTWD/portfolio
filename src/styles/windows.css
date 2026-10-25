@@ -210,8 +210,8 @@
     }
   }
 
-  .text-document > .document-photo {
-    @apply mx-0 size-24 rounded-full object-cover;
+  .text-document .document-photo {
+    @apply mb-4 size-24 rounded-full object-cover;
 
     box-shadow:
       0 0 0 3px var(--color-surface-raised),

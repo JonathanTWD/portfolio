@@ -22,16 +22,16 @@ const Text = () => {
       </div>
 
       <article className="text-document">
-        {data.photo && (
-          <img
-            className="document-photo"
-            src={data.photo}
-            alt={t.contact.photoAlt}
-          />
-        )}
-        {subtitle && (
+        {(data.photo || subtitle) && (
           <header>
-            <h1>{subtitle}</h1>
+            {data.photo && (
+              <img
+                className="document-photo"
+                src={data.photo}
+                alt={t.contact.photoAlt}
+              />
+            )}
+            {subtitle && <h1>{subtitle}</h1>}
             {meta && <p className="document-meta">{meta}</p>}
           </header>
         )}
