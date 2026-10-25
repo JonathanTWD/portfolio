@@ -232,40 +232,84 @@
     @apply max-h-full w-auto max-w-full;
   }
 
-  /* ---------- Skills (terminal) ---------- */
+  /* ---------- Terminal ---------- */
 
   #terminal {
-    @apply top-30 left-1/4 w-[min(42rem,calc(100vw-2rem))];
+    @apply top-28 left-1/4 h-[min(520px,calc(100dvh-9rem))] w-[min(44rem,calc(100vw-2rem))];
   }
 
-  .techstack {
-    @apply min-h-0 flex-1 overflow-y-auto p-5 font-mono text-label;
+  /* A dark console in both themes, tinted with the Hora azul ink. */
+  .terminal-body {
+    @apply min-h-0 flex-1 cursor-text space-y-3 overflow-y-auto px-5 py-4 font-mono text-label;
 
-    .label {
-      @apply ms-10 mt-7 flex items-center text-ink-muted;
+    background: rgb(9 12 36 / 0.86);
+    color: #e3e7ff;
+
+    a {
+      @apply text-[#9fb2ff] underline decoration-[#9fb2ff]/40 underline-offset-2 hover:decoration-[#9fb2ff];
     }
 
-    .content {
-      @apply my-5 space-y-1 border-y border-dashed border-line py-5;
+    ul {
+      @apply list-['–_'] space-y-0.5 pl-4;
+    }
+  }
 
-      .check {
-        @apply w-5 text-success;
-      }
+  .terminal-log {
+    @apply space-y-4;
+  }
 
-      h3 {
-        @apply ms-5 w-56 font-semibold text-success;
-      }
+  .terminal-entry {
+    @apply space-y-1.5;
+  }
 
-      ul {
-        @apply flex flex-wrap items-center gap-x-3;
-      }
+  .terminal-prompt {
+    @apply font-semibold text-[#7ee2a8];
+  }
+
+  .terminal-muted {
+    @apply text-[#9aa3cf];
+  }
+
+  .terminal-heading {
+    @apply font-semibold text-white;
+  }
+
+  .terminal-success {
+    @apply text-[#7ee2a8];
+  }
+
+  .terminal-table {
+    @apply grid gap-1;
+
+    > div {
+      @apply grid grid-cols-[12rem_1fr] gap-4;
     }
 
-    .footnote {
-      @apply flex items-center text-success;
+    dt {
+      @apply flex items-center gap-2 font-semibold text-[#7ee2a8];
 
       svg {
-        @apply me-5 w-5;
+        @apply size-3.5;
+      }
+    }
+  }
+
+  .terminal-input {
+    @apply flex items-center gap-2;
+
+    input {
+      @apply min-w-0 flex-1 bg-transparent caret-[#7ee2a8] outline-none;
+    }
+  }
+
+  .terminal-suggestions {
+    @apply flex flex-none flex-wrap items-center gap-2 border-t border-line px-4 py-2.5 text-caption text-ink-muted;
+
+    button {
+      @apply rounded-full border border-line bg-surface-raised/60 px-2.5 py-0.5 font-mono text-ink transition-colors hover:bg-surface-hover;
+
+      &:focus-visible {
+        @apply outline-2 outline-accent;
       }
     }
   }
