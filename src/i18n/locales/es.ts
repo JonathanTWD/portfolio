@@ -14,7 +14,7 @@ const locations: Record<LocationTextId, LocationText> = {
   resume: { name: "Currículum" },
   trash: { name: "Papelera" },
   resumePdf: { name: "CV.pdf" },
-  caseStudyFile: { name: "Caso de estudio" },
+  showcaseFile: { name: "Escaparate" },
   // BORRADOR: basado en tu CV. Reescríbelo con tus palabras cuando quieras.
   aboutMe: {
     name: "sobre-mi.txt",
@@ -46,17 +46,21 @@ const locations: Record<LocationTextId, LocationText> = {
       "Diseñé e integré un tour interactivo que facilitó la adopción del sistema por parte de sus usuarios.",
     ],
   },
-  aiBigData: {
-    name: "ia-y-big-data.txt",
-    subtitle: "Curso de especialización en IA y Big Data",
-    meta: "IES El Rincón, 2026 – actualidad",
-  },
-  daw: {
-    name: "daw.txt",
-    subtitle: "Desarrollo de Aplicaciones Web (DAW)",
-    meta: "IES El Rincón, 2024 – 2026",
-    description: [
-      "Ciclo formativo de grado superior en Desarrollo de Aplicaciones Web.",
+  studies: {
+    name: "estudios.txt",
+    subtitle: "Estudios",
+    sections: [
+      {
+        title: "Curso de especialización en IA y Big Data",
+        meta: "IES El Rincón, 2026 – actualidad",
+      },
+      {
+        title: "Desarrollo de Aplicaciones Web (DAW)",
+        meta: "IES El Rincón, 2024 – 2026",
+        description: [
+          "Ciclo formativo de grado superior en Desarrollo de Aplicaciones Web. CanAccesible nació en este ciclo, como proyecto de un equipo de estudiantes de segundo curso.",
+        ],
+      },
     ],
   },
   awards: {
@@ -75,7 +79,7 @@ const locations: Record<LocationTextId, LocationText> = {
       "El producto incluye también paneles de usuario, chat de soporte con administradores, notificaciones en tiempo real, interfaz bilingüe y un blog centrado en accesibilidad.",
       "El equipo trabaja con metodología ágil usando GitHub Projects, ramas por funcionalidad, pull requests, tests, documentación técnica y despliegue en producción en DigitalOcean.",
       "Equipo: Carlos Pérez Santana, Iriome Matos González y Jonathan Josué Morera Apaza.",
-      "Mi aportación: autenticación y flujos de usuario con JWT, perfil y avatar, recuperación y cambio de contraseña, correo transaccional con Resend, mejoras de SEO, infraestructura de tests del frontend, tests de backend y frontend, y trabajo en los dominios User, Role, Notification e IncidentComment.",
+      "Mi aportación: autenticación y flujos de usuario con JWT, perfil y avatar, recuperación y cambio de contraseña, correo transaccional con Resend, mejoras de SEO, infraestructura de tests del frontend, tests de backend y frontend, trabajo en los dominios User, Role, Notification e IncidentComment, y participación en la gestión y el despliegue del proyecto en el VPS de DigitalOcean.",
     ],
   },
   canaccesibleStack: {
@@ -148,7 +152,7 @@ const es = {
   dock: {
     apps: {
       finder: "Portfolio",
-      casestudy: "Caso de estudio",
+      showcase: "Escaparate",
       photos: "Galería",
       contact: "Contacto",
       terminal: "Terminal",
@@ -172,103 +176,121 @@ const es = {
   textFile: {
     photoPlaceholder: "Foto próximamente",
   },
-  caseStudy: {
-    title: "Caso de estudio",
-    address: "canaccesible.es/caso-de-estudio",
-    openSite: "Abrir canaccesible.es en una pestaña nueva",
-    hero: {
-      title: "CanAccesible",
-      lede: "Plataforma comunitaria para reportar barreras de accesibilidad en Canarias y consultarlas en un mapa interactivo.",
-      role: "Desarrollador fullstack en un equipo de tres personas",
-      visit: "Visitar la web",
-      code: "Ver el código",
-    },
-    features: {
-      heading: "Qué hace",
-      items: {
-        report: {
-          title: "Reportar incidencias",
-          text: "Cualquiera puede publicar una barrera de accesibilidad con fotos. La comunidad la comenta, le da me gusta y sigue su evolución.",
+  showcase: {
+    title: "Escaparate",
+    tabs: "Proyectos",
+    openSite: (site: string) => `Abrir ${site} en una pestaña nueva`,
+    projects: {
+      canaccesible: {
+        address: "canaccesible.es/escaparate",
+        hero: {
+          title: "CanAccesible",
+          lede: "Plataforma comunitaria para reportar barreras de accesibilidad en Canarias y consultarlas en un mapa interactivo.",
+          role: "Desarrollador fullstack en un equipo de tres personas",
+          visit: "Visitar la web",
+          code: "Ver el código",
         },
-        map: {
-          title: "Mapa interactivo",
-          text: "Las incidencias se muestran sobre un mapa con Leaflet, y las coordenadas se convierten en direcciones con la API de Nominatim.",
+        features: {
+          heading: "Qué hace",
+          items: {
+            report: {
+              title: "Reportar incidencias",
+              text: "Cualquiera puede publicar una barrera de accesibilidad con fotos. La comunidad la comenta, le da me gusta y sigue su evolución.",
+            },
+            map: {
+              title: "Mapa interactivo",
+              text: "Las incidencias se muestran sobre un mapa con Leaflet, y las coordenadas se convierten en direcciones con la API de Nominatim.",
+            },
+            manage: {
+              title: "Gestión y notificaciones",
+              text: "Paneles para usuarios y administradores, chat de soporte y notificaciones en tiempo real.",
+            },
+          },
         },
-        manage: {
-          title: "Gestión y notificaciones",
-          text: "Paneles para usuarios y administradores, chat de soporte y notificaciones en tiempo real.",
+        architecture: {
+          heading: "Arquitectura",
+          intro:
+            "Una aplicación web de tres capas, desplegada con contenedores en DigitalOcean.",
+          layers: [
+            {
+              title: "Cliente",
+              items: [
+                "React 19 y Vite",
+                "Zustand",
+                "Tailwind CSS",
+                "react-i18next",
+              ],
+            },
+            {
+              title: "API REST",
+              items: [
+                "Node.js y Express",
+                "JWT y Express Session",
+                "Socket.io",
+                "Web Push",
+              ],
+            },
+            {
+              title: "Datos",
+              items: [
+                "MySQL",
+                "Sequelize con migraciones",
+                "DigitalOcean Spaces",
+              ],
+            },
+          ],
+          services: {
+            title: "Servicios externos",
+            items: ["Resend", "Nominatim", "MyMemory", "OpenLDAP"],
+          },
+          deploy: {
+            title: "Despliegue",
+            items: ["Docker Compose", "Nginx", "Let's Encrypt", "DigitalOcean"],
+          },
+        },
+        contribution: {
+          heading: "Mi aportación",
+          items: [
+            "Autenticación y flujos de usuario con JWT.",
+            "Perfil y avatar, recuperación y cambio de contraseña.",
+            "Correo transaccional con Resend.",
+            "SEO: estructura semántica y metadatos de las páginas.",
+            "Infraestructura de tests del frontend y tests de backend y frontend.",
+            "Dominios User, Role, Notification e IncidentComment.",
+            "Gestión y despliegue: acceso al VPS de DigitalOcean y ayuda con el despliegue de la aplicación en producción.",
+          ],
+        },
+        decisions: {
+          heading: "Decisiones técnicas",
+          items: [
+            {
+              title: "Socket.io para el tiempo real",
+              text: "Comparamos implementar WebSockets nativos en Node con usar Socket.io, y elegimos Socket.io para las notificaciones y las actualizaciones en tiempo real.",
+            },
+            {
+              title: "Imágenes fuera de la API",
+              text: "Las fotos se suben con Multer y se guardan en DigitalOcean Spaces a través del SDK de S3, así el servidor de la API no almacena archivos.",
+            },
+            {
+              title: "Contenido en dos idiomas",
+              text: "La interfaz se traduce con react-i18next y el contenido que escriben los usuarios, con la API de MyMemory.",
+            },
+          ],
+        },
+        team: {
+          heading: "Cómo trabajamos",
+          text: "Metodología ágil con GitHub Projects, ramas por funcionalidad, pull requests, tests, documentación técnica y despliegue en producción en DigitalOcean. Además de desarrollar, participé en la gestión del proyecto y en su despliegue en el VPS.",
+          members:
+            "Equipo: Carlos Pérez Santana, Iriome Matos González y Jonathan Morera.",
         },
       },
-    },
-    architecture: {
-      heading: "Arquitectura",
-      intro:
-        "Una aplicación web de tres capas, desplegada con contenedores en DigitalOcean.",
-      layers: [
-        {
-          title: "Cliente",
-          items: ["React 19 y Vite", "Zustand", "Tailwind CSS", "react-i18next"],
-        },
-        {
-          title: "API REST",
-          items: ["Node.js y Express", "JWT y Express Session", "Socket.io", "Web Push"],
-        },
-        {
-          title: "Datos",
-          items: ["MySQL", "Sequelize con migraciones", "DigitalOcean Spaces"],
-        },
-      ],
-      services: {
-        title: "Servicios externos",
-        items: ["Resend", "Nominatim", "MyMemory", "OpenLDAP"],
-      },
-      deploy: {
-        title: "Despliegue",
-        items: ["Docker Compose", "Nginx", "Let's Encrypt", "DigitalOcean"],
-      },
-    },
-    contribution: {
-      heading: "Mi aportación",
-      items: [
-        "Autenticación y flujos de usuario con JWT.",
-        "Perfil y avatar, recuperación y cambio de contraseña.",
-        "Correo transaccional con Resend.",
-        "SEO: estructura semántica y metadatos de las páginas.",
-        "Infraestructura de tests del frontend y tests de backend y frontend.",
-        "Dominios User, Role, Notification e IncidentComment.",
-      ],
-    },
-    // BORRADOR: añade aquí los retos reales y por qué tomasteis cada decisión.
-    decisions: {
-      heading: "Decisiones técnicas",
-      items: [
-        {
-          title: "Tiempo real por dos vías",
-          text: "Socket.io mantiene la aplicación al día mientras está abierta, y Web Push con VAPID avisa aunque la pestaña esté cerrada.",
-        },
-        {
-          title: "Imágenes fuera de la API",
-          text: "Las fotos se suben con Multer y se guardan en DigitalOcean Spaces a través del SDK de S3, así el servidor de la API no almacena archivos.",
-        },
-        {
-          title: "Contenido en dos idiomas",
-          text: "La interfaz se traduce con react-i18next y el contenido que escriben los usuarios, con la API de MyMemory.",
-        },
-      ],
-    },
-    team: {
-      heading: "Cómo trabajamos",
-      text: "Metodología ágil con GitHub Projects, ramas por funcionalidad, pull requests, tests, documentación técnica y despliegue en producción en DigitalOcean.",
-      members:
-        "Equipo: Carlos Pérez Santana, Iriome Matos González y Jonathan Morera.",
     },
   },
   gallery: {
     title: "Galería",
     projects: "Proyectos",
     open: (alt: string) => `Abrir ${alt}`,
-    imageName: (project: string, index: number) =>
-      `${project} imagen ${index}`,
+    imageName: (project: string, index: number) => `${project} imagen ${index}`,
     images: galleryImages,
   },
   terminal: {

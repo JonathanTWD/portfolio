@@ -12,7 +12,7 @@ import type { DockAppId } from "../constants";
 
 const GLYPHS: Record<DockAppId, LucideIcon> = {
   finder: FolderOpen,
-  casestudy: Compass,
+  showcase: Compass,
   photos: Images,
   contact: Mail,
   terminal: SquareTerminal,

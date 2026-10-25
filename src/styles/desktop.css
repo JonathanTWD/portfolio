@@ -94,6 +94,18 @@
       }
     }
 
+    .dock-separator {
+      @apply mx-1 h-12 w-px self-center bg-on-wallpaper/25;
+    }
+
+    .dock-document {
+      @apply grid size-14 place-items-center 3xl:size-20;
+
+      .file-icon {
+        @apply scale-90;
+      }
+    }
+
     .window-preview {
       @apply absolute bottom-[calc(100%+0.5rem)] left-1/2 w-72 h-40 overflow-hidden rounded-panel bg-surface-raised cursor-pointer glass;
 
@@ -154,7 +166,7 @@
       background: linear-gradient(160deg, #6fc3ff, #2f6bff);
     }
 
-    &.app-casestudy {
+    &.app-showcase {
       background: linear-gradient(160deg, #b39bff, #6a4df0);
     }
 

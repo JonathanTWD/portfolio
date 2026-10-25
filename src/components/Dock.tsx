@@ -2,12 +2,15 @@ import { Tooltip } from "react-tooltip";
 import gsap from "gsap";
 
 import { useEffect, useRef, useState } from "react";
-import { dockApps } from "../constants";
+import { dockApps, type FileLocation } from "../constants";
 import { useGSAP } from "@gsap/react";
 import useWindowStore, { type WindowKey } from "../store/window";
-import { useTranslation } from "../i18n";
+import { getLocationText, useTranslation } from "../i18n";
+import FileIcon from "./FileIcon";
 import AppIcon from "./AppIcon";
 import clsx from "clsx";
+
+const DOCUMENT_WINDOWS = ["resume", "txtfile", "imgfile"] as const;
 
 type WindowPreviewProps = {
   windowKey: WindowKey;
@@ -127,6 +130,12 @@ const WindowPreview = ({
 const Dock = () => {
   const { windows, openWindow, focusWindow, restoreWindow } = useWindowStore();
   const t = useTranslation();
+
+  /* Windows without a dock app (resume, documents, images) sit at the right
+     of the dock while minimized, like in macOS. */
+  const minimizedDocuments = DOCUMENT_WINDOWS.filter(
+    (key) => windows[key].isOpen && windows[key].isMinimized,
+  );
   const dockRef = useRef<HTMLDivElement | null>(null);
   const hidePreviewTimeout = useRef<number | null>(null);
   const [previewWindow, setPreviewWindow] = useState<WindowKey | null>(null);
@@ -280,6 +289,33 @@ const Dock = () => {
                 <AppIcon app={id} className={canOpen ? "" : "opacity-60"} />
               </button>
             </div>
+          );
+        })}
+        {minimizedDocuments.length > 0 && (
+          <span className="dock-separator" aria-hidden="true" />
+        )}
+        {minimizedDocuments.map((key) => {
+          const data = windows[key].data;
+          const item: FileLocation =
+            key === "resume" || !data || data.kind !== "file"
+              ? { id: 0, kind: "file", fileType: "pdf" }
+              : data;
+          const name =
+            key === "resume" ? t.resume.title : getLocationText(t, item).name;
+
+          return (
+            <button
+              key={key}
+              type="button"
+              className="dock-icon dock-document"
+              data-dock-window={key}
+              aria-label={t.dock.restore(name)}
+              data-tooltip-id="dock-tooltip"
+              data-tooltip-content={name}
+              onClick={() => restoreWindow(key)}
+            >
+              <FileIcon item={item} />
+            </button>
           );
         })}
         <Tooltip id="dock-tooltip" place="top" className="tooltip" />

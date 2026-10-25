@@ -200,6 +200,14 @@
     ul {
       @apply list-disc space-y-1.5 pl-5 marker:text-accent;
     }
+
+    .document-section {
+      @apply space-y-1 border-t border-line pt-4;
+
+      h2 {
+        @apply text-title font-semibold;
+      }
+    }
   }
 
   .text-document > .photo-slot {
@@ -314,10 +322,10 @@
     }
   }
 
-  /* ---------- Case study (browser) ---------- */
+  /* ---------- Showcase (browser) ---------- */
 
-  #casestudy {
-    @apply left-1/2 top-14 h-[min(760px,calc(100dvh-7.5rem))] w-[min(980px,calc(100vw-2rem))] -translate-x-1/2;
+  #showcase {
+    @apply inset-x-0 top-14 mx-auto h-[min(760px,calc(100dvh-7.5rem))] w-[min(980px,calc(100vw-2rem))];
   }
 
   .browser-toolbar {
@@ -336,7 +344,23 @@
     }
   }
 
-  .case-study {
+  .browser-tabs {
+    @apply flex flex-none gap-1 border-b border-line px-3 py-1.5;
+
+    button {
+      @apply rounded-control px-3 py-1 text-label text-ink-muted transition-colors hover:bg-surface-hover;
+
+      &.active {
+        @apply bg-surface-raised font-semibold text-ink;
+      }
+
+      &:focus-visible {
+        @apply outline-2 outline-accent;
+      }
+    }
+  }
+
+  .showcase-page {
     @apply min-h-0 flex-1 space-y-16 overflow-y-auto bg-page px-8 pt-12 pb-28 text-body;
 
     > * {
@@ -356,27 +380,31 @@
     }
   }
 
-  .case-hero {
+  .showcase-hero {
     @apply text-center;
 
     h1 {
       @apply font-display text-[4.5rem] leading-none font-medium italic tracking-tight;
     }
+
+    .showcase-shot {
+      @apply mt-10;
+    }
   }
 
-  .case-lede {
+  .showcase-lede {
     @apply mx-auto mt-4 max-w-[46ch] text-title text-ink-muted;
   }
 
-  .case-role {
+  .showcase-note {
     @apply mt-3 text-label text-ink-muted;
   }
 
-  .case-actions {
+  .showcase-actions {
     @apply mt-6 flex flex-wrap justify-center gap-3;
   }
 
-  .case-button {
+  .showcase-button {
     @apply inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-label font-semibold transition-colors hover:bg-surface-hover;
 
     svg {
@@ -392,25 +420,35 @@
     }
   }
 
-  .case-shot {
-    @apply w-full rounded-panel border border-line object-cover object-top;
+  /* Screenshots keep their own proportions inside a small browser frame. */
+  .showcase-shot {
+    @apply overflow-hidden rounded-panel border border-line bg-page-raised;
 
     box-shadow: 0 24px 48px -24px rgb(20 32 110 / 0.45);
-  }
 
-  .hero-shot {
-    @apply mt-10 aspect-[16/9];
-  }
+    .shot-bar {
+      @apply flex gap-1.5 border-b border-line px-3 py-2;
 
-  .case-features {
-    @apply space-y-10;
-  }
-
-  .case-feature {
-    @apply grid grid-cols-[1.4fr_1fr] items-center gap-8;
+      i {
+        @apply size-2 rounded-full bg-ink-subtle/40;
+      }
+    }
 
     img {
-      @apply aspect-[16/10];
+      @apply mx-auto block h-auto max-h-[26rem] w-auto max-w-full;
+    }
+  }
+
+  .showcase-features {
+    @apply space-y-12;
+  }
+
+  .showcase-feature {
+    @apply grid grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)] items-center gap-8;
+
+    /* The frame hugs narrow screenshots instead of filling the column. */
+    .showcase-shot {
+      @apply mx-auto w-fit max-w-full;
     }
 
     p {
@@ -418,16 +456,16 @@
     }
 
     &:nth-child(even) {
-      @apply grid-cols-[1fr_1.4fr];
+      @apply grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)];
 
-      img {
+      > div {
         @apply order-2;
       }
     }
   }
 
   /* Three tiers joined by arrows, with services and deployment underneath. */
-  .case-architecture {
+  .showcase-architecture {
     @apply mt-6 space-y-3;
   }
 
@@ -461,7 +499,7 @@
     }
   }
 
-  .case-list {
+  .showcase-list {
     @apply grid grid-cols-2 gap-x-8 gap-y-2 pl-5;
 
     li {
@@ -469,7 +507,7 @@
     }
   }
 
-  .case-decisions {
+  .showcase-decisions {
     @apply divide-y divide-line border-y border-line;
 
     > div {
@@ -550,7 +588,7 @@
   /* ---------- Gallery ---------- */
 
   #photos {
-    @apply left-1/2 top-20 h-[min(78vh,680px)] w-[min(92vw,1040px)] -translate-x-1/2;
+    @apply inset-x-0 top-20 mx-auto h-[min(78vh,680px)] w-[min(92vw,1040px)];
   }
 
   .gallery-shell {
@@ -645,7 +683,7 @@
   /* ---------- Settings ---------- */
 
   #settings {
-    @apply left-1/2 top-24 w-[min(92vw,680px)] -translate-x-1/2;
+    @apply inset-x-0 top-24 mx-auto w-[min(92vw,680px)];
   }
 
   .settings-content {

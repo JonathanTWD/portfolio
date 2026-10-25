@@ -12,7 +12,7 @@ export type WindowKey =
   | "resume"
   | "photos"
   | "terminal"
-  | "casestudy"
+  | "showcase"
   | "txtfile"
   | "imgfile";
 
@@ -76,7 +76,7 @@ export type FileLocation = LocationBase & {
   linkStyle?: "web" | "github" | "certificate";
   imageUrl?: string;
   /** Opens one of the portfolio's own windows instead of a link. */
-  opensWindow?: "casestudy";
+  opensWindow?: "showcase";
   showPhotoSlot?: boolean;
 };
 
@@ -120,7 +120,7 @@ const dockApps = [
     canOpen: true,
   },
   {
-    id: "casestudy",
+    id: "showcase",
     canOpen: true,
   },
   {
@@ -271,11 +271,11 @@ const WORK_LOCATION: WorkLocation = {
       children: [
         {
           id: 13,
-          textId: "caseStudyFile",
+          textId: "showcaseFile",
           kind: "file",
           fileType: "url",
           linkStyle: "web",
-          opensWindow: "casestudy",
+          opensWindow: "showcase",
         },
         {
           id: 1,
@@ -334,13 +334,7 @@ const EDUCATION_LOCATION: FolderLocation = {
   children: [
     {
       id: 1,
-      textId: "aiBigData",
-      kind: "file",
-      fileType: "txt",
-    },
-    {
-      id: 2,
-      textId: "daw",
+      textId: "studies",
       kind: "file",
       fileType: "txt",
     },
@@ -435,7 +429,7 @@ const WINDOW_CONFIG: Record<WindowKey, WindowConfigEntry> = {
   resume: closedWindow(),
   photos: closedWindow(),
   terminal: closedWindow(),
-  casestudy: closedWindow(),
+  showcase: closedWindow(),
   txtfile: closedWindow(),
   imgfile: closedWindow(),
 };

@@ -247,9 +247,13 @@ const Output = ({ input, t }: { input: string; t: Dictionary }) => {
           <p className="terminal-heading">
             {job.subtitle} <span className="terminal-muted">({job.meta})</span>
           </p>
-          {job.description?.map((line) => <p key={line}>{line}</p>)}
+          {job.description?.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
           <ul>
-            {job.bullets?.map((line) => <li key={line}>{line}</li>)}
+            {job.bullets?.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
           </ul>
         </>
       );
@@ -258,12 +262,10 @@ const Output = ({ input, t }: { input: string; t: Dictionary }) => {
     case "education":
       return (
         <>
-          {(["aiBigData", "daw"] as const).map((id) => (
-            <p key={id}>
-              <span className="terminal-heading">
-                {t.locations[id].subtitle}
-              </span>{" "}
-              <span className="terminal-muted">({t.locations[id].meta})</span>
+          {t.locations.studies.sections?.map((section) => (
+            <p key={section.title}>
+              <span className="terminal-heading">{section.title}</span>{" "}
+              <span className="terminal-muted">({section.meta})</span>
             </p>
           ))}
           <ul>

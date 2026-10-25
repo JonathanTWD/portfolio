@@ -11,10 +11,8 @@ const Text = () => {
 
   if (!data) return null;
 
-  const { name, subtitle, meta, description, bullets } = getLocationText(
-    t,
-    data,
-  );
+  const { name, subtitle, meta, description, bullets, sections } =
+    getLocationText(t, data);
 
   return (
     <>
@@ -38,6 +36,15 @@ const Text = () => {
         )}
         {description?.map((paragraph, index) => (
           <p key={`${name}-${index}`}>{paragraph}</p>
+        ))}
+        {sections?.map((section) => (
+          <section key={section.title} className="document-section">
+            <h2>{section.title}</h2>
+            {section.meta && <p className="document-meta">{section.meta}</p>}
+            {section.description?.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </section>
         ))}
         {bullets && (
           <ul>
