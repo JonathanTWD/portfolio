@@ -142,7 +142,7 @@ const WindowWrapper = <Props extends object>(
           height: isMaximized ? "100vh" : undefined,
           borderRadius: isMaximized ? 0 : undefined,
         }}
-        className={`absolute${isMaximized ? " is-maximized" : ""}`}
+        className={`window${isMaximized ? " is-maximized" : ""}`}
         onMouseDown={() => focusWindow(windowKey)}
       >
         <Component {...props} />

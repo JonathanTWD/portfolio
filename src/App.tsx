@@ -6,7 +6,6 @@ import Dock from "./components/Dock";
 import Navbar from "./components/Navbar";
 import Welcome from "./components/Welcome";
 import Terminal from "./windows/Terminal";
-import Safari from "./windows/Safari";
 import Resume from "./windows/Resume";
 import Finder from "./windows/Finder";
 import Text from "./windows/Text";
@@ -16,15 +15,24 @@ import Photos from "./windows/Gallery";
 import Home from "./components/Home";
 import Settings from "./windows/Settings";
 import useThemeStore from "./store/theme";
+import useLanguageStore from "./store/language";
+import { useTranslation } from "./i18n";
 
 gsap.registerPlugin(Draggable);
 
 const App = () => {
   const theme = useThemeStore((state) => state.theme);
+  const language = useLanguageStore((state) => state.language);
+  const t = useTranslation();
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.title = t.meta.title;
+  }, [language, t]);
 
   return (
     <main>
@@ -33,7 +41,6 @@ const App = () => {
       <Dock />
 
       <Terminal />
-      <Safari />
       <Resume />
       <Finder />
       <Text />

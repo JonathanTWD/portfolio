@@ -4,22 +4,24 @@ import { useGSAP } from "@gsap/react";
 import { Draggable } from "gsap/Draggable";
 import useWindowStore from "../store/window";
 import useLocationStore from "../store/location";
+import { getLocationText, useTranslation } from "../i18n";
 
 const projects = locations.work?.children ?? [];
 
 const Home = () => {
+  const t = useTranslation();
 
   const { setActiveLocation } = useLocationStore();
   const { openWindow } = useWindowStore();
-  
+
   const handleOpenProjectFinder = (project: FolderLocation) => {
-    setActiveLocation(project)
+    setActiveLocation(project);
     openWindow("finder");
-  }
+  };
 
   useGSAP(() => {
-    Draggable.create(".folder")
-  })  
+    Draggable.create(".folder");
+  });
 
   return (
     <section id="home">
@@ -30,8 +32,8 @@ const Home = () => {
             className={clsx("group folder", project.windowPosition)}
             onClick={() => handleOpenProjectFinder(project)}
           >
-            <img src="/images/folder.png" alt={project.name} />
-            <p>{project.name}</p>
+            <img src="/images/folder.png" alt="" />
+            <p>{getLocationText(t, project).name}</p>
           </li>
         ))}
       </ul>

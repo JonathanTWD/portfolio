@@ -1,27 +1,27 @@
 import WindowControls from "../components/WindowControls";
 import WindowWrapper from "../hoc/WindowWrapper";
 import useWindowStore from "../store/window";
+import { getLocationText, useTranslation } from "../i18n";
 import type { FileLocation } from "../constants";
 
 const Image = () => {
+  const t = useTranslation();
   const { windows } = useWindowStore();
   const data = windows.imgfile.data as FileLocation | null;
 
   if (!data) return null;
 
+  const { name } = getLocationText(t, data);
+
   return (
     <>
-      <div id="window-header">
+      <div className="window-header">
         <WindowControls target="imgfile" />
-        <p>{data.name}</p>
+        <p>{name}</p>
       </div>
 
-      <div className="image-content p-5 bg-white">
-        {data.imageUrl && (
-          <div className="w-full">
-            <img src={data.imageUrl} alt={data.name} className="w-full h-auto max-h-[70vh] object-contain" />
-          </div>
-        )}
+      <div className="image-content">
+        {data.imageUrl && <img src={data.imageUrl} alt={name} />}
       </div>
     </>
   );

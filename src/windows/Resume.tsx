@@ -3,15 +3,17 @@ import WindowControls from "../components/WindowControls";
 import WindowWrapper from "../hoc/WindowWrapper";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "../i18n";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
+  "pdfjs-dist/build/pdf.worker.min.mjs",
   import.meta.url,
 ).toString();
 
 const Resume = () => {
+  const t = useTranslation();
   const documentRef = useRef<HTMLDivElement | null>(null);
   const [pageWidth, setPageWidth] = useState<number>();
 
@@ -32,15 +34,16 @@ const Resume = () => {
 
   return (
     <>
-      <div id="window-header">
+      <div className="window-header">
         <WindowControls target="resume" />
-        <h2>Resume.pdf</h2>
+        <h2>{t.resume.title}</h2>
 
         <a
           href="files/resume.pdf"
           download={true}
           className="cursor-pointer"
-          title="Download resume"
+          title={t.resume.download}
+          aria-label={t.resume.download}
         >
           <Download className="icon" />
         </a>
