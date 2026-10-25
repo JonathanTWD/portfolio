@@ -441,6 +441,10 @@
     img {
       @apply mx-auto block h-auto max-h-[26rem] w-auto max-w-full;
     }
+
+    &.is-cropped img {
+      @apply aspect-[1901/866] max-h-none w-full object-cover object-top;
+    }
   }
 
   .showcase-features {
@@ -456,7 +460,7 @@
     }
 
     /* The frame hugs narrow screenshots instead of filling the column. */
-    .showcase-shot {
+    .showcase-shot:not(.is-cropped) {
       @apply mx-auto w-fit max-w-full;
     }
 

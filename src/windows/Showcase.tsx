@@ -11,7 +11,12 @@ type ShowcaseProjectId = keyof Dictionary["showcase"]["projects"];
 type FeatureId =
   keyof Dictionary["showcase"]["projects"][ShowcaseProjectId]["features"]["items"];
 
-type Shot = { src: string; alt: GalleryImageId };
+type Shot = {
+  src: string;
+  alt: GalleryImageId;
+  /** Crop to the same wide ratio as the other screenshots, keeping the top. */
+  crop?: boolean;
+};
 
 type ShowcaseProject = {
   id: ShowcaseProjectId;
@@ -32,7 +37,11 @@ const PROJECTS: ShowcaseProject[] = [
     features: [
       {
         id: "report",
-        shot: { src: `${IMAGES}/canaccesible-3.png`, alt: "incident" },
+        shot: {
+          src: `${IMAGES}/canaccesible-3.png`,
+          alt: "incident",
+          crop: true,
+        },
       },
       { id: "map", shot: { src: `${IMAGES}/canaccesible-1.png`, alt: "map" } },
       {
@@ -221,7 +230,7 @@ const Screenshot = ({
   t: Dictionary;
   lazy?: boolean;
 }) => (
-  <figure className="showcase-shot">
+  <figure className={clsx("showcase-shot", shot.crop && "is-cropped")}>
     <span className="shot-bar" aria-hidden="true">
       <i />
       <i />
