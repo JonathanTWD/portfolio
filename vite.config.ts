@@ -17,9 +17,34 @@ const siteUrl = (
     : '')
 ).replace(/\/$/, '')
 
+/** Fills %SITE_URL% in index.html and writes robots.txt and sitemap.xml. */
 const siteUrlPlugin = (): Plugin => ({
   name: 'site-url',
   transformIndexHtml: (html) => html.replaceAll('%SITE_URL%', siteUrl),
+  generateBundle() {
+    const robots = ['User-agent: *', 'Allow: /']
+    if (siteUrl) robots.push('', `Sitemap: ${siteUrl}/sitemap.xml`)
+    this.emitFile({
+      type: 'asset',
+      fileName: 'robots.txt',
+      source: `${robots.join('\n')}\n`,
+    })
+
+    if (!siteUrl) return
+    const today = new Date().toISOString().slice(0, 10)
+    this.emitFile({
+      type: 'asset',
+      fileName: 'sitemap.xml',
+      source: `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${siteUrl}/</loc>
+    <lastmod>${today}</lastmod>
+  </url>
+</urlset>
+`,
+    })
+  },
 })
 
 // https://vite.dev/config/
