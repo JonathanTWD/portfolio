@@ -11,7 +11,10 @@ const Text = () => {
 
   if (!data) return null;
 
-  const { name, subtitle, description } = getLocationText(t, data);
+  const { name, subtitle, meta, description, bullets } = getLocationText(
+    t,
+    data,
+  );
 
   return (
     <>
@@ -27,10 +30,22 @@ const Text = () => {
             <span>{t.textFile.photoPlaceholder}</span>
           </div>
         )}
-        {subtitle && <h2>{subtitle}</h2>}
+        {subtitle && (
+          <header>
+            <h1>{subtitle}</h1>
+            {meta && <p className="document-meta">{meta}</p>}
+          </header>
+        )}
         {description?.map((paragraph, index) => (
           <p key={`${name}-${index}`}>{paragraph}</p>
         ))}
+        {bullets && (
+          <ul>
+            {bullets.map((bullet) => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
+        )}
       </article>
     </>
   );

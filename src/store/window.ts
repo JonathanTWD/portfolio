@@ -108,4 +108,19 @@ const useWindowStore = create<WindowState>((set) => ({
     })),
 }));
 
+/** The window in front: the open, non-minimized one with the highest z-index. */
+export const selectFocusedWindow = (state: WindowState): WindowKey | null => {
+  let focused: WindowKey | null = null;
+
+  for (const [key, entry] of Object.entries(state.windows) as [
+    WindowKey,
+    WindowConfig[WindowKey],
+  ][]) {
+    if (!entry.isOpen || entry.isMinimized) continue;
+    if (!focused || entry.zIndex > state.windows[focused].zIndex) focused = key;
+  }
+
+  return focused;
+};
+
 export default useWindowStore;

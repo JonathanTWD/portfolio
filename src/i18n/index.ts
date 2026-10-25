@@ -24,9 +24,5 @@ export const getLocationText = (
 ): LocationText => {
   const text = location.textId ? t.locations[location.textId] : undefined;
 
-  return {
-    name: text?.name ?? location.name ?? "",
-    subtitle: text?.subtitle,
-    description: text?.description,
-  };
+  return { ...text, name: text?.name ?? location.name ?? "" };
 };

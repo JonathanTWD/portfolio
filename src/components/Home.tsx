@@ -5,6 +5,7 @@ import { Draggable } from "gsap/Draggable";
 import useWindowStore from "../store/window";
 import useLocationStore from "../store/location";
 import { getLocationText, useTranslation } from "../i18n";
+import FileIcon from "./FileIcon";
 
 const projects = locations.work?.children ?? [];
 
@@ -20,7 +21,7 @@ const Home = () => {
   };
 
   useGSAP(() => {
-    Draggable.create(".folder");
+    Draggable.create(".folder", { dragClickables: true });
   });
 
   return (
@@ -29,11 +30,15 @@ const Home = () => {
         {projects.map((project) => (
           <li
             key={project.id}
-            className={clsx("group folder", project.windowPosition)}
-            onClick={() => handleOpenProjectFinder(project)}
+            className={clsx("folder", project.windowPosition)}
           >
-            <img src="/images/folder.png" alt="" />
-            <p>{getLocationText(t, project).name}</p>
+            <button
+              type="button"
+              onClick={() => handleOpenProjectFinder(project)}
+            >
+              <FileIcon item={project} />
+              <span>{getLocationText(t, project).name}</span>
+            </button>
           </li>
         ))}
       </ul>

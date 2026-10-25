@@ -4,18 +4,28 @@ export const LANGUAGES: Language[] = ["es", "en"];
 
 export type LocationTextId =
   | "work"
+  | "experience"
+  | "education"
   | "about"
   | "resume"
   | "trash"
   | "resumePdf"
   | "aboutMe"
+  | "internship"
+  | "aiBigData"
+  | "daw"
+  | "awards"
   | "canaccesibleProject"
   | "canaccesibleStack";
 
 export type LocationText = {
   name: string;
+  /** Document heading. */
   subtitle?: string;
+  /** Short line under the heading: dates, place. */
+  meta?: string;
   description?: string[];
+  bullets?: string[];
 };
 
 export type GalleryImageId =

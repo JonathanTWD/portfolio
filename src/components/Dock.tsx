@@ -125,7 +125,7 @@ const WindowPreview = ({
 };
 
 const Dock = () => {
-  const { windows, openWindow, closeWindow, restoreWindow } = useWindowStore();
+  const { windows, openWindow, focusWindow, restoreWindow } = useWindowStore();
   const t = useTranslation();
   const dockRef = useRef<HTMLDivElement | null>(null);
   const hidePreviewTimeout = useRef<number | null>(null);
@@ -206,22 +206,17 @@ const Dock = () => {
     };
   }, []);
 
-  const toggleApp = (
+  /* Like macOS: open the app, restore it if minimized, or bring it to the front. */
+  const activateApp = (
     app: Pick<(typeof dockApps)[number], "id" | "canOpen">,
   ) => {
     if (!app.canOpen || !isWindowKey(app.id)) return;
 
     const window = windows[app.id];
 
-    if (window.isOpen) {
-      if (window.isMinimized) {
-        restoreWindow(app.id);
-      } else {
-        closeWindow(app.id);
-      }
-    } else {
-      openWindow(app.id);
-    }
+    if (!window.isOpen) openWindow(app.id);
+    else if (window.isMinimized) restoreWindow(app.id);
+    else focusWindow(app.id);
   };
 
   return (
@@ -280,7 +275,7 @@ const Dock = () => {
                 data-tooltip-hidden={isWindowKey(id) && windows[id].isMinimized}
                 data-tooltip-delay-show={99}
                 disabled={!canOpen}
-                onClick={() => toggleApp({ id, canOpen })}
+                onClick={() => activateApp({ id, canOpen })}
               >
                 <AppIcon app={id} className={canOpen ? "" : "opacity-60"} />
               </button>

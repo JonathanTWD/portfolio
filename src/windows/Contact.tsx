@@ -1,5 +1,7 @@
+import { Download, Mail } from "lucide-react";
+import BrandIcon from "../components/BrandIcon";
 import WindowControls from "../components/WindowControls";
-import { CONTACT_EMAIL, socials } from "../constants";
+import { CONTACT_EMAIL, RESUME_URL, socials } from "../constants";
 import WindowWrapper from "../hoc/WindowWrapper";
 import { useTranslation } from "../i18n";
 
@@ -13,37 +15,40 @@ const Contact = () => {
         <h2>{t.contact.title}</h2>
       </div>
 
-      <div className="flex flex-col gap-5 p-5">
-        <div className="space-y-5">
-          <img
-            src="/images/jonathan-1.jpeg"
-            alt={t.contact.photoAlt}
-            className="w-20 rounded-full"
-          />
-
-          <h3>{t.contact.heading}</h3>
+      <div className="contact-card">
+        <img
+          src="/images/jonathan-1.jpeg"
+          alt={t.contact.photoAlt}
+          className="contact-photo"
+        />
+        <div>
+          <h3>{t.contact.name}</h3>
+          <p className="contact-role">{t.contact.role}</p>
         </div>
+        <p className="contact-intro">{t.contact.intro}</p>
 
-        <div className="space-y-5">
-          <a className="contact-email" href={`mailto:${CONTACT_EMAIL}`}>
-            {CONTACT_EMAIL}
-          </a>
-          <ul>
-            {socials.map(({ id, bg, link, icon, text }) => (
-              <li key={id} style={{ backgroundColor: bg }}>
-                <a
-                  href={link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={text}
-                >
-                  <img src={icon} alt="" className="size-5" />
-                  <p>{text}</p>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <a className="contact-primary" href={`mailto:${CONTACT_EMAIL}`}>
+          <Mail aria-hidden="true" />
+          {t.contact.email}
+        </a>
+        <p className="contact-email">{CONTACT_EMAIL}</p>
+
+        <ul className="contact-links">
+          {socials.map(({ id, link, icon, text }) => (
+            <li key={id}>
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                <BrandIcon brand={icon} />
+                {text}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href={RESUME_URL} download="CV-Jonathan-Morera.pdf">
+              <Download aria-hidden="true" />
+              {t.resume.download}
+            </a>
+          </li>
+        </ul>
       </div>
     </>
   );

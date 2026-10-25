@@ -5,13 +5,18 @@ const en: Dictionary = {
     title: "Jonathan Morera's Portfolio",
   },
   navbar: {
-    brand: "JonathanDev's Portfolio",
-    logoAlt: "JonathanDev logo",
+    brand: "Jonathan Morera",
     links: {
       projects: "Projects",
-      contact: "Contact",
+      experience: "Experience",
+      about: "About me",
       resume: "Resume",
+      contact: "Contact",
     },
+    menu: "Main menu",
+    switchLanguage: (language) => `Switch language to ${language}`,
+    switchToDark: "Turn on dark mode",
+    switchToLight: "Turn on light mode",
     dateFormat: "ddd MMM D h:mm A",
   },
   welcome: {
@@ -38,25 +43,68 @@ const en: Dictionary = {
   },
   finder: {
     favorites: "Favorites",
-    work: "Work",
-    search: "Search",
+    projects: "Projects",
+    back: "Back",
     emptyFolder: "This folder is empty.",
   },
   locations: {
-    work: { name: "Work" },
+    work: { name: "Projects" },
+    experience: { name: "Experience" },
+    education: { name: "Education" },
     about: { name: "About me" },
     resume: { name: "Resume" },
     trash: { name: "Trash" },
     resumePdf: { name: "Resume.pdf" },
-    // DRAFT: placeholder copy, replace it with your own "About me".
+    // DRAFT: based on your resume. Rewrite it in your own words whenever you like.
     aboutMe: {
       name: "about-me.txt",
-      subtitle: "Fullstack developer",
+      subtitle: "Jonathan Morera",
+      meta: "Fullstack developer",
       description: [
-        "I'm Jonathan Morera, a fullstack developer. I like building products end to end: from the database and the API to the interface people actually use.",
-        "I mostly work with TypeScript, React and Node.js, and I also have experience with NestJS, Spring Boot and relational databases such as PostgreSQL, MySQL and Oracle.",
-        "My most complete project is CanAccesible, a community platform for reporting and improving accessibility in the Canary Islands, where I owned authentication, user flows, transactional email and the testing infrastructure.",
-        "I'm currently looking for my next role as a fullstack developer.",
+        "I'm a fullstack developer and I mostly work with React, TypeScript, Java and Spring Boot. I care as much about the business logic as about the experience of the people using the application.",
+        "I've built REST APIs, web interfaces and database integrations, and I enjoy refactoring code so it's clearer and easier to maintain.",
+        "During my internship I worked on a billing system for a hotel chain, and my most complete project is CanAccesible, a community platform for reporting accessibility barriers in the Canary Islands.",
+        "I'm currently taking the AI and Big Data specialization course and looking for my next role as a fullstack developer.",
+      ],
+      bullets: [
+        "English B1, with experience working in international teams.",
+        "Learning Chinese on my own.",
+        "Driving licence (B).",
+      ],
+    },
+    internship: {
+      name: "fullstack-internship.txt",
+      subtitle: "Fullstack developer intern",
+      meta: "January 2026 – May 2026",
+      description: [
+        "Billing system for a hotel chain, built end to end with React (TypeScript) and Spring Boot.",
+      ],
+      bullets: [
+        "Built the system end to end, keeping the interface and the business logic consistent.",
+        "Refactored the codebase to remove duplication, improve readability and reduce complexity.",
+        "Implemented REST API services and WebSocket connections for real-time features.",
+        "Designed and integrated an interactive tour that made the system easier for its users to adopt.",
+      ],
+    },
+    aiBigData: {
+      name: "ai-and-big-data.txt",
+      subtitle: "Specialization course in AI and Big Data",
+      meta: "IES El Rincón, 2026 – present",
+    },
+    daw: {
+      name: "web-development.txt",
+      subtitle: "Web Application Development (DAW)",
+      meta: "IES El Rincón, 2024 – 2026",
+      description: [
+        "Two-year higher vocational degree in Web Application Development.",
+      ],
+    },
+    awards: {
+      name: "awards.txt",
+      subtitle: "Awards",
+      bullets: [
+        "2022: winner of the group category in the 1st edition of Proyecto DRAGO.",
+        "2021: winner of the regional stage of the 2nd Spanish Youth Science Olympiad.",
       ],
     },
     canaccesibleProject: {
@@ -123,7 +171,10 @@ const en: Dictionary = {
   },
   contact: {
     title: "Contact",
-    heading: "Let's talk",
+    name: "Jonathan Morera",
+    role: "Fullstack developer",
+    intro: "Have a role, a project or a question? Write to me and I'll get back to you.",
+    email: "Send an email",
     photoAlt: "Photo of Jonathan Morera",
   },
   resume: {

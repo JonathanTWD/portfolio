@@ -4,6 +4,7 @@ import WindowWrapper from "../hoc/WindowWrapper";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "../i18n";
+import { RESUME_URL } from "../constants";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
@@ -39,17 +40,17 @@ const Resume = () => {
         <h2>{t.resume.title}</h2>
 
         <a
-          href="files/resume.pdf"
-          download={true}
-          className="cursor-pointer"
+          href={RESUME_URL}
+          download="CV-Jonathan-Morera.pdf"
+          className="toolbar-button"
           title={t.resume.download}
           aria-label={t.resume.download}
         >
-          <Download className="icon" />
+          <Download aria-hidden="true" />
         </a>
       </div>
       <div ref={documentRef} className="resume-document">
-        <Document file="files/resume.pdf">
+        <Document file={RESUME_URL}>
           <Page
             pageNumber={1}
             width={pageWidth}
