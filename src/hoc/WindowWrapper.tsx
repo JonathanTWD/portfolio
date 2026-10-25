@@ -1,5 +1,9 @@
 import { useRef, type ComponentType } from "react";
-import useWindowStore, { type WindowKey } from "../store/window";
+import clsx from "clsx";
+import useWindowStore, {
+  selectFocusedWindow,
+  type WindowKey,
+} from "../store/window";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
@@ -11,6 +15,7 @@ const WindowWrapper = <Props extends object>(
   const Wrapped = (props: Props) => {
     const { focusWindow, windows } = useWindowStore();
     const { isOpen, isMinimized, isMaximized, zIndex } = windows[windowKey];
+    const isFocused = useWindowStore(selectFocusedWindow) === windowKey;
     const ref = useRef<HTMLElement | null>(null);
     const normalTransform = useRef({ x: 0, y: 0 });
     const previousState = useRef({
@@ -32,7 +37,7 @@ const WindowWrapper = <Props extends object>(
         return;
       }
 
-      el.style.display = "block";
+      el.style.display = "";
 
       const wasNormal =
         previousState.current.isOpen &&
@@ -134,15 +139,12 @@ const WindowWrapper = <Props extends object>(
       <section
         id={windowKey}
         ref={ref}
-        style={{
-          zIndex,
-          top: isMaximized ? 0 : undefined,
-          left: isMaximized ? 0 : undefined,
-          width: isMaximized ? "100vw" : undefined,
-          height: isMaximized ? "100vh" : undefined,
-          borderRadius: isMaximized ? 0 : undefined,
-        }}
-        className={`window${isMaximized ? " is-maximized" : ""}`}
+        style={{ zIndex }}
+        className={clsx(
+          "window",
+          isMaximized && "is-maximized",
+          !isFocused && "is-inactive",
+        )}
         onMouseDown={() => focusWindow(windowKey)}
       >
         <Component {...props} />

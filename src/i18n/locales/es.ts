@@ -7,20 +7,63 @@ import type {
 } from "../types";
 
 const locations: Record<LocationTextId, LocationText> = {
-  work: { name: "Trabajo" },
+  work: { name: "Proyectos" },
+  experience: { name: "Experiencia" },
+  education: { name: "Formación" },
   about: { name: "Sobre mí" },
   resume: { name: "Currículum" },
   trash: { name: "Papelera" },
   resumePdf: { name: "CV.pdf" },
-  // BORRADOR: texto provisional, sustitúyelo por tu propio "Sobre mí".
+  // BORRADOR: basado en tu CV. Reescríbelo con tus palabras cuando quieras.
   aboutMe: {
     name: "sobre-mi.txt",
-    subtitle: "Desarrollador fullstack",
+    subtitle: "Jonathan Morera",
+    meta: "Desarrollador fullstack",
     description: [
-      "Soy Jonathan Morera, desarrollador fullstack. Me gusta construir producto de principio a fin: desde la base de datos y la API hasta la interfaz que usa la gente.",
-      "Trabajo sobre todo con TypeScript, React y Node.js, y también tengo experiencia con NestJS, Spring Boot y bases de datos relacionales como PostgreSQL, MySQL y Oracle.",
-      "Mi proyecto más completo es CanAccesible, una plataforma comunitaria para reportar y mejorar la accesibilidad en Canarias, donde me encargué de la autenticación, los flujos de usuario, el correo transaccional y la infraestructura de tests.",
-      "Ahora mismo busco mi próximo puesto como desarrollador fullstack.",
+      "Soy desarrollador fullstack y trabajo sobre todo con React, TypeScript, Java y Spring Boot. Me interesa tanto la lógica de negocio como la experiencia de quien usa la aplicación.",
+      "He desarrollado APIs REST, interfaces web e integraciones con bases de datos, y disfruto refactorizando código para que sea más claro y fácil de mantener.",
+      "En mis prácticas trabajé en un sistema de facturación para una cadena hotelera, y mi proyecto más completo es CanAccesible, una plataforma comunitaria para reportar barreras de accesibilidad en Canarias.",
+      "Ahora curso la especialización en IA y Big Data y busco mi próximo puesto como desarrollador fullstack.",
+    ],
+    bullets: [
+      "Inglés B1, con experiencia colaborando en equipos internacionales.",
+      "Estudio chino por mi cuenta.",
+      "Carné de conducir B.",
+    ],
+  },
+  internship: {
+    name: "practicas-fullstack.txt",
+    subtitle: "Desarrollador fullstack en prácticas",
+    meta: "Enero 2026 – mayo 2026",
+    description: [
+      "Sistema de facturación para una cadena hotelera, desarrollado de principio a fin con React (TypeScript) y Spring Boot.",
+    ],
+    bullets: [
+      "Desarrollé el sistema end to end, manteniendo la coherencia entre la interfaz y la lógica de negocio.",
+      "Refactoricé el código base para eliminar duplicidad, mejorar la legibilidad y reducir la complejidad.",
+      "Implementé servicios API REST y conexiones WebSocket para las funcionalidades en tiempo real.",
+      "Diseñé e integré un tour interactivo que facilitó la adopción del sistema por parte de sus usuarios.",
+    ],
+  },
+  aiBigData: {
+    name: "ia-y-big-data.txt",
+    subtitle: "Curso de especialización en IA y Big Data",
+    meta: "IES El Rincón, 2026 – actualidad",
+  },
+  daw: {
+    name: "daw.txt",
+    subtitle: "Desarrollo de Aplicaciones Web (DAW)",
+    meta: "IES El Rincón, 2024 – 2026",
+    description: [
+      "Ciclo formativo de grado superior en Desarrollo de Aplicaciones Web.",
+    ],
+  },
+  awards: {
+    name: "logros.txt",
+    subtitle: "Logros",
+    bullets: [
+      "2022: ganador en la modalidad de grupos de la 1.ª edición del Proyecto DRAGO.",
+      "2021: ganador de la fase autonómica de la II Olimpiada Científica Juvenil Española.",
     ],
   },
   canaccesibleProject: {
@@ -81,13 +124,18 @@ const es = {
     title: "Portfolio de Jonathan Morera",
   },
   navbar: {
-    brand: "Portfolio de JonathanDev",
-    logoAlt: "Logo de JonathanDev",
+    brand: "Jonathan Morera",
     links: {
       projects: "Proyectos",
-      contact: "Contacto",
+      experience: "Experiencia",
+      about: "Sobre mí",
       resume: "CV",
+      contact: "Contacto",
     },
+    menu: "Menú principal",
+    switchLanguage: (language: string) => `Cambiar el idioma a ${language}`,
+    switchToDark: "Activar el modo oscuro",
+    switchToLight: "Activar el modo claro",
     dateFormat: "ddd D MMM HH:mm",
   },
   welcome: {
@@ -114,8 +162,8 @@ const es = {
   },
   finder: {
     favorites: "Favoritos",
-    work: "Trabajo",
-    search: "Buscar",
+    projects: "Proyectos",
+    back: "Atrás",
     emptyFolder: "Esta carpeta está vacía.",
   },
   locations,
@@ -141,7 +189,11 @@ const es = {
   },
   contact: {
     title: "Contacto",
-    heading: "Hablemos",
+    name: "Jonathan Morera",
+    role: "Desarrollador fullstack",
+    intro:
+      "¿Tienes un puesto, un proyecto o una pregunta? Escríbeme y te respondo.",
+    email: "Escribir un correo",
     photoAlt: "Foto de Jonathan Morera",
   },
   resume: {

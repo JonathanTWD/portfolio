@@ -2,30 +2,73 @@
 
 @layer components {
   .window {
-    @apply absolute overflow-hidden rounded-window bg-surface text-ink glass;
+    @apply absolute flex flex-col overflow-hidden rounded-window bg-surface text-ink glass;
 
-    box-shadow: inset 0 1px 0 var(--color-glass-highlight), var(--shadow-window);
+    box-shadow:
+      inset 0 1px 0 var(--color-glass-highlight),
+      var(--shadow-window);
+    transition: box-shadow 0.2s ease;
 
+    /* Windows behind the front one sit back: softer shadow, grey traffic lights. */
+    &.is-inactive {
+      box-shadow:
+        inset 0 1px 0 var(--color-glass-highlight),
+        var(--shadow-window-inactive);
+
+      .window-controls button {
+        @apply bg-traffic-inactive;
+      }
+
+      .window-controls:hover button {
+        &.close {
+          @apply bg-traffic-close;
+        }
+
+        &.minimize {
+          @apply bg-traffic-minimize;
+        }
+
+        &.maximize {
+          @apply bg-traffic-maximize;
+        }
+      }
+    }
+
+    /* Maximized windows fill the space under the menu bar. The ids that size
+       each window are more specific, so these values need !important. */
     &.is-maximized {
-      @apply border-0;
+      top: var(--menubar-height) !important;
+      left: 0 !important;
+      right: auto !important;
+      width: 100vw !important;
+      height: calc(100dvh - var(--menubar-height)) !important;
+      max-width: none !important;
+      max-height: none !important;
+      translate: none !important;
+      border-radius: 0;
+      border-width: 0;
     }
   }
 
   .window-header {
-    @apply flex items-center justify-between gap-3 px-4 py-3 border-b border-line select-none text-label text-ink-muted;
+    @apply flex flex-none items-center justify-between gap-3 px-4 py-3 border-b border-line select-none text-label text-ink-muted;
 
     h2 {
-      @apply flex-1 text-center text-label font-semibold text-ink;
+      @apply flex-1 truncate text-center text-label font-semibold text-ink;
     }
   }
 
   .window-controls {
-    @apply flex gap-2;
+    @apply flex flex-none gap-2;
 
     button {
       @apply size-3 rounded-full border-0 p-0 cursor-pointer;
 
       box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.18);
+
+      &:focus-visible {
+        @apply outline-2 outline-offset-2 outline-accent;
+      }
     }
 
     .close {

@@ -15,16 +15,16 @@ export type WindowKey =
   | "txtfile"
   | "imgfile";
 
+export type FolderType =
+  "work" | "experience" | "education" | "about" | "resume" | "trash";
+
 export type NavLink = {
   id: number;
   labelKey: keyof Dictionary["navbar"]["links"];
-  type: WindowKey;
-};
-
-export type NavIcon = {
-  id: number;
-  img: string;
-};
+} & (
+  | { window: Exclude<WindowKey, "finder" | "txtfile" | "imgfile"> }
+  | { folder: FolderType }
+);
 
 export type DockAppId = keyof Dictionary["dock"]["apps"];
 
@@ -41,8 +41,7 @@ export type TechStackItem = {
 export type Social = {
   id: number;
   text: string;
-  icon: string;
-  bg: string;
+  icon: "github" | "linkedin";
   link: string;
 };
 
@@ -58,7 +57,7 @@ export type GalleryProject = {
   images: GalleryImage[];
 };
 
-export type FileType = "txt" | "url" | "img" | "fig" | "pdf";
+export type FileType = "txt" | "url" | "img" | "pdf";
 
 type LocationBase = {
   id: number;
@@ -66,21 +65,22 @@ type LocationBase = {
   name?: string;
   /** Translated name and content, read from the i18n dictionaries. */
   textId?: LocationTextId;
-  icon: string;
-  position?: string;
 };
 
 export type FileLocation = LocationBase & {
   kind: "file";
   fileType: FileType;
   href?: string;
+  /** Icon for links: a website, a repository or a certificate. */
+  linkStyle?: "web" | "github" | "certificate";
   imageUrl?: string;
   showPhotoSlot?: boolean;
 };
 
 export interface FolderLocation extends LocationBase {
   kind: "folder";
-  type?: string;
+  type?: FolderType;
+  /** Position of the folder icon on the desktop, as Tailwind classes. */
   windowPosition?: string;
   children: Location[];
 }
@@ -99,49 +99,17 @@ export type WindowConfigEntry = {
   data: Location | null;
 };
 
-export type Locations = {
+export type Locations = Omit<Record<FolderType, FolderLocation>, "work"> & {
   work: WorkLocation;
-  about: FolderLocation;
-  resume: FolderLocation;
-  trash: FolderLocation;
 };
 
 const navLinks = [
-  {
-    id: 1,
-    labelKey: "projects",
-    type: "finder",
-  },
-  {
-    id: 3,
-    labelKey: "contact",
-    type: "contact",
-  },
-  {
-    id: 4,
-    labelKey: "resume",
-    type: "resume",
-  },
+  { id: 1, labelKey: "projects", folder: "work" },
+  { id: 2, labelKey: "experience", folder: "experience" },
+  { id: 3, labelKey: "about", folder: "about" },
+  { id: 4, labelKey: "resume", window: "resume" },
+  { id: 5, labelKey: "contact", window: "contact" },
 ] satisfies NavLink[];
-
-const navIcons = [
-  {
-    id: 1,
-    img: "/icons/wifi.svg",
-  },
-  {
-    id: 2,
-    img: "/icons/search.svg",
-  },
-  {
-    id: 3,
-    img: "/icons/user.svg",
-  },
-  {
-    id: 4,
-    img: "/icons/mode.svg",
-  },
-] satisfies NavIcon[];
 
 const dockApps = [
   {
@@ -173,7 +141,7 @@ const techStack = [
   },
   {
     category: "backend",
-    items: ["Node.js", "Express", "NestJS", "Spring Boot"],
+    items: ["Java", "Spring Boot", "Node.js", "Express", "NestJS"],
   },
   {
     category: "database",
@@ -197,20 +165,20 @@ const socials = [
   {
     id: 1,
     text: "GitHub",
-    icon: "/icons/github.svg",
-    bg: "#0D1117",
+    icon: "github",
     link: "https://github.com/JonathanTWD",
   },
   {
-    id: 4,
+    id: 2,
     text: "LinkedIn",
-    icon: "/icons/linkedin.svg",
-    bg: "#05b6f6",
+    icon: "linkedin",
     link: "https://www.linkedin.com/in/jonathan-m-856238315/",
   },
 ] satisfies Social[];
 
 const CONTACT_EMAIL = "jonathanmoreraapaza@gmail.com";
+
+const RESUME_URL = "/files/resume.pdf";
 
 const galleryProjects = [
   {
@@ -263,136 +231,125 @@ const galleryProjects = [
 
 export {
   navLinks,
-  navIcons,
   dockApps,
   techStack,
   socials,
   CONTACT_EMAIL,
+  RESUME_URL,
   galleryProjects,
 };
+
+const canaccesibleImages: FileLocation[] = Array.from(
+  { length: 8 },
+  (_, index) => ({
+    id: 4 + index,
+    name: `image-${index + 1}.png`,
+    kind: "file",
+    fileType: "img",
+    imageUrl: `/images/canaccesible-project/canaccesible-${index + 1}.png`,
+  }),
+);
 
 const WORK_LOCATION: WorkLocation = {
   id: 1,
   type: "work",
   textId: "work",
-  icon: "/icons/work.svg",
   kind: "folder",
   children: [
     {
       id: 1,
       name: "CanAccesible",
-      icon: "/images/folder.png",
       kind: "folder",
-      position: "top-10 left-5",
       windowPosition: "top-[8vh] left-5",
       children: [
         {
           id: 1,
           textId: "canaccesibleProject",
-          icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
-          position: "top-5 left-5",
         },
         {
           id: 12,
           textId: "canaccesibleStack",
-          icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
-          position: "top-5 left-30",
         },
         {
           id: 2,
           name: "canaccesible.es",
-          icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
+          linkStyle: "web",
           href: "https://canaccesible.es",
-          position: "top-5 left-80",
         },
         {
           id: 3,
-          name: "GitHub.url",
-          icon: "/images/safari.png",
+          name: "GitHub",
           kind: "file",
           fileType: "url",
+          linkStyle: "github",
           href: "https://github.com/devcarlosperez/CanAccesible",
-          position: "top-5 left-55",
         },
-        {
-          id: 4,
-          name: "image-1.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-36 left-5",
-          imageUrl: "/images/canaccesible-project/canaccesible-1.png",
-        },
-        {
-          id: 5,
-          name: "image-2.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-36 left-30",
-          imageUrl: "/images/canaccesible-project/canaccesible-2.png",
-        },
-        {
-          id: 6,
-          name: "image-3.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-36 left-55",
-          imageUrl: "/images/canaccesible-project/canaccesible-3.png",
-        },
-        {
-          id: 7,
-          name: "image-4.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-36 left-80",
-          imageUrl: "/images/canaccesible-project/canaccesible-4.png",
-        },
-        {
-          id: 8,
-          name: "image-5.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-69 left-5",
-          imageUrl: "/images/canaccesible-project/canaccesible-5.png",
-        },
-        {
-          id: 9,
-          name: "image-6.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-69 left-30",
-          imageUrl: "/images/canaccesible-project/canaccesible-6.png",
-        },
-        {
-          id: 10,
-          name: "image-7.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-69 left-55",
-          imageUrl: "/images/canaccesible-project/canaccesible-7.png",
-        },
-        {
-          id: 11,
-          name: "image-8.png",
-          icon: "/images/image.png",
-          kind: "file",
-          fileType: "img",
-          position: "top-69 left-80",
-          imageUrl: "/images/canaccesible-project/canaccesible-8.png",
-        },
+        ...canaccesibleImages,
       ],
+    },
+  ],
+};
+
+const EXPERIENCE_LOCATION: FolderLocation = {
+  id: 5,
+  type: "experience",
+  textId: "experience",
+  kind: "folder",
+  children: [
+    {
+      id: 1,
+      textId: "internship",
+      kind: "file",
+      fileType: "txt",
+    },
+  ],
+};
+
+const EDUCATION_LOCATION: FolderLocation = {
+  id: 6,
+  type: "education",
+  textId: "education",
+  kind: "folder",
+  children: [
+    {
+      id: 1,
+      textId: "aiBigData",
+      kind: "file",
+      fileType: "txt",
+    },
+    {
+      id: 2,
+      textId: "daw",
+      kind: "file",
+      fileType: "txt",
+    },
+    {
+      id: 3,
+      textId: "awards",
+      kind: "file",
+      fileType: "txt",
+    },
+    {
+      id: 4,
+      name: "Generative AI (Microsoft)",
+      kind: "file",
+      fileType: "url",
+      linkStyle: "certificate",
+      href: "https://www.linkedin.com/learning/certificates/68e6a5847f21a538bfc4a4958f57d05cdcf77757046b22a5b1a845a6574f4510",
+    },
+    {
+      id: 5,
+      name: "TypeScript (DevTalles)",
+      kind: "file",
+      fileType: "url",
+      linkStyle: "certificate",
+      href: "https://cursos.devtalles.com/certificates/omlyvd3d93",
     },
   ],
 };
@@ -401,16 +358,13 @@ const ABOUT_LOCATION: FolderLocation = {
   id: 2,
   type: "about",
   textId: "about",
-  icon: "/icons/info.svg",
   kind: "folder",
   children: [
     {
       id: 1,
       textId: "aboutMe",
-      icon: "/images/txt.png",
       kind: "file",
       fileType: "txt",
-      position: "top-10 left-5",
       showPhotoSlot: true,
     },
   ],
@@ -420,16 +374,13 @@ const RESUME_LOCATION: FolderLocation = {
   id: 3,
   type: "resume",
   textId: "resume",
-  icon: "/icons/file.svg",
   kind: "folder",
   children: [
     {
       id: 1,
       textId: "resumePdf",
-      icon: "/images/pdf.png",
       kind: "file",
       fileType: "pdf",
-      position: "top-10 left-5",
     },
   ],
 };
@@ -438,13 +389,15 @@ const TRASH_LOCATION: FolderLocation = {
   id: 4,
   type: "trash",
   textId: "trash",
-  icon: "/icons/trash.svg",
   kind: "folder",
   children: [],
 };
 
+/** Sidebar order in the Finder. */
 export const locations: Locations = {
   work: WORK_LOCATION,
+  experience: EXPERIENCE_LOCATION,
+  education: EDUCATION_LOCATION,
   about: ABOUT_LOCATION,
   resume: RESUME_LOCATION,
   trash: TRASH_LOCATION,

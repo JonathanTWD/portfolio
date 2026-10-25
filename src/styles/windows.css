@@ -1,12 +1,23 @@
-/* Layout and content of each window. The shared frame lives in window.css. */
+/*
+ * Layout and content of each window. The shared frame lives in window.css.
+ * Every window is a flex column: the title bar keeps its height and the body
+ * fills the rest, so maximized windows need no hand-computed heights.
+ */
 
 @layer components {
   .sidebar-list {
-    @apply space-y-1;
+    @apply space-y-0.5;
 
-    li > button,
-    li {
+    li > button {
       @apply flex w-full items-center gap-2 rounded-control px-2.5 py-1.5 text-left text-label text-ink transition-colors;
+
+      &:focus-visible {
+        @apply outline-2 -outline-offset-2 outline-accent;
+      }
+    }
+
+    .location-icon {
+      @apply size-4 flex-none text-accent;
     }
 
     .active {
@@ -18,418 +29,503 @@
     }
   }
 
-  #terminal {
-    @apply w-2xl top-30 left-1/4;
+  .toolbar-button {
+    @apply grid size-7 place-items-center rounded-control text-ink-muted transition-colors hover:bg-surface-hover hover:text-ink disabled:opacity-35 disabled:hover:bg-transparent;
 
-    .techstack {
-      @apply text-label font-mono p-5;
+    svg {
+      @apply size-4.5;
+    }
 
-      .label {
-        @apply flex items-center ms-10 mt-7 text-ink-muted;
-      }
+    &:focus-visible {
+      @apply outline-2 outline-accent;
+    }
+  }
 
-      .content {
-        @apply py-5 my-5 border-y border-dashed border-line space-y-1;
+  /* ---------- Finder ---------- */
 
-        li {
-          .check {
-            @apply text-success w-5;
-          }
+  #finder {
+    @apply left-40 top-20 h-[min(480px,calc(100dvh-9rem))] w-[min(820px,calc(100vw-2rem))];
+  }
 
-          h3 {
-            @apply font-semibold text-success w-56 ms-5;
-          }
+  .finder-layout {
+    @apply flex min-h-0 flex-1 gap-2 p-2;
+  }
 
-          ul {
-            @apply flex flex-wrap items-center gap-x-3;
-          }
-        }
-      }
+  /* Floating glass sidebar inside the window, with the traffic lights on top. */
+  .finder-sidebar {
+    @apply flex w-52 flex-none flex-col gap-4 overflow-y-auto rounded-panel border border-glass-border bg-surface-chrome px-2 py-3;
 
-      .footnote {
-        @apply flex items-center text-success;
+    .window-controls {
+      @apply px-2 pt-0.5 pb-1;
+    }
+  }
 
-        svg {
-          @apply w-5 me-5;
-        }
+  .finder-section h3 {
+    @apply mb-1 px-2.5 text-caption font-semibold text-ink-muted;
+  }
+
+  .finder-main {
+    @apply flex min-w-0 flex-1 flex-col;
+  }
+
+  .finder-toolbar {
+    @apply flex h-11 flex-none items-center gap-2 px-2 select-none;
+
+    h2 {
+      @apply truncate text-body font-semibold;
+    }
+  }
+
+  .finder-grid {
+    @apply grid flex-1 content-start gap-x-2 gap-y-4 overflow-y-auto px-3 py-4;
+
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  }
+
+  .finder-item {
+    @apply flex w-full flex-col items-center gap-2 rounded-panel p-2 text-center;
+
+    > span:last-child {
+      @apply line-clamp-2 rounded-control px-1.5 py-0.5 text-label break-words;
+    }
+
+    &:hover > span:last-child {
+      @apply bg-surface-hover;
+    }
+
+    &:focus-visible {
+      @apply outline-none;
+
+      > span:last-child {
+        @apply bg-accent text-on-accent;
       }
     }
   }
 
+  .empty-folder {
+    @apply grid flex-1 place-items-center text-body text-ink-muted;
+  }
+
+  /* File icons, drawn in CSS so they follow the theme. */
+  .file-icon {
+    @apply grid h-14 w-16 flex-none place-items-center;
+  }
+
+  .folder-icon {
+    filter: drop-shadow(0 2px 3px rgb(20 32 110 / 0.25));
+  }
+
+  .document-icon {
+    @apply relative mx-auto h-14 w-11 rounded-md bg-white;
+
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 0.15),
+      0 0 0 0.5px rgb(0 0 0 / 0.1);
+
+    &::before {
+      @apply absolute inset-x-2.5 top-3.5 h-6;
+
+      content: "";
+      background: repeating-linear-gradient(#c9cdd8 0 2px, transparent 2px 6px);
+    }
+
+    &.is-pdf::before {
+      @apply top-3 h-4;
+    }
+
+    span {
+      @apply absolute inset-x-1.5 bottom-2 rounded-sm bg-[#e5484d] py-px text-center text-[9px] font-bold text-white;
+    }
+  }
+
+  .image-icon {
+    img {
+      @apply aspect-[4/3] w-16 rounded-md object-cover object-top;
+
+      box-shadow:
+        0 1px 3px rgb(0 0 0 / 0.25),
+        0 0 0 2px #fff;
+    }
+  }
+
+  .link-icon {
+    @apply mx-auto size-13 rounded-app text-white;
+
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.4),
+      0 4px 10px -4px rgb(0 0 0 / 0.4);
+
+    svg {
+      @apply size-7;
+    }
+
+    &.link-web {
+      background: linear-gradient(160deg, #5aa9ff, #2f6bff);
+    }
+
+    &.link-github {
+      background: linear-gradient(160deg, #4a4f63, #16182a);
+    }
+
+    &.link-certificate {
+      background: linear-gradient(160deg, #ffd36b, #f08a24);
+    }
+  }
+
+  /* ---------- Text document ---------- */
+
+  #txtfile {
+    @apply top-24 right-32 h-[min(580px,calc(100dvh-8rem))] w-[min(90vw,640px)];
+  }
+
+  .text-document {
+    @apply min-h-0 flex-1 space-y-4 overflow-y-auto px-10 py-8 text-body;
+
+    > * {
+      @apply mx-auto max-w-[62ch];
+    }
+
+    header {
+      @apply space-y-1 pb-1;
+    }
+
+    h1 {
+      @apply text-large-title font-semibold tracking-tight;
+    }
+
+    .document-meta {
+      @apply text-label text-ink-muted;
+    }
+
+    ul {
+      @apply list-disc space-y-1.5 pl-5 marker:text-accent;
+    }
+  }
+
+  .text-document > .photo-slot {
+    @apply mx-0 flex size-24 flex-col items-center justify-center gap-1 rounded-full border border-dashed border-line bg-surface-sunken text-ink-muted;
+
+    span:first-child {
+      @apply font-display text-3xl font-light;
+    }
+
+    span:last-child {
+      @apply text-[10px];
+    }
+  }
+
+  /* ---------- Image preview ---------- */
+
+  #imgfile {
+    @apply top-32 left-2/12 w-[min(640px,calc(100vw-2rem))];
+  }
+
+  .image-content {
+    @apply flex min-h-0 flex-1 items-center justify-center bg-surface-sunken p-4;
+
+    img {
+      @apply max-h-[70vh] w-full rounded-control object-contain;
+    }
+  }
+
+  .is-maximized .image-content img {
+    @apply max-h-full w-auto max-w-full;
+  }
+
+  /* ---------- Skills (terminal) ---------- */
+
+  #terminal {
+    @apply top-30 left-1/4 w-[min(42rem,calc(100vw-2rem))];
+  }
+
+  .techstack {
+    @apply min-h-0 flex-1 overflow-y-auto p-5 font-mono text-label;
+
+    .label {
+      @apply ms-10 mt-7 flex items-center text-ink-muted;
+    }
+
+    .content {
+      @apply my-5 space-y-1 border-y border-dashed border-line py-5;
+
+      .check {
+        @apply w-5 text-success;
+      }
+
+      h3 {
+        @apply ms-5 w-56 font-semibold text-success;
+      }
+
+      ul {
+        @apply flex flex-wrap items-center gap-x-3;
+      }
+    }
+
+    .footnote {
+      @apply flex items-center text-success;
+
+      svg {
+        @apply me-5 w-5;
+      }
+    }
+  }
+
+  /* ---------- Contact ---------- */
+
   #contact {
-    @apply max-w-2xl top-30 left-1/6;
+    @apply top-28 left-1/6 w-[min(380px,calc(100vw-2rem))];
+  }
+
+  .contact-card {
+    @apply flex flex-col items-center gap-4 px-8 pt-8 pb-7 text-center;
 
     h3 {
       @apply text-title font-semibold;
     }
+  }
 
-    .contact-email {
-      @apply block w-fit text-ink-muted hover:text-accent-ink hover:underline;
+  .contact-photo {
+    @apply size-24 rounded-full object-cover;
+
+    box-shadow:
+      0 0 0 3px var(--color-surface-raised),
+      0 8px 20px -8px rgb(20 32 110 / 0.5);
+  }
+
+  .contact-role {
+    @apply text-label text-ink-muted;
+  }
+
+  .contact-intro {
+    @apply max-w-[34ch] text-body text-ink-muted;
+  }
+
+  .contact-primary {
+    @apply mt-1 flex w-full items-center justify-center gap-2 rounded-control bg-accent px-4 py-2.5 text-body font-semibold text-on-accent transition-[filter] hover:brightness-110;
+
+    svg {
+      @apply size-4.5;
     }
 
-    ul {
-      @apply flex items-center gap-3;
-
-      li {
-        @apply rounded-lg p-3 w-60 hover:-translate-y-0.5 hover:scale-105 origin-center transition-all duration-300;
-
-        a {
-          @apply block space-y-5;
-        }
-
-        p {
-          @apply font-semibold text-sm text-white;
-        }
-      }
+    &:focus-visible {
+      @apply outline-2 outline-offset-2 outline-accent;
     }
   }
 
-  #photos {
-    @apply left-1/2 top-20 flex h-[min(78vh,680px)] w-[min(92vw,1040px)] -translate-x-1/2 flex-col;
-
-    .window-header p {
-      @apply w-32 truncate text-right text-xs;
-    }
-
-    .gallery-shell {
-      @apply flex min-h-0 flex-1;
-
-      height: calc(100% - 3.5rem);
-    }
-
-    .gallery-sidebar {
-      @apply w-48 flex-none border-r border-line bg-surface-chrome p-4;
-
-      h3 {
-        @apply mb-2 px-2.5 text-caption font-semibold text-ink-muted;
-      }
-
-      button span:first-child {
-        @apply flex size-6 items-center justify-center rounded bg-surface-hover text-xs;
-      }
-
-      .active span:first-child {
-        @apply bg-accent/20;
-      }
-    }
-
-    .gallery-canvas {
-      @apply min-h-0 flex-1 overflow-y-scroll bg-surface-sunken p-5;
-
-      height: 100%;
-    }
-
-    &.is-maximized {
-      height: 100vh;
-      max-height: none;
-      width: 100vw;
-      max-width: none;
-      border-radius: 0;
-      transform: none !important;
-      opacity: 1 !important;
-      pointer-events: auto !important;
-
-      .gallery-shell {
-        height: calc(100vh - 3.5rem);
-      }
-    }
-
-    .gallery-grid {
-      @apply grid min-h-[680px] grid-cols-12 gap-3;
-
-      grid-template-rows: repeat(4, max-content);
-      align-items: start;
-    }
-
-    .gallery-tile {
-      @apply flex min-h-0 cursor-pointer self-start items-center justify-center overflow-hidden rounded-panel border-0 bg-surface-raised p-2 shadow-sm col-span-5;
-
-      aspect-ratio: 16 / 10;
-
-      img {
-        @apply block h-full w-full object-contain;
-
-        max-height: 100%;
-      }
-
-      /* Alternating wide/narrow rows: 7+5, 5+7, ... */
-      &:nth-child(4n + 1),
-      &:nth-child(4n + 4) {
-        @apply col-span-7;
-      }
-    }
-
-    @media (max-width: 640px) {
-      @apply top-12 h-[calc(100vh-5rem)] w-[calc(100vw-1rem)];
-
-      .gallery-sidebar {
-        @apply w-32 p-2;
-
-        button {
-          @apply px-2 text-xs;
-        }
-      }
-
-      .gallery-canvas {
-        @apply p-2;
-      }
-
-      .gallery-grid {
-        @apply min-h-[620px] grid-cols-2 gap-2;
-
-        grid-template-rows: max-content max-content;
-      }
-
-      .gallery-tile,
-      .gallery-tile:nth-child(n) {
-        @apply col-span-1;
-      }
-    }
+  .contact-email {
+    @apply -mt-2 text-caption text-ink-muted select-all;
   }
 
-  #resume {
-    @apply top-16 flex flex-col;
+  .contact-links {
+    @apply grid w-full grid-cols-3 gap-2;
 
-    width: min(90vw, 720px);
-    height: min(720px, calc(100vh - 7rem));
-    max-height: calc(100vh - 7rem);
-    left: max(1rem, min(58vw, calc(100vw - 760px)));
+    a {
+      @apply flex flex-col items-center gap-1.5 rounded-panel border border-line bg-surface-raised/50 px-2 py-3 text-caption font-medium transition-colors hover:bg-surface-hover;
 
-    .resume-document {
-      @apply flex min-h-0 min-w-0 flex-none items-start justify-center overflow-y-auto bg-surface-sunken p-4;
-
-      height: calc(100% - 3.5rem);
-
-      .react-pdf__Document {
-        @apply flex flex-none justify-center;
-      }
-    }
-
-    &.is-maximized {
-      height: 100vh;
-      max-height: none;
-
-      .resume-document {
-        height: calc(100vh - 3.5rem);
-        max-height: none;
-      }
-    }
-  }
-
-  #finder {
-    @apply w-3xl left-40 top-20;
-
-    .finder-body {
-      @apply flex h-full;
-    }
-
-    .sidebar {
-      @apply w-48 bg-surface-chrome border-r border-line flex flex-col p-5 space-y-3;
-
-      h3 {
-        @apply px-2.5 mb-1 text-caption font-semibold text-ink-muted;
-      }
-
-      li {
-        @apply cursor-pointer;
-      }
-    }
-
-    .content {
-      @apply relative min-h-[420px] max-w-2xl flex-1 overflow-y-auto p-8;
-
-      li {
-        @apply absolute flex items-center flex-col gap-3 cursor-pointer;
-
-        img {
-          @apply object-contain object-center size-16 relative;
-        }
-
-        p {
-          @apply w-40 rounded-control px-2 py-0.5 text-center text-label;
-        }
-
-        &:hover p {
-          @apply bg-surface-hover;
-        }
-      }
-    }
-
-    .empty-folder {
-      @apply absolute inset-0 flex items-center justify-center text-body text-ink-muted;
-    }
-  }
-
-  #txtfile {
-    @apply top-24 right-32 flex min-h-0 flex-col;
-
-    width: min(90vw, 640px);
-    height: min(560px, calc(100vh - 7rem));
-    max-height: calc(100vh - 7rem);
-
-    .text-document {
-      @apply min-h-0 flex-1 overflow-y-auto px-8 py-6 space-y-4 text-body;
-
-      height: calc(100% - 3.5rem);
-      box-sizing: border-box;
-
-      h2 {
-        @apply text-title font-semibold text-center w-full;
-      }
-
-      p {
-        @apply mx-auto max-w-[65ch];
-      }
-    }
-
-    .photo-slot {
-      @apply mx-auto flex size-28 flex-col items-center justify-center gap-1 rounded-full border border-dashed border-line bg-surface-sunken text-ink-subtle;
-
-      span:first-child {
-        @apply font-display text-3xl font-light;
-      }
-
-      span:last-child {
-        @apply text-[10px];
-      }
-    }
-
-    &.is-maximized {
-      height: 100vh;
-      max-height: none;
-
-      .text-document {
-        height: calc(100vh - 3.5rem);
-        max-height: none;
-      }
-    }
-  }
-
-  #imgfile {
-    @apply w-xl top-40 left-2/12;
-
-    .window-header p {
-      @apply font-bold;
-    }
-
-    .image-content {
-      @apply p-5;
-
-      img {
-        @apply h-auto max-h-[70vh] w-full object-contain;
-      }
-    }
-
-    &.is-maximized .image-content {
-      @apply flex min-h-0 items-center justify-center bg-surface-sunken p-4;
-
-      height: calc(100vh - 3.5rem);
-
-      img {
-        width: auto;
-        max-width: 100%;
-        max-height: 100%;
-      }
-    }
-  }
-
-  #settings {
-    @apply left-1/2 top-24 w-[min(92vw,680px)] -translate-x-1/2;
-
-    .settings-content {
-      @apply flex min-h-[300px];
-    }
-
-    .settings-sidebar {
-      @apply flex w-56 flex-col items-center gap-3 border-r border-line bg-surface-chrome p-8 text-center;
-
-      p:last-child {
-        @apply text-caption text-ink-muted;
-      }
-    }
-
-    .settings-panel {
-      @apply flex flex-1 flex-col gap-7 p-8;
-
-      h3 {
-        @apply text-title font-semibold;
-      }
-    }
-
-    .settings-description {
-      @apply mt-1 text-label text-ink-muted;
-    }
-
-    .settings-options {
-      @apply grid grid-cols-2 gap-3;
-
-      &.theme-options {
-        @apply grid-cols-3;
-      }
-    }
-
-    .settings-option {
-      @apply relative flex flex-col gap-2.5 rounded-panel border border-line bg-surface-raised/50 p-2.5 text-left text-label font-medium transition-colors hover:border-accent/60;
-
-      &.selected {
-        @apply border-accent bg-accent-soft text-accent-ink;
-
-        box-shadow: 0 0 0 1px var(--color-accent);
+      svg {
+        @apply size-5;
       }
 
       &:focus-visible {
-        @apply outline-2 outline-offset-2 outline-accent;
+        @apply outline-2 outline-accent;
       }
     }
+  }
 
-    /* Miniature desktops of each theme, painted with the real wallpapers. */
-    .theme-preview {
-      @apply relative block h-20 overflow-hidden rounded-control;
+  /* ---------- Gallery ---------- */
 
+  #photos {
+    @apply left-1/2 top-20 h-[min(78vh,680px)] w-[min(92vw,1040px)] -translate-x-1/2;
+  }
+
+  .gallery-shell {
+    @apply flex min-h-0 flex-1;
+  }
+
+  .gallery-sidebar {
+    @apply w-48 flex-none border-r border-line bg-surface-chrome p-3;
+
+    h3 {
+      @apply mb-1 px-2.5 text-caption font-semibold text-ink-muted;
+    }
+
+    button span:first-child {
+      @apply flex size-6 items-center justify-center rounded bg-surface-hover text-xs;
+    }
+
+    .active span:first-child {
+      @apply bg-accent/20;
+    }
+  }
+
+  .gallery-canvas {
+    @apply min-h-0 flex-1 overflow-y-auto bg-surface-sunken p-5;
+  }
+
+  .gallery-grid {
+    @apply grid grid-cols-12 items-start gap-3;
+  }
+
+  .gallery-tile {
+    @apply col-span-5 flex aspect-[16/10] min-h-0 cursor-pointer items-center justify-center overflow-hidden rounded-panel border-0 bg-surface-raised p-2 shadow-sm;
+
+    img {
+      @apply block h-full w-full object-contain;
+    }
+
+    /* Alternating wide/narrow rows: 7+5, 5+7, ... */
+    &:nth-child(4n + 1),
+    &:nth-child(4n + 4) {
+      @apply col-span-7;
+    }
+
+    &:focus-visible {
+      @apply outline-2 outline-accent;
+    }
+  }
+
+  @media (max-width: 640px) {
+    #photos {
+      @apply top-12 h-[calc(100dvh-5rem)] w-[calc(100vw-1rem)];
+    }
+
+    .gallery-sidebar {
+      @apply w-32 p-2;
+    }
+
+    .gallery-canvas {
+      @apply p-2;
+    }
+
+    .gallery-grid {
+      @apply grid-cols-2 gap-2;
+    }
+
+    .gallery-tile,
+    .gallery-tile:nth-child(n) {
+      @apply col-span-1;
+    }
+  }
+
+  /* ---------- Resume ---------- */
+
+  #resume {
+    @apply top-16 h-[min(720px,calc(100dvh-7rem))] w-[min(90vw,720px)];
+
+    left: max(1rem, min(58vw, calc(100vw - 760px)));
+  }
+
+  .resume-document {
+    @apply flex min-h-0 min-w-0 flex-1 items-start justify-center overflow-y-auto bg-surface-sunken p-4;
+
+    .react-pdf__Document {
+      @apply flex flex-none justify-center;
+    }
+
+    .react-pdf__Page {
+      @apply overflow-hidden rounded-control shadow-lg;
+    }
+  }
+
+  /* ---------- Settings ---------- */
+
+  #settings {
+    @apply left-1/2 top-24 w-[min(92vw,680px)] -translate-x-1/2;
+  }
+
+  .settings-content {
+    @apply flex min-h-[300px] flex-1;
+  }
+
+  .settings-sidebar {
+    @apply flex w-56 flex-col items-center gap-3 border-r border-line bg-surface-chrome p-8 text-center;
+
+    p:last-child {
+      @apply text-caption text-ink-muted;
+    }
+  }
+
+  .settings-panel {
+    @apply flex flex-1 flex-col gap-7 p-8;
+
+    h3 {
+      @apply text-title font-semibold;
+    }
+  }
+
+  .settings-description {
+    @apply mt-1 text-label text-ink-muted;
+  }
+
+  .settings-options {
+    @apply grid grid-cols-2 gap-3;
+
+    &.theme-options {
+      @apply grid-cols-3;
+    }
+  }
+
+  .settings-option {
+    @apply relative flex flex-col gap-2.5 rounded-panel border border-line bg-surface-raised/50 p-2.5 text-left text-label font-medium transition-colors hover:border-accent/60;
+
+    &.selected {
+      @apply border-accent bg-accent-soft text-accent-ink;
+
+      box-shadow: 0 0 0 1px var(--color-accent);
+    }
+
+    &:focus-visible {
+      @apply outline-2 outline-offset-2 outline-accent;
+    }
+  }
+
+  /* Miniature desktops of each theme, painted with the real wallpapers. */
+  .theme-preview {
+    @apply relative block h-20 overflow-hidden rounded-control;
+
+    background:
+      radial-gradient(60% 70% at 92% 6%, #2e4bf0 0%, rgb(46 75 240 / 0) 70%),
+      linear-gradient(165deg, #5d76f2, #aebdff 55%, #f4e2dc);
+
+    span {
+      @apply absolute inset-x-3 top-3 bottom-0 z-10 rounded-t-md;
+
+      background: rgb(255 255 255 / 0.7);
+      box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
+    }
+
+    &.dark {
       background:
-        radial-gradient(60% 70% at 92% 6%, #2e4bf0 0%, rgb(46 75 240 / 0) 70%),
-        linear-gradient(165deg, #5d76f2, #aebdff 55%, #f4e2dc);
+        radial-gradient(70% 60% at 12% 100%, #7a3e66 0%, rgb(122 62 102 / 0) 70%),
+        linear-gradient(165deg, #070b2e, #141b5c 55%, #25183f);
 
       span {
-        @apply absolute inset-x-3 top-3 bottom-0 z-10 rounded-t-md;
-
-        background: rgb(255 255 255 / 0.7);
-        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9);
-      }
-
-      &.dark {
-        background:
-          radial-gradient(70% 60% at 12% 100%, #7a3e66 0%, rgb(122 62 102 / 0) 70%),
-          linear-gradient(165deg, #070b2e, #141b5c 55%, #25183f);
-
-        span {
-          background: rgb(22 27 66 / 0.75);
-          box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16);
-        }
-      }
-
-      /* Auto: light on the left half, dark on the right half. */
-      &.system::after {
-        @apply absolute inset-0;
-
-        content: "";
-        background:
-          radial-gradient(70% 60% at 12% 100%, #7a3e66 0%, rgb(122 62 102 / 0) 70%),
-          linear-gradient(165deg, #070b2e, #141b5c 55%, #25183f);
-        clip-path: inset(0 0 0 50%);
-      }
-
-      &.system span {
-        background: linear-gradient(
-          to right,
-          rgb(255 255 255 / 0.7) 50%,
-          rgb(22 27 66 / 0.75) 50%
-        );
+        background: rgb(22 27 66 / 0.75);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16);
       }
     }
 
-    .option-check {
-      @apply absolute right-2.5 bottom-2.5 text-label;
+    /* Auto: light on the left half, dark on the right half. */
+    &.system::after {
+      @apply absolute inset-0;
+
+      content: "";
+      background:
+        radial-gradient(70% 60% at 12% 100%, #7a3e66 0%, rgb(122 62 102 / 0) 70%),
+        linear-gradient(165deg, #070b2e, #141b5c 55%, #25183f);
+      clip-path: inset(0 0 0 50%);
     }
+
+    &.system span {
+      background: linear-gradient(
+        to right,
+        rgb(255 255 255 / 0.7) 50%,
+        rgb(22 27 66 / 0.75) 50%
+      );
+    }
+  }
+
+  .option-check {
+    @apply absolute right-2.5 bottom-2.5 text-label;
   }
 }

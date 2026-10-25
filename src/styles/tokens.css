@@ -48,6 +48,7 @@
   --color-accent: #2f54eb;
   --color-accent-soft: rgb(47 84 235 / 0.14);
   --color-accent-ink: #2343c9;
+  --color-on-accent: #ffffff;
   --color-success: #138a52;
 
   /* Desktop chrome over the wallpaper */
@@ -58,6 +59,7 @@
   --color-traffic-close: #ff5f57;
   --color-traffic-minimize: #febc2e;
   --color-traffic-maximize: #28c840;
+  --color-traffic-inactive: rgb(16 22 58 / 0.18);
 
   --radius-window: 1.25rem;
   --radius-panel: 0.875rem;
@@ -66,6 +68,8 @@
 
   --shadow-window:
     0 40px 80px -30px rgb(20 32 110 / 0.5), 0 0 0 0.5px rgb(16 22 58 / 0.14);
+  --shadow-window-inactive:
+    0 20px 40px -24px rgb(20 32 110 / 0.35), 0 0 0 0.5px rgb(16 22 58 / 0.1);
   --shadow-glass:
     inset 0 1px 0 var(--color-glass-highlight),
     0 20px 40px -24px rgb(20 32 110 / 0.45), 0 0 0 0.5px rgb(16 22 58 / 0.12);
@@ -74,6 +78,7 @@
 }
 
 :root {
+  --menubar-height: 2.125rem;
   --wallpaper:
     radial-gradient(70% 60% at 12% 100%, #ffc6a3 0%, rgb(255 198 163 / 0) 70%),
     radial-gradient(60% 70% at 92% 6%, #2e4bf0 0%, rgb(46 75 240 / 0) 70%),
@@ -102,13 +107,17 @@ html[data-theme="dark"] {
   --color-accent: #7d97ff;
   --color-accent-soft: rgb(125 151 255 / 0.2);
   --color-accent-ink: #b4c3ff;
+  --color-on-accent: #0b1240;
   --color-success: #5ee0a0;
 
   --color-menubar: rgb(7 11 46 / 0.3);
   --color-dock: rgb(22 27 66 / 0.5);
+  --color-traffic-inactive: rgb(255 255 255 / 0.2);
 
   --shadow-window:
     0 40px 80px -30px rgb(0 0 0 / 0.75), 0 0 0 0.5px rgb(255 255 255 / 0.1);
+  --shadow-window-inactive:
+    0 20px 40px -24px rgb(0 0 0 / 0.55), 0 0 0 0.5px rgb(255 255 255 / 0.08);
   --shadow-glass:
     inset 0 1px 0 var(--color-glass-highlight),
     0 20px 40px -24px rgb(0 0 0 / 0.7), 0 0 0 0.5px rgb(255 255 255 / 0.1);

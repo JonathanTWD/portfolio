@@ -21,7 +21,6 @@ const Photos = () => {
     openWindow("imgfile", {
       id: image.id,
       name: t.gallery.imageName(activeProject.name, image.id),
-      icon: "/images/image.png",
       kind: "file",
       fileType: "img",
       imageUrl: image.img,
