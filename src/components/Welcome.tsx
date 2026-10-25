@@ -91,10 +91,6 @@ const Welcome = () => {
       <h1 ref={titleRef} className="mt-7">
         {renderText(t.welcome.title, "text-9xl italic font-display")}
       </h1>
-
-      <div className="small-screen">
-        <p>{t.welcome.smallScreen}</p>
-      </div>
     </section>
   );
 };

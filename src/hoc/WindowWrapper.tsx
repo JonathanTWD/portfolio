@@ -7,13 +7,17 @@ import useWindowStore, {
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
+import useIsMobile from "../hooks/useIsMobile";
+import { takeLaunchOrigin } from "../lib/launchOrigin";
+import { prefersReducedMotion } from "../lib/motion";
 
 const WindowWrapper = <Props extends object>(
   Component: ComponentType<Props>,
   windowKey: WindowKey,
 ) => {
   const Wrapped = (props: Props) => {
-    const { focusWindow, windows } = useWindowStore();
+    const { focusWindow, closeWindow, windows } = useWindowStore();
+    const isMobile = useIsMobile();
     const { isOpen, isMinimized, isMaximized, zIndex } = windows[windowKey];
     const isFocused = useWindowStore(selectFocusedWindow) === windowKey;
     const ref = useRef<HTMLElement | null>(null);
@@ -38,6 +42,28 @@ const WindowWrapper = <Props extends object>(
       }
 
       el.style.display = "";
+
+      /* Phones: full screen, growing out of the icon that was tapped. */
+      if (isMobile) {
+        gsap.set(el, { clearProps: "transform,opacity,pointerEvents" });
+        const origin = takeLaunchOrigin();
+        const opening = !previousState.current.isOpen;
+        previousState.current = { isOpen, isMinimized, isMaximized };
+        if (!opening || prefersReducedMotion()) return;
+
+        gsap.fromTo(
+          el,
+          {
+            scale: 0.2,
+            opacity: 0,
+            transformOrigin: origin
+              ? `${origin.left + origin.width / 2}px ${origin.top + origin.height / 2}px`
+              : "50% 50%",
+          },
+          { scale: 1, opacity: 1, duration: 0.38, ease: "power3.out" },
+        );
+        return;
+      }
 
       const wasNormal =
         previousState.current.isOpen &&
@@ -118,11 +144,16 @@ const WindowWrapper = <Props extends object>(
         },
       );
       previousState.current = { isOpen, isMinimized, isMaximized };
-    }, [isOpen, isMinimized, isMaximized]);
+    }, [isOpen, isMinimized, isMaximized, isMobile]);
+
+    /* Move keyboard focus into a window when it opens. */
+    useGSAP(() => {
+      if (isOpen && !isMinimized) ref.current?.focus({ preventScroll: true });
+    }, [isOpen, isMinimized]);
 
     useGSAP(() => {
       const el = ref.current;
-      if (!el || !isOpen || isMinimized || isMaximized) return;
+      if (!el || !isOpen || isMinimized || isMaximized || isMobile) return;
 
       const [instance] = Draggable.create(el, {
         cursor: "default",
@@ -131,7 +162,7 @@ const WindowWrapper = <Props extends object>(
       });
 
       return () => instance.kill();
-    }, [isOpen, isMinimized, isMaximized]);
+    }, [isOpen, isMinimized, isMaximized, isMobile]);
 
     if (!isOpen) return null;
 
@@ -143,9 +174,17 @@ const WindowWrapper = <Props extends object>(
         className={clsx(
           "window",
           isMaximized && "is-maximized",
+          isMobile && "is-fullscreen",
           !isFocused && "is-inactive",
         )}
+        tabIndex={-1}
         onMouseDown={() => focusWindow(windowKey)}
+        onKeyDown={(event) => {
+          // Escape closes the window, except while typing in a field.
+          if (event.key !== "Escape") return;
+          if ((event.target as HTMLElement).closest("input, textarea")) return;
+          closeWindow(windowKey);
+        }}
       >
         <Component {...props} />
       </section>

@@ -195,42 +195,42 @@ const galleryProjects = [
     images: [
       {
         id: 1,
-        img: "/images/canaccesible-project/canaccesible-8.png",
+        img: "/images/canaccesible-project/canaccesible-8.webp",
         altId: "landing",
       },
       {
         id: 2,
-        img: "/images/canaccesible-project/canaccesible-7.png",
+        img: "/images/canaccesible-project/canaccesible-7.webp",
         altId: "about",
       },
       {
         id: 3,
-        img: "/images/canaccesible-project/canaccesible-1.png",
+        img: "/images/canaccesible-project/canaccesible-1.webp",
         altId: "map",
       },
       {
         id: 4,
-        img: "/images/canaccesible-project/canaccesible-6.png",
+        img: "/images/canaccesible-project/canaccesible-6.webp",
         altId: "login",
       },
       {
         id: 5,
-        img: "/images/canaccesible-project/canaccesible-2.png",
+        img: "/images/canaccesible-project/canaccesible-2.webp",
         altId: "management",
       },
       {
         id: 6,
-        img: "/images/canaccesible-project/canaccesible-3.png",
+        img: "/images/canaccesible-project/canaccesible-3.webp",
         altId: "incident",
       },
       {
         id: 7,
-        img: "/images/canaccesible-project/canaccesible-4.png",
+        img: "/images/canaccesible-project/canaccesible-4.webp",
         altId: "blog",
       },
       {
         id: 8,
-        img: "/images/canaccesible-project/canaccesible-5.png",
+        img: "/images/canaccesible-project/canaccesible-5.webp",
         altId: "contact",
       },
     ],
@@ -254,7 +254,7 @@ const canaccesibleImages: FileLocation[] = Array.from(
     name: `image-${index + 1}.png`,
     kind: "file",
     fileType: "img",
-    imageUrl: `/images/canaccesible-project/canaccesible-${index + 1}.png`,
+    imageUrl: `/images/canaccesible-project/canaccesible-${index + 1}.webp`,
   }),
 );
 

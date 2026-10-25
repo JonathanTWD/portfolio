@@ -22,8 +22,6 @@ const en: Dictionary = {
   welcome: {
     greeting: "Hey, I'm Jonathan! Welcome to my",
     title: "portfolio",
-    smallScreen:
-      "For now, this portfolio is designed for desktop and tablet screens.",
   },
   dock: {
     apps: {
@@ -51,7 +49,19 @@ const en: Dictionary = {
       action: "View in Showcase",
     },
   },
+  mobile: {
+    home: "Home",
+    backHome: "Back to the home screen",
+    apps: "Apps",
+    extraApps: {
+      resume: "Resume",
+      about: "About me",
+      experience: "Experience",
+    },
+  },
   onboarding: {
+    mobileText:
+      "Tap an app to open it and use Home, at the top left, to go back.",
     title: "How to get around",
     text: "Open apps from the dock at the bottom. Drag windows by their top bar and use the coloured buttons to close, minimize or maximize them.",
     start: "Start with About me",

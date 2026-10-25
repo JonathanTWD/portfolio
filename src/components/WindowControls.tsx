@@ -1,3 +1,5 @@
+import { ChevronLeft } from "lucide-react";
+import useIsMobile from "../hooks/useIsMobile";
 import { useTranslation } from "../i18n";
 import useWindowStore, { type WindowKey } from "../store/window";
 
@@ -6,9 +8,30 @@ type WindowControlsProps = {
   canMaximize?: boolean;
 };
 
-const WindowControls = ({ target, canMaximize = true }: WindowControlsProps) => {
-  const { closeWindow, minimizeWindow, toggleMaximizeWindow } = useWindowStore();
+const WindowControls = ({
+  target,
+  canMaximize = true,
+}: WindowControlsProps) => {
+  const { closeWindow, minimizeWindow, toggleMaximizeWindow } =
+    useWindowStore();
   const t = useTranslation();
+  const isMobile = useIsMobile();
+
+  /* On phones every window is full screen: one button takes you back home. */
+  if (isMobile) {
+    return (
+      <button
+        type="button"
+        className="mobile-back"
+        aria-label={t.mobile.backHome}
+        onClick={() => closeWindow(target)}
+      >
+        <ChevronLeft aria-hidden="true" />
+        {t.mobile.home}
+      </button>
+    );
+  }
+
   return (
     <div className="window-controls">
       <button

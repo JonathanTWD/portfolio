@@ -1,0 +1,266 @@
+/*
+ * Phone layout (below 768px): an iOS-style home screen and full-screen
+ * windows. Same content as the desktop; only the presentation changes.
+ */
+
+@layer components {
+  #mobile-home {
+    @apply relative flex h-dvh flex-col overflow-y-auto px-5 text-on-wallpaper;
+
+    padding-top: calc(env(safe-area-inset-top) + 0.25rem);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 0.75rem);
+  }
+
+  .mobile-status {
+    @apply flex h-12 flex-none items-center justify-between text-body font-semibold tabular-nums;
+
+    text-shadow: var(--text-shadow-wallpaper);
+
+    div {
+      @apply flex gap-1.5;
+    }
+  }
+
+  .mobile-pill {
+    @apply grid h-11 min-w-11 place-items-center rounded-full bg-white/15 px-3 text-label font-semibold;
+
+    backdrop-filter: blur(16px);
+
+    svg {
+      @apply size-4.5;
+    }
+
+    &:focus-visible {
+      @apply outline-2 outline-on-wallpaper;
+    }
+  }
+
+  .mobile-welcome {
+    @apply mt-5 select-none;
+
+    text-shadow: var(--text-shadow-wallpaper);
+
+    p {
+      @apply font-display text-lg font-extralight;
+    }
+
+    h1 {
+      @apply cursor-pointer font-display text-[4.75rem] leading-[0.95] italic;
+
+      span {
+        font-variation-settings: "wght" 400;
+      }
+    }
+  }
+
+  .mobile-widgets {
+    @apply mt-6 grid grid-cols-2 gap-3;
+
+    .widget {
+      @apply flex aspect-square flex-col justify-between;
+    }
+
+    .widget-time {
+      @apply text-[2.25rem];
+    }
+  }
+
+  .mobile-grid {
+    @apply mt-7 grid grid-cols-4 justify-items-center gap-y-5;
+
+    button {
+      @apply flex w-18 flex-col items-center gap-1.5 text-caption font-medium;
+
+      text-shadow: var(--text-shadow-wallpaper);
+    }
+  }
+
+  .mobile-grid .app-icon,
+  .mobile-dock .app-icon {
+    @apply size-15 rounded-[1.1rem];
+  }
+
+  .mobile-grid button:focus-visible .app-icon,
+  .mobile-dock button:focus-visible .app-icon {
+    @apply outline-2 outline-offset-3 outline-on-wallpaper;
+  }
+
+  .mobile-dock {
+    @apply mt-auto flex-none rounded-[2rem] bg-dock p-3 glass;
+
+    ul {
+      @apply flex justify-around;
+    }
+  }
+
+  /* Every window fills the phone screen. */
+  .window.is-fullscreen {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    border-radius: 0;
+    border-width: 0;
+
+    .window-header {
+      padding-top: calc(env(safe-area-inset-top) + 0.5rem);
+    }
+  }
+
+  .mobile-back {
+    @apply -ms-2 flex min-h-11 items-center gap-0.5 rounded-control pe-2 text-body font-medium text-accent-ink;
+
+    svg {
+      @apply size-5;
+    }
+
+    &:focus-visible {
+      @apply outline-2 outline-accent;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  @layer components {
+    .window-header > :nth-child(2) {
+      @apply text-body;
+    }
+
+    #onboarding {
+      @apply right-3 left-3 w-auto;
+
+      top: calc(env(safe-area-inset-top) + 0.75rem);
+    }
+
+    /* Finder: the sidebar becomes a row of folder chips under the back button. */
+    .finder-layout {
+      @apply flex-col gap-0 p-0;
+    }
+
+    .finder-sidebar {
+      @apply w-full flex-none gap-2 overflow-visible rounded-none border-0 border-b border-line px-3 pt-2 pb-2.5;
+
+      padding-top: calc(env(safe-area-inset-top) + 0.5rem);
+    }
+
+    .finder-section h3,
+    .finder-section + .finder-section {
+      @apply hidden;
+    }
+
+    .finder-sidebar .sidebar-list {
+      @apply -mx-3 flex gap-1.5 space-y-0 overflow-x-auto px-3;
+
+      li > button {
+        @apply min-h-11 whitespace-nowrap rounded-full border border-line px-3.5;
+      }
+    }
+
+    .finder-toolbar {
+      @apply px-3;
+    }
+
+    .finder-grid {
+      @apply px-2;
+
+      grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+    }
+
+    .text-document {
+      @apply px-5 py-6;
+    }
+
+    .terminal-body {
+      @apply px-4;
+    }
+
+    .terminal-table > div {
+      @apply grid-cols-1 gap-0.5;
+    }
+
+    .terminal-input input {
+      @apply text-base;
+    }
+
+    .terminal-suggestions button {
+      @apply min-h-9 px-3;
+    }
+
+    .contact-card {
+      @apply px-6;
+    }
+
+    .gallery-sidebar {
+      @apply hidden;
+    }
+
+    .settings-content {
+      @apply flex-col;
+    }
+
+    .settings-sidebar {
+      @apply hidden;
+    }
+
+    .settings-panel {
+      @apply gap-6 p-5;
+    }
+
+    .settings-options,
+    .settings-options.theme-options {
+      @apply gap-2;
+    }
+
+    .resume-document {
+      @apply p-2;
+    }
+
+    /* Showcase: one column, the architecture reads top to bottom. */
+    .address-bar {
+      @apply w-full px-2 text-caption;
+    }
+
+    .showcase-page {
+      @apply space-y-12 px-5 pt-8 pb-12;
+    }
+
+    .showcase-hero h1 {
+      @apply text-[3.25rem];
+    }
+
+    .showcase-lede {
+      @apply text-body;
+    }
+
+    .showcase-feature,
+    .showcase-feature:nth-child(even) {
+      @apply grid-cols-1 gap-4;
+
+      > div {
+        @apply order-none pt-0;
+      }
+    }
+
+    .architecture-layers {
+      @apply grid-cols-1 gap-8;
+    }
+
+    .architecture-layers > li:not(:last-child)::after {
+      @apply top-auto right-auto -bottom-7 left-1/2 -translate-x-1/2 translate-y-0;
+
+      content: "↓";
+    }
+
+    .architecture-side,
+    .showcase-list {
+      @apply grid-cols-1;
+    }
+
+    .showcase-decisions > div {
+      @apply grid-cols-1 gap-1;
+    }
+  }
+}

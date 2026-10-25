@@ -146,8 +146,6 @@ const es = {
   welcome: {
     greeting: "¡Hola, soy Jonathan! Bienvenido a mi",
     title: "portfolio",
-    smallScreen:
-      "De momento, este portfolio está pensado para pantallas de escritorio y tablet.",
   },
   dock: {
     apps: {
@@ -175,7 +173,19 @@ const es = {
       action: "Ver en el Escaparate",
     },
   },
+  mobile: {
+    home: "Inicio",
+    backHome: "Volver a la pantalla de inicio",
+    apps: "Apps",
+    extraApps: {
+      resume: "CV",
+      about: "Sobre mí",
+      experience: "Experiencia",
+    },
+  },
   onboarding: {
+    mobileText:
+      "Toca una app para abrirla y usa «Inicio», arriba a la izquierda, para volver.",
     title: "Cómo moverte por el portfolio",
     text: "Abre las apps desde el dock de abajo. Arrastra las ventanas por su barra superior y usa los botones de colores para cerrar, minimizar o maximizar.",
     start: "Empezar por Sobre mí",
