@@ -37,6 +37,26 @@ const en: Dictionary = {
     restoreHint: "Click to restore",
     restore: (name) => `Restore ${name}`,
   },
+  widgets: {
+    label: "Widgets",
+    dateFormat: "dddd, MMMM D",
+    now: {
+      title: "Right now",
+      status: "Looking for a fullstack role",
+      detail: "Available for interviews",
+      action: "Get in touch",
+    },
+    featured: {
+      title: "Featured project",
+      action: "View in Showcase",
+    },
+  },
+  onboarding: {
+    title: "How to get around",
+    text: "Open apps from the dock at the bottom. Drag windows by their top bar and use the coloured buttons to close, minimize or maximize them.",
+    start: "Start with About me",
+    dismiss: "Got it",
+  },
   windowControls: {
     close: "Close window",
     minimize: "Minimize window",
