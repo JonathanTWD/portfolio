@@ -316,7 +316,7 @@ const en: Dictionary = {
   },
   resume: {
     title: "Resume.pdf",
-    download: "Download resume",
+    download: "Download CV",
   },
   settings: {
     title: "Settings",

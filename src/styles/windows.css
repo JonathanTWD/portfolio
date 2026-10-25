@@ -332,8 +332,12 @@
     @apply py-2.5;
   }
 
+  .window-header > .address-bar {
+    @apply font-normal text-ink-muted;
+  }
+
   .address-bar {
-    @apply mx-auto flex w-[min(28rem,60%)] items-center justify-center gap-1.5 rounded-control bg-surface-sunken px-3 py-1 text-label text-ink-muted;
+    @apply mx-auto flex w-[min(28rem,50vw)] items-center justify-center gap-1.5 rounded-control bg-surface-sunken px-3 py-1 text-label text-ink-muted;
 
     svg {
       @apply size-3.5 text-success;
@@ -444,7 +448,12 @@
   }
 
   .showcase-feature {
-    @apply grid grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)] items-center gap-8;
+    @apply grid grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)] items-start gap-8;
+
+    /* Text lines up with the top of the screenshot, below its frame bar. */
+    > div {
+      @apply pt-10;
+    }
 
     /* The frame hugs narrow screenshots instead of filling the column. */
     .showcase-shot {
