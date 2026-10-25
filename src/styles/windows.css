@@ -210,16 +210,12 @@
     }
   }
 
-  .text-document > .photo-slot {
-    @apply mx-0 flex size-24 flex-col items-center justify-center gap-1 rounded-full border border-dashed border-line bg-surface-sunken text-ink-muted;
+  .text-document > .document-photo {
+    @apply mx-0 size-24 rounded-full object-cover;
 
-    span:first-child {
-      @apply font-display text-3xl font-light;
-    }
-
-    span:last-child {
-      @apply text-[10px];
-    }
+    box-shadow:
+      0 0 0 3px var(--color-surface-raised),
+      0 8px 20px -8px rgb(20 32 110 / 0.5);
   }
 
   /* ---------- Image preview ---------- */

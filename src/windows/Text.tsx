@@ -22,11 +22,12 @@ const Text = () => {
       </div>
 
       <article className="text-document">
-        {data.showPhotoSlot && (
-          <div className="photo-slot" aria-hidden="true">
-            <span>JM</span>
-            <span>{t.textFile.photoPlaceholder}</span>
-          </div>
+        {data.photo && (
+          <img
+            className="document-photo"
+            src={data.photo}
+            alt={t.contact.photoAlt}
+          />
         )}
         {subtitle && (
           <header>

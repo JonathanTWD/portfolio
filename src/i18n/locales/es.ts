@@ -173,9 +173,6 @@ const es = {
     emptyFolder: "Esta carpeta está vacía.",
   },
   locations,
-  textFile: {
-    photoPlaceholder: "Foto próximamente",
-  },
   showcase: {
     title: "Escaparate",
     tabs: "Proyectos",

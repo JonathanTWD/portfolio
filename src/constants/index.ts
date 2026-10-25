@@ -77,7 +77,8 @@ export type FileLocation = LocationBase & {
   imageUrl?: string;
   /** Opens one of the portfolio's own windows instead of a link. */
   opensWindow?: "showcase";
-  showPhotoSlot?: boolean;
+  /** Portrait shown at the top of the document. */
+  photo?: string;
 };
 
 export interface FolderLocation extends LocationBase {
@@ -374,7 +375,7 @@ const ABOUT_LOCATION: FolderLocation = {
       textId: "aboutMe",
       kind: "file",
       fileType: "txt",
-      showPhotoSlot: true,
+      photo: "/images/jonathan-1.jpeg",
     },
   ],
 };

@@ -140,9 +140,6 @@ const en: Dictionary = {
       ],
     },
   },
-  textFile: {
-    photoPlaceholder: "Photo coming soon",
-  },
   showcase: {
     title: "Showcase",
     tabs: "Projects",
