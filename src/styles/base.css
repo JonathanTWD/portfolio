@@ -3,14 +3,32 @@ body {
   width: 100dvw;
   height: 100dvh;
   overflow: hidden;
+}
+
+/* Only the root paints the wallpaper, so the grain below can sit on top of it. */
+html {
+  background-color: var(--wallpaper-fallback);
   background-image: var(--wallpaper);
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
 }
 
 body {
   color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Film grain over the generated wallpaper, painted below all content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @utility flex-center {
@@ -23,6 +41,14 @@ body {
 
 @utility abs-center {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+/* Frosted material shared by windows, the dock, widgets and popovers. */
+@utility glass {
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
 }
 
 @layer base {

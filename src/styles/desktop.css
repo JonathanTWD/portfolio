@@ -2,7 +2,10 @@
 
 @layer components {
   nav {
-    @apply flex justify-between items-center bg-menubar backdrop-blur-3xl p-2 px-5 select-none text-ink;
+    @apply relative z-40 flex justify-between items-center h-8.5 px-4 bg-menubar select-none text-label text-on-wallpaper;
+
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
 
     div {
       @apply flex items-center max-sm:w-full max-sm:justify-center gap-5;
@@ -16,55 +19,74 @@
       @apply flex items-center gap-5 max-sm:hidden;
 
       p {
-        @apply text-sm cursor-pointer hover:underline transition-all;
+        @apply cursor-pointer rounded-control px-1.5 py-0.5 transition-colors hover:bg-white/15;
       }
     }
 
+    .navbar-logo {
+      @apply size-4;
+    }
+
     time {
-      @apply text-sm font-medium;
+      @apply font-medium tabular-nums;
     }
 
     .navbar-status-icon {
-      filter: var(--filter-icon);
+      @apply size-4;
+
+      filter: invert(1);
     }
   }
 
   #welcome {
     @apply text-on-wallpaper flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10;
 
+    text-shadow: var(--text-shadow-wallpaper);
+
     .small-screen {
-      @apply sm:hidden m-7 bg-red-300/20 backdrop-blur-lg p-3 rounded-md absolute top-10;
+      @apply sm:hidden m-7 rounded-panel bg-surface p-3 absolute top-10 glass;
+
+      text-shadow: none;
 
       p {
-        @apply flex-1 text-[16px] text-center font-mono text-on-wallpaper;
+        @apply flex-1 text-body text-center text-ink;
       }
     }
   }
 
   #dock {
-    @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:hidden;
+    @apply absolute bottom-4 left-1/2 -translate-x-1/2 z-[100000] select-none max-sm:hidden;
 
     .dock-container {
-      @apply bg-dock backdrop-blur-md justify-between rounded-2xl p-1.5 flex items-end gap-1.5;
+      @apply flex items-end gap-2.5 rounded-[1.625rem] bg-dock p-2.5 glass;
     }
 
     .tooltip {
-      @apply py-1! px-3! w-fit! text-center! text-xs! rounded-md! bg-tooltip! text-tooltip-ink! shadow-2xl!;
+      @apply py-1! px-2.5! w-fit! text-center! text-label! font-medium! rounded-control! bg-surface-raised! text-ink! shadow-lg!;
+
+      backdrop-filter: blur(20px) saturate(180%);
     }
 
     .dock-icon {
-      @apply size-14 3xl:size-20 cursor-pointer;
+      @apply relative cursor-pointer rounded-app;
 
-      img {
-        @apply object-cover object-center;
+      &:focus-visible {
+        @apply outline-2 outline-offset-4 outline-on-wallpaper;
+      }
+
+      /* Running indicator under apps with an open window. */
+      &.is-running::after {
+        @apply absolute -bottom-1.5 left-1/2 size-1 -translate-x-1/2 rounded-full bg-on-wallpaper opacity-80;
+
+        content: "";
       }
     }
 
     .window-preview {
-      @apply absolute bottom-[calc(100%+0.35rem)] left-1/2 w-72 h-40 overflow-hidden rounded-xl border border-white/60 bg-surface/80 shadow-2xl backdrop-blur-sm cursor-pointer;
+      @apply absolute bottom-[calc(100%+0.5rem)] left-1/2 w-72 h-40 overflow-hidden rounded-panel bg-surface-raised cursor-pointer glass;
 
       .window-preview-header {
-        @apply flex h-7 items-center gap-2 border-b border-line bg-surface-chrome/90 px-2 text-[10px] text-ink-muted;
+        @apply flex h-7 items-center gap-2 border-b border-line px-2 text-[10px] text-ink-muted;
       }
 
       .window-preview-dots {
@@ -88,7 +110,7 @@
       }
 
       .window-preview-title {
-        @apply min-w-0 flex-1 truncate font-medium;
+        @apply min-w-0 flex-1 truncate font-medium text-ink;
       }
 
       .window-preview-hint {
@@ -96,8 +118,44 @@
       }
 
       .window-preview-content {
-        @apply relative h-[132px] overflow-hidden bg-surface;
+        @apply relative h-[132px] overflow-hidden;
       }
+    }
+  }
+
+  /* Desktop app icon: a glass-lit tile with a glyph, shared by the dock and Settings. */
+  .app-icon {
+    @apply grid size-14 place-items-center rounded-app text-white 3xl:size-20;
+
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.45),
+      inset 0 0 0 0.5px rgb(255 255 255 / 0.2),
+      0 6px 14px -6px rgb(0 0 0 / 0.45);
+
+    svg {
+      @apply size-[54%];
+
+      filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.18));
+    }
+
+    &.app-finder {
+      background: linear-gradient(160deg, #6fc3ff, #2f6bff);
+    }
+
+    &.app-photos {
+      background: linear-gradient(160deg, #ffb36b, #ff5e7e);
+    }
+
+    &.app-contact {
+      background: linear-gradient(160deg, #6ee7a8, #13a86b);
+    }
+
+    &.app-terminal {
+      background: linear-gradient(160deg, #4a4f63, #16182a);
+    }
+
+    &.app-settings {
+      background: linear-gradient(160deg, #c9ced8, #7b8396);
     }
   }
 
@@ -109,11 +167,13 @@
         @apply absolute z-0 select-none flex items-center flex-col;
 
         img {
-          @apply group-hover:bg-gray-950/10 p-1 rounded-md;
+          @apply group-hover:bg-white/15 p-1 rounded-control;
         }
 
         p {
-          @apply text-sm text-white text-center px-1 rounded-md group-hover:bg-accent transition-colors max-w-40;
+          @apply text-label font-medium text-on-wallpaper text-center px-1.5 rounded-control group-hover:bg-accent group-hover:text-white transition-colors max-w-40;
+
+          text-shadow: var(--text-shadow-wallpaper);
         }
       }
     }

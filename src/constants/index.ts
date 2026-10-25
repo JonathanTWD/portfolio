@@ -30,7 +30,6 @@ export type DockAppId = keyof Dictionary["dock"]["apps"];
 
 export type DockApp = {
   id: DockAppId;
-  icon: string;
   canOpen: boolean;
 };
 
@@ -147,27 +146,22 @@ const navIcons = [
 const dockApps = [
   {
     id: "finder",
-    icon: "finder.png",
     canOpen: true,
   },
   {
     id: "photos",
-    icon: "photos.png",
     canOpen: true,
   },
   {
     id: "contact",
-    icon: "contact.png",
     canOpen: true,
   },
   {
     id: "terminal",
-    icon: "terminal.png",
     canOpen: true,
   },
   {
     id: "settings",
-    icon: "settings.png",
     canOpen: true,
   },
 ] satisfies DockApp[];

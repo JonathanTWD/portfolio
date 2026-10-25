@@ -14,14 +14,14 @@ import Contact from "./windows/Contact";
 import Photos from "./windows/Gallery";
 import Home from "./components/Home";
 import Settings from "./windows/Settings";
-import useThemeStore from "./store/theme";
+import { useResolvedTheme } from "./store/theme";
 import useLanguageStore from "./store/language";
 import { useTranslation } from "./i18n";
 
 gsap.registerPlugin(Draggable);
 
 const App = () => {
-  const theme = useThemeStore((state) => state.theme);
+  const theme = useResolvedTheme();
   const language = useLanguageStore((state) => state.language);
   const t = useTranslation();
 

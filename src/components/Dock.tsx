@@ -6,6 +6,8 @@ import { dockApps } from "../constants";
 import { useGSAP } from "@gsap/react";
 import useWindowStore, { type WindowKey } from "../store/window";
 import { useTranslation } from "../i18n";
+import AppIcon from "./AppIcon";
+import clsx from "clsx";
 
 type WindowPreviewProps = {
   windowKey: WindowKey;
@@ -225,7 +227,7 @@ const Dock = () => {
   return (
     <section id="dock">
       <div ref={dockRef} className="dock-container">
-        {dockApps.map(({ id, icon, canOpen }) => {
+        {dockApps.map(({ id, canOpen }) => {
           const name = t.dock.apps[id];
 
           return (
@@ -265,7 +267,10 @@ const Dock = () => {
                 )}
               <button
                 type="button"
-                className="dock-icon"
+                className={clsx(
+                  "dock-icon",
+                  isWindowKey(id) && windows[id].isOpen && "is-running",
+                )}
                 data-dock-window={id}
                 aria-label={name}
                 data-tooltip-id="dock-tooltip"
@@ -277,12 +282,7 @@ const Dock = () => {
                 disabled={!canOpen}
                 onClick={() => toggleApp({ id, canOpen })}
               >
-                <img
-                  src={`/images/${icon}`}
-                  alt={name}
-                  loading="lazy"
-                  className={canOpen ? "" : "opacity-60"}
-                />
+                <AppIcon app={id} className={canOpen ? "" : "opacity-60"} />
               </button>
             </div>
           );

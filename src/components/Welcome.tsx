@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useTranslation } from "../i18n";
 
 const FONT_WEIGHTS = {
-  subtitle: { min: 100, max: 400, default: 100 },
+  subtitle: { min: 200, max: 500, default: 200 },
   title: { min: 400, max: 900, default: 400 },
 };
 
@@ -86,7 +86,7 @@ const Welcome = () => {
   return (
     <section id="welcome">
       <p ref={subtitleRef}>
-        {renderText(t.welcome.greeting, "text-3xl font-display", 100)}
+        {renderText(t.welcome.greeting, "text-3xl font-display", 200)}
       </p>
       <h1 ref={titleRef} className="mt-7">
         {renderText(t.welcome.title, "text-9xl italic font-display")}

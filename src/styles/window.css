@@ -2,14 +2,20 @@
 
 @layer components {
   .window {
-    @apply absolute overflow-hidden rounded-window bg-surface text-ink shadow-window drop-shadow-2xl;
+    @apply absolute overflow-hidden rounded-window bg-surface text-ink glass;
+
+    box-shadow: inset 0 1px 0 var(--color-glass-highlight), var(--shadow-window);
+
+    &.is-maximized {
+      @apply border-0;
+    }
   }
 
   .window-header {
-    @apply flex items-center justify-between px-4 py-3 rounded-t-lg bg-surface-chrome border-b border-line select-none text-sm text-ink-subtle;
+    @apply flex items-center justify-between gap-3 px-4 py-3 border-b border-line select-none text-label text-ink-muted;
 
     h2 {
-      @apply flex-1 text-center text-sm font-bold;
+      @apply flex-1 text-center text-label font-semibold text-ink;
     }
   }
 
@@ -17,7 +23,9 @@
     @apply flex gap-2;
 
     button {
-      @apply size-3.5 rounded-full border-0 p-0 cursor-pointer;
+      @apply size-3 rounded-full border-0 p-0 cursor-pointer;
+
+      box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.18);
     }
 
     .close {
@@ -34,6 +42,6 @@
   }
 
   .icon {
-    @apply p-1 hover:bg-surface-hover rounded hover:cursor-default;
+    @apply p-1 hover:bg-surface-hover rounded-control hover:cursor-default;
   }
 }

@@ -2,9 +2,8 @@ import WindowControls from "../components/WindowControls";
 import WindowWrapper from "../hoc/WindowWrapper";
 import { LANGUAGES, useTranslation } from "../i18n";
 import useLanguageStore from "../store/language";
-import useThemeStore, { type Theme } from "../store/theme";
-
-const THEMES: Theme[] = ["light", "dark"];
+import useThemeStore, { THEMES } from "../store/theme";
+import AppIcon from "../components/AppIcon";
 
 const Settings = () => {
   const t = useTranslation();
@@ -20,7 +19,7 @@ const Settings = () => {
 
       <div className="settings-content">
         <aside className="settings-sidebar">
-          <img src="/images/settings.png" alt="" className="size-12" />
+          <AppIcon app="settings" />
           <div>
             <p className="text-sm font-semibold">{t.settings.sidebarTitle}</p>
             <p>{t.settings.sidebarDescription}</p>
@@ -35,7 +34,7 @@ const Settings = () => {
             </p>
 
             <div
-              className="settings-options mt-4"
+              className="settings-options theme-options mt-4"
               role="radiogroup"
               aria-label={t.settings.theme.heading}
             >
@@ -48,9 +47,10 @@ const Settings = () => {
                   aria-checked={theme === option}
                   onClick={() => setTheme(option)}
                 >
-                  <span className={`theme-preview ${option}`} aria-hidden="true">
-                    <span />
-                    <span />
+                  <span
+                    className={`theme-preview ${option}`}
+                    aria-hidden="true"
+                  >
                     <span />
                   </span>
                   <span>{t.settings.theme.options[option]}</span>
