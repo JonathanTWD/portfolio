@@ -28,9 +28,10 @@ const en: Dictionary = {
   dock: {
     apps: {
       finder: "Portfolio",
+      casestudy: "Case study",
       photos: "Gallery",
       contact: "Contact",
-      terminal: "Skills",
+      terminal: "Terminal",
       settings: "Settings",
     },
     restoreHint: "Click to restore",
@@ -55,6 +56,7 @@ const en: Dictionary = {
     resume: { name: "Resume" },
     trash: { name: "Trash" },
     resumePdf: { name: "Resume.pdf" },
+    caseStudyFile: { name: "Case study" },
     // DRAFT: based on your resume. Rewrite it in your own words whenever you like.
     aboutMe: {
       name: "about-me.txt",
@@ -136,6 +138,97 @@ const en: Dictionary = {
   },
   textFile: {
     photoPlaceholder: "Photo coming soon",
+  },
+  caseStudy: {
+    title: "Case study",
+    address: "canaccesible.es/case-study",
+    openSite: "Open canaccesible.es in a new tab",
+    hero: {
+      title: "CanAccesible",
+      lede: "A community platform for reporting accessibility barriers in the Canary Islands and browsing them on an interactive map.",
+      role: "Fullstack developer in a team of three",
+      visit: "Visit the website",
+      code: "View the code",
+    },
+    features: {
+      heading: "What it does",
+      items: {
+        report: {
+          title: "Report incidents",
+          text: "Anyone can post an accessibility barrier with photos. The community comments on it, likes it and follows its progress.",
+        },
+        map: {
+          title: "Interactive map",
+          text: "Incidents are shown on a Leaflet map, and coordinates are turned into addresses with the Nominatim API.",
+        },
+        manage: {
+          title: "Management and notifications",
+          text: "Dashboards for users and administrators, a support chat and real-time notifications.",
+        },
+      },
+    },
+    architecture: {
+      heading: "Architecture",
+      intro:
+        "A three-tier web application, deployed with containers on DigitalOcean.",
+      layers: [
+        {
+          title: "Client",
+          items: ["React 19 and Vite", "Zustand", "Tailwind CSS", "react-i18next"],
+        },
+        {
+          title: "REST API",
+          items: ["Node.js and Express", "JWT and Express Session", "Socket.io", "Web Push"],
+        },
+        {
+          title: "Data",
+          items: ["MySQL", "Sequelize with migrations", "DigitalOcean Spaces"],
+        },
+      ],
+      services: {
+        title: "External services",
+        items: ["Resend", "Nominatim", "MyMemory", "OpenLDAP"],
+      },
+      deploy: {
+        title: "Deployment",
+        items: ["Docker Compose", "Nginx", "Let's Encrypt", "DigitalOcean"],
+      },
+    },
+    contribution: {
+      heading: "My contribution",
+      items: [
+        "Authentication and user flows with JWT.",
+        "Profile and avatar, password recovery and password change.",
+        "Transactional email with Resend.",
+        "SEO: semantic structure and page metadata.",
+        "Frontend testing infrastructure, plus backend and frontend tests.",
+        "User, Role, Notification and IncidentComment domains.",
+      ],
+    },
+    // DRAFT: add the real challenges here and why each decision was made.
+    decisions: {
+      heading: "Technical decisions",
+      items: [
+        {
+          title: "Real time through two channels",
+          text: "Socket.io keeps the app up to date while it is open, and Web Push with VAPID notifies people even when the tab is closed.",
+        },
+        {
+          title: "Images outside the API",
+          text: "Photos are uploaded with Multer and stored in DigitalOcean Spaces through the S3 SDK, so the API server stores no files.",
+        },
+        {
+          title: "Content in two languages",
+          text: "The interface is translated with react-i18next, and content written by users is translated with the MyMemory API.",
+        },
+      ],
+    },
+    team: {
+      heading: "How we worked",
+      text: "Agile workflow with GitHub Projects, feature branches, pull requests, tests, technical documentation and production deployment on DigitalOcean.",
+      members:
+        "Team: Carlos Pérez Santana, Iriome Matos González and Jonathan Morera.",
+    },
   },
   gallery: {
     title: "Gallery",

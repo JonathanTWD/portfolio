@@ -314,6 +314,177 @@
     }
   }
 
+  /* ---------- Case study (browser) ---------- */
+
+  #casestudy {
+    @apply left-1/2 top-14 h-[min(760px,calc(100dvh-7.5rem))] w-[min(980px,calc(100vw-2rem))] -translate-x-1/2;
+  }
+
+  .browser-toolbar {
+    @apply py-2.5;
+  }
+
+  .address-bar {
+    @apply mx-auto flex w-[min(28rem,60%)] items-center justify-center gap-1.5 rounded-control bg-surface-sunken px-3 py-1 text-label text-ink-muted;
+
+    svg {
+      @apply size-3.5 text-success;
+    }
+
+    span {
+      @apply truncate;
+    }
+  }
+
+  .case-study {
+    @apply min-h-0 flex-1 space-y-16 overflow-y-auto bg-page px-8 pt-12 pb-28 text-body;
+
+    > * {
+      @apply mx-auto max-w-3xl;
+    }
+
+    h2 {
+      @apply mb-4 text-large-title font-semibold tracking-tight;
+    }
+
+    h3 {
+      @apply text-body font-semibold;
+    }
+
+    section > p {
+      @apply max-w-[62ch] text-ink-muted;
+    }
+  }
+
+  .case-hero {
+    @apply text-center;
+
+    h1 {
+      @apply font-display text-[4.5rem] leading-none font-medium italic tracking-tight;
+    }
+  }
+
+  .case-lede {
+    @apply mx-auto mt-4 max-w-[46ch] text-title text-ink-muted;
+  }
+
+  .case-role {
+    @apply mt-3 text-label text-ink-muted;
+  }
+
+  .case-actions {
+    @apply mt-6 flex flex-wrap justify-center gap-3;
+  }
+
+  .case-button {
+    @apply inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-label font-semibold transition-colors hover:bg-surface-hover;
+
+    svg {
+      @apply size-4;
+    }
+
+    &.primary {
+      @apply border-transparent bg-accent text-on-accent hover:bg-accent hover:brightness-110;
+    }
+
+    &:focus-visible {
+      @apply outline-2 outline-offset-2 outline-accent;
+    }
+  }
+
+  .case-shot {
+    @apply w-full rounded-panel border border-line object-cover object-top;
+
+    box-shadow: 0 24px 48px -24px rgb(20 32 110 / 0.45);
+  }
+
+  .hero-shot {
+    @apply mt-10 aspect-[16/9];
+  }
+
+  .case-features {
+    @apply space-y-10;
+  }
+
+  .case-feature {
+    @apply grid grid-cols-[1.4fr_1fr] items-center gap-8;
+
+    img {
+      @apply aspect-[16/10];
+    }
+
+    p {
+      @apply mt-2 text-ink-muted;
+    }
+
+    &:nth-child(even) {
+      @apply grid-cols-[1fr_1.4fr];
+
+      img {
+        @apply order-2;
+      }
+    }
+  }
+
+  /* Three tiers joined by arrows, with services and deployment underneath. */
+  .case-architecture {
+    @apply mt-6 space-y-3;
+  }
+
+  .architecture-layers {
+    @apply grid grid-cols-3 gap-8;
+
+    > li {
+      @apply relative rounded-panel border border-line bg-page-raised p-4;
+
+      &:not(:last-child)::after {
+        @apply absolute top-1/2 -right-7 -translate-y-1/2 text-title text-accent;
+
+        content: "→";
+      }
+    }
+
+    ul {
+      @apply mt-2 space-y-1 text-label text-ink-muted;
+    }
+  }
+
+  .architecture-side {
+    @apply grid grid-cols-2 gap-3;
+
+    > div {
+      @apply rounded-panel border border-dashed border-line p-4;
+    }
+
+    p {
+      @apply mt-1 text-label text-ink-muted;
+    }
+  }
+
+  .case-list {
+    @apply grid grid-cols-2 gap-x-8 gap-y-2 pl-5;
+
+    li {
+      @apply list-disc marker:text-accent;
+    }
+  }
+
+  .case-decisions {
+    @apply divide-y divide-line border-y border-line;
+
+    > div {
+      @apply grid grid-cols-[14rem_1fr] gap-6 py-4;
+    }
+
+    dt {
+      @apply font-semibold;
+    }
+
+    dd {
+      @apply text-ink-muted;
+    }
+  }
+
   /* ---------- Contact ---------- */
 
   #contact {

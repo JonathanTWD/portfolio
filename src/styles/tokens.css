@@ -49,6 +49,10 @@
   --color-accent-soft: rgb(47 84 235 / 0.14);
   --color-accent-ink: #2343c9;
   --color-on-accent: #ffffff;
+
+  /* Web pages shown inside the browser window */
+  --color-page: #fbfbfe;
+  --color-page-raised: #f1f3fb;
   --color-success: #138a52;
 
   /* Desktop chrome over the wallpaper */
@@ -108,6 +112,9 @@ html[data-theme="dark"] {
   --color-accent-soft: rgb(125 151 255 / 0.2);
   --color-accent-ink: #b4c3ff;
   --color-on-accent: #0b1240;
+
+  --color-page: #0e1233;
+  --color-page-raised: #161b45;
   --color-success: #5ee0a0;
 
   --color-menubar: rgb(7 11 46 / 0.3);

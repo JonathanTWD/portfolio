@@ -16,7 +16,8 @@ export type LocationTextId =
   | "daw"
   | "awards"
   | "canaccesibleProject"
-  | "canaccesibleStack";
+  | "canaccesibleStack"
+  | "caseStudyFile";
 
 export type LocationText = {
   name: string;

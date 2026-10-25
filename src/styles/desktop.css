@@ -154,6 +154,10 @@
       background: linear-gradient(160deg, #6fc3ff, #2f6bff);
     }
 
+    &.app-casestudy {
+      background: linear-gradient(160deg, #b39bff, #6a4df0);
+    }
+
     &.app-photos {
       background: linear-gradient(160deg, #ffb36b, #ff5e7e);
     }
