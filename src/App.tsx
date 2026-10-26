@@ -1,6 +1,8 @@
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { lazy, Suspense, useEffect } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from "@vercel/analytics/react";
 
 import Dock from "./components/Dock";
 import Navbar from "./components/Navbar";
@@ -72,6 +74,8 @@ const App = () => {
       <Contact />
       <Photos />
       <Settings />
+      <SpeedInsights />
+      <Analytics />
     </main>
   );
 };
