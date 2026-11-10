@@ -10,6 +10,7 @@ import {
 } from "../constants";
 import WindowWrapper from "../hoc/WindowWrapper";
 import {
+  getLocationText,
   LANGUAGES,
   useTranslation,
   type Dictionary,
@@ -282,20 +283,24 @@ const Output = ({ input, t }: { input: string; t: Dictionary }) => {
           {locations.work.children.map((project) => {
             const links = project.children.filter(
               (item): item is FileLocation =>
-                item.kind === "file" && item.fileType === "url",
+                item.kind === "file" &&
+                item.fileType === "url" &&
+                Boolean(item.href),
             );
 
             return (
               <div key={project.id}>
                 <p className="terminal-heading">{project.name}</p>
-                <p>{t.locations.canaccesibleProject.description?.[0]}</p>
+                {project.showcaseId && (
+                  <p>{t.showcase.projects[project.showcaseId].hero.lede}</p>
+                )}
                 <p>
                   {t.terminal.projectLinks}{" "}
                   {links.map((link, index) => (
                     <span key={link.id}>
                       {index > 0 && ", "}
                       <a href={link.href} target="_blank" rel="noreferrer">
-                        {link.name}
+                        {getLocationText(t, link).name}
                       </a>
                     </span>
                   ))}
