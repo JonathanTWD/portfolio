@@ -517,6 +517,10 @@
     }
   }
 
+  .showcase-facts {
+    @apply mt-4;
+  }
+
   .showcase-decisions {
     @apply divide-y divide-line border-y border-line;
 
