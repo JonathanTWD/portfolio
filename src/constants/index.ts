@@ -191,7 +191,7 @@ const socials = [
 
 const CONTACT_EMAIL = "jonathanmoreraapaza@gmail.com";
 
-const RESUME_URL = "/files/resume.pdf";
+const RESUME_URL = "/files/cv-jonathan-morera.pdf";
 
 const TABLARIA_IMAGES = "/images/tablaria";
 
@@ -549,7 +549,7 @@ const EDUCATION_LOCATION: FolderLocation = {
     },
     {
       id: 4,
-      name: "Generative AI (Microsoft)",
+      name: "Career Essentials in Generative AI (Microsoft · LinkedIn)",
       kind: "file",
       fileType: "url",
       linkStyle: "certificate",
@@ -562,6 +562,22 @@ const EDUCATION_LOCATION: FolderLocation = {
       fileType: "url",
       linkStyle: "certificate",
       href: "https://cursos.devtalles.com/certificates/omlyvd3d93",
+    },
+    {
+      id: 6,
+      name: "Claude Code 101 (Claude Academy)",
+      kind: "file",
+      fileType: "url",
+      linkStyle: "certificate",
+      href: "https://academy.claude.com/verify/681748e3b7de0278ca80758245928786",
+    },
+    {
+      id: 7,
+      name: "Agentic Frontend Development with Codex (Masterdev)",
+      kind: "file",
+      fileType: "url",
+      linkStyle: "certificate",
+      href: "https://cdn.master.dev/ud/c/e375f55dc8/FJJmMtPYYU/codex-masterdev.pdf",
     },
   ],
 };

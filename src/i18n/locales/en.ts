@@ -111,10 +111,10 @@ const en: Dictionary = {
       subtitle: "Fullstack developer intern at The Wise Dreams",
       meta: "January 2026 – May 2026",
       description: [
-        "Billing system for a hotel chain, built end to end with React (TypeScript) and Spring Boot.",
+        "Billing system for a hotel chain, built as a team with React (TypeScript) and Spring Boot.",
       ],
       bullets: [
-        "Built the system end to end, keeping the interface and the business logic consistent.",
+        "Contributed to both the frontend and the backend, keeping the interface and the business logic consistent.",
         "Refactored the codebase to remove duplication, improve readability and reduce complexity.",
         "Implemented REST API services and WebSocket connections for real-time features.",
         "Designed and integrated an interactive tour that made the system easier for its users to adopt.",
