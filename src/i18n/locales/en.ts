@@ -88,15 +88,14 @@ const en: Dictionary = {
     trash: { name: "Trash" },
     resumePdf: { name: "Resume.pdf" },
     showcaseFile: { name: "Showcase" },
-    // DRAFT: based on your resume. Rewrite it in your own words whenever you like.
     aboutMe: {
       name: "about-me.txt",
       subtitle: "Jonathan Morera",
       meta: "Fullstack developer in Las Palmas de Gran Canaria",
       description: [
-        "I'm a fullstack developer and I mostly work with React, TypeScript, Java and Spring Boot. I care as much about the business logic as about the experience of the people using the application.",
-        "I've built REST APIs, web interfaces and database integrations, and I enjoy refactoring code so it's clearer and easier to maintain.",
-        "During my internship at The Wise Dreams I worked on a billing system for a hotel chain.",
+        "I'm a fullstack developer. I work with React and TypeScript on the frontend, and with Spring Boot or NestJS on the backend.",
+        "I've built REST APIs, web interfaces and database integrations, and I've refactored existing code to make it clearer and easier to maintain.",
+        "During my internship at The Wise Dreams I helped build a billing system for a hotel chain.",
         "On my own I built Tablaria, an inventory app with customisable tables, real-time collaboration and an AI assistant, and as a team we built CanAccesible, a community platform for reporting accessibility barriers in the Canary Islands.",
         "I'm currently taking the AI and Big Data specialization course and looking for my next role as a fullstack developer.",
       ],
