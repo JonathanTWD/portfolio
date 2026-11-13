@@ -40,10 +40,10 @@ const locations: Record<LocationTextId, LocationText> = {
     subtitle: "Desarrollador fullstack en prácticas en The Wise Dreams",
     meta: "Enero 2026 – mayo 2026",
     description: [
-      "Sistema de facturación para una cadena hotelera, desarrollado de principio a fin con React (TypeScript) y Spring Boot.",
+      "Sistema de facturación para una cadena hotelera, desarrollado en equipo con React (TypeScript) y Spring Boot.",
     ],
     bullets: [
-      "Desarrollé el sistema end to end, manteniendo la coherencia entre la interfaz y la lógica de negocio.",
+      "Participé en el desarrollo del frontend y del backend, manteniendo la coherencia entre la interfaz y la lógica de negocio.",
       "Refactoricé el código base para eliminar duplicidad, mejorar la legibilidad y reducir la complejidad.",
       "Implementé servicios API REST y conexiones WebSocket para las funcionalidades en tiempo real.",
       "Diseñé e integré un tour interactivo que facilitó la adopción del sistema por parte de sus usuarios.",
