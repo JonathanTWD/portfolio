@@ -17,15 +17,14 @@ const locations: Record<LocationTextId, LocationText> = {
   trash: { name: "Papelera" },
   resumePdf: { name: "CV.pdf" },
   showcaseFile: { name: "Escaparate" },
-  // BORRADOR: basado en tu CV. Reescríbelo con tus palabras cuando quieras.
   aboutMe: {
     name: "sobre-mi.txt",
     subtitle: "Jonathan Morera",
     meta: "Desarrollador fullstack en Las Palmas de Gran Canaria",
     description: [
-      "Soy desarrollador fullstack y trabajo sobre todo con React, TypeScript, Java y Spring Boot. Me interesa tanto la lógica de negocio como la experiencia de quien usa la aplicación.",
-      "He desarrollado APIs REST, interfaces web e integraciones con bases de datos, y disfruto refactorizando código para que sea más claro y fácil de mantener.",
-      "En mis prácticas en The Wise Dreams trabajé en un sistema de facturación para una cadena hotelera.",
+      "Soy desarrollador fullstack. Trabajo con React y TypeScript en el frontend, y con Spring Boot o NestJS en el backend.",
+      "He desarrollado APIs REST, interfaces web e integraciones con bases de datos, y he refactorizado código existente para hacerlo más claro y fácil de mantener.",
+      "En mis prácticas en The Wise Dreams participé en el desarrollo de un sistema de facturación para una cadena hotelera.",
       "Por mi cuenta he creado Tablaria, una aplicación de inventario en tablas personalizables con tiempo real y un asistente de IA, y en equipo desarrollamos CanAccesible, una plataforma comunitaria para reportar barreras de accesibilidad en Canarias.",
       "Ahora curso la especialización en IA y Big Data y busco mi próximo puesto como desarrollador fullstack.",
     ],
