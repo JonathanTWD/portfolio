@@ -2,6 +2,7 @@ import type { Dictionary } from "../i18n/locales/es";
 import type {
   GalleryImageId,
   LocationTextId,
+  ShowcaseProjectId,
   TechCategoryId,
 } from "../i18n/types";
 
@@ -77,6 +78,8 @@ export type FileLocation = LocationBase & {
   imageUrl?: string;
   /** Opens one of the portfolio's own windows instead of a link. */
   opensWindow?: "showcase";
+  /** Project page to show when opensWindow is the Showcase. */
+  showcaseProject?: ShowcaseProjectId;
   /** Portrait shown at the top of the document. */
   photo?: string;
 };
@@ -86,6 +89,8 @@ export interface FolderLocation extends LocationBase {
   type?: FolderType;
   /** Position of the folder icon on the desktop, as Tailwind classes. */
   windowPosition?: string;
+  /** For project folders: their page in the Showcase. */
+  showcaseId?: ShowcaseProjectId;
   children: Location[];
 }
 
@@ -145,7 +150,7 @@ const dockApps = [
 const techStack = [
   {
     category: "frontend",
-    items: ["React", "TypeScript"],
+    items: ["React", "TypeScript", "TanStack Query"],
   },
   {
     category: "backend",
@@ -153,7 +158,7 @@ const techStack = [
   },
   {
     category: "database",
-    items: ["PostgreSQL", "MySQL", "Oracle"],
+    items: ["PostgreSQL", "MySQL", "Oracle", "Prisma"],
   },
   {
     category: "ui",
@@ -161,11 +166,11 @@ const techStack = [
   },
   {
     category: "testing",
-    items: ["Vitest", "Jest", "Supertest"],
+    items: ["Vitest", "Jest", "Supertest", "Playwright"],
   },
   {
     category: "devops",
-    items: ["Git", "Docker", "SonarQube"],
+    items: ["Git", "Docker", "GitHub Actions", "SonarQube"],
   },
 ] satisfies TechStackItem[];
 
@@ -186,9 +191,39 @@ const socials = [
 
 const CONTACT_EMAIL = "jonathanmoreraapaza@gmail.com";
 
-const RESUME_URL = "/files/resume.pdf";
+const RESUME_URL = "/files/cv-jonathan-morera.pdf";
+
+const TABLARIA_IMAGES = "/images/tablaria";
 
 const galleryProjects = [
+  {
+    id: "tablaria",
+    name: "Tablaria",
+    images: [
+      { id: 1, img: `${TABLARIA_IMAGES}/tabla.webp`, altId: "tablariaTable" },
+      { id: 2, img: `${TABLARIA_IMAGES}/inicio.webp`, altId: "tablariaHome" },
+      {
+        id: 3,
+        img: `${TABLARIA_IMAGES}/calendario.webp`,
+        altId: "tablariaCalendar",
+      },
+      {
+        id: 4,
+        img: `${TABLARIA_IMAGES}/etiquetas-qr.webp`,
+        altId: "tablariaLabels",
+      },
+      {
+        id: 5,
+        img: `${TABLARIA_IMAGES}/metricas.webp`,
+        altId: "tablariaMetrics",
+      },
+      {
+        id: 6,
+        img: `${TABLARIA_IMAGES}/ficha-movil.webp`,
+        altId: "tablariaMobile",
+      },
+    ],
+  },
   {
     id: "canaccesible",
     name: "CanAccesible",
@@ -237,6 +272,94 @@ const galleryProjects = [
   },
 ] satisfies GalleryProject[];
 
+export type ShowcaseShot = {
+  src: string;
+  alt: GalleryImageId;
+  /** Crop to a fixed ratio, so features with different screenshots line up. */
+  crop?: { ratio: string; position?: "top" | "bottom" };
+};
+
+export type ShowcaseProject = {
+  id: ShowcaseProjectId;
+  /** Finder folder that holds the project's links. */
+  folder: string;
+  hero: ShowcaseShot;
+  /** Screenshots for the features, matched by id with the dictionary. */
+  features: { id: string; shot: ShowcaseShot }[];
+  /** Interactive architecture diagram, if the project has one. */
+  diagram?: string;
+};
+
+const CANACCESIBLE_IMAGES = "/images/canaccesible-project";
+
+/**
+ * Projects in the Showcase, in tab order. Add a project here, plus its page
+ * under showcase.projects in the dictionaries.
+ */
+const showcaseProjects: ShowcaseProject[] = [
+  {
+    id: "tablaria",
+    folder: "Tablaria",
+    hero: { src: `${TABLARIA_IMAGES}/tabla.webp`, alt: "tablariaTable" },
+    features: [
+      {
+        id: "home",
+        shot: { src: `${TABLARIA_IMAGES}/inicio.webp`, alt: "tablariaHome" },
+      },
+      {
+        id: "calendar",
+        shot: {
+          src: `${TABLARIA_IMAGES}/calendario.webp`,
+          alt: "tablariaCalendar",
+        },
+      },
+      {
+        id: "labels",
+        shot: {
+          src: `${TABLARIA_IMAGES}/etiquetas-qr.webp`,
+          alt: "tablariaLabels",
+          crop: { ratio: "1440 / 640" },
+        },
+      },
+      {
+        id: "metrics",
+        shot: {
+          src: `${TABLARIA_IMAGES}/metricas.webp`,
+          alt: "tablariaMetrics",
+          crop: { ratio: "16 / 10", position: "bottom" },
+        },
+      },
+    ],
+    diagram: "/projects/tablaria/arquitectura.html",
+  },
+  {
+    id: "canaccesible",
+    folder: "CanAccesible",
+    hero: { src: `${CANACCESIBLE_IMAGES}/canaccesible-8.webp`, alt: "landing" },
+    features: [
+      {
+        id: "report",
+        shot: {
+          src: `${CANACCESIBLE_IMAGES}/canaccesible-3.webp`,
+          alt: "incident",
+          crop: { ratio: "1901 / 866" },
+        },
+      },
+      {
+        id: "map",
+        shot: { src: `${CANACCESIBLE_IMAGES}/canaccesible-1.webp`, alt: "map" },
+      },
+      {
+        id: "manage",
+        shot: {
+          src: `${CANACCESIBLE_IMAGES}/canaccesible-2.webp`,
+          alt: "management",
+        },
+      },
+    ],
+  },
+];
+
 export {
   navLinks,
   dockApps,
@@ -245,7 +368,23 @@ export {
   CONTACT_EMAIL,
   RESUME_URL,
   galleryProjects,
+  showcaseProjects,
 };
+
+const tablariaImages: FileLocation[] = [
+  "tabla",
+  "inicio",
+  "calendario",
+  "etiquetas-qr",
+  "metricas",
+  "ficha-movil",
+].map((name, index) => ({
+  id: 8 + index,
+  name: `${name}.png`,
+  kind: "file",
+  fileType: "img",
+  imageUrl: `${TABLARIA_IMAGES}/${name}.webp`,
+}));
 
 const canaccesibleImages: FileLocation[] = Array.from(
   { length: 8 },
@@ -265,10 +404,72 @@ const WORK_LOCATION: WorkLocation = {
   kind: "folder",
   children: [
     {
+      id: 2,
+      name: "Tablaria",
+      kind: "folder",
+      windowPosition: "top-[8vh] left-5",
+      showcaseId: "tablaria",
+      children: [
+        {
+          id: 1,
+          textId: "showcaseFile",
+          kind: "file",
+          fileType: "url",
+          linkStyle: "web",
+          opensWindow: "showcase",
+          showcaseProject: "tablaria",
+        },
+        {
+          id: 2,
+          textId: "tablariaProject",
+          kind: "file",
+          fileType: "txt",
+        },
+        {
+          id: 3,
+          textId: "tablariaStack",
+          kind: "file",
+          fileType: "txt",
+        },
+        {
+          id: 4,
+          textId: "tablariaQuality",
+          kind: "file",
+          fileType: "txt",
+        },
+        {
+          id: 5,
+          name: "tablaria.es",
+          kind: "file",
+          fileType: "url",
+          linkStyle: "web",
+          href: "https://tablaria.es",
+        },
+        {
+          id: 6,
+          name: "GitHub",
+          kind: "file",
+          fileType: "url",
+          linkStyle: "github",
+          href: "https://github.com/JonathanTWD/tablaria",
+        },
+        {
+          id: 7,
+          textId: "tablariaDiagram",
+          kind: "file",
+          fileType: "url",
+          linkStyle: "web",
+          href: "/projects/tablaria/arquitectura.html",
+        },
+        ...tablariaImages,
+      ],
+    },
+    {
       id: 1,
       name: "CanAccesible",
       kind: "folder",
-      windowPosition: "top-[8vh] left-5",
+      windowPosition: "top-[22vh] left-5",
+      showcaseId: "canaccesible",
       children: [
         {
           id: 13,
@@ -277,6 +478,7 @@ const WORK_LOCATION: WorkLocation = {
           fileType: "url",
           linkStyle: "web",
           opensWindow: "showcase",
+          showcaseProject: "canaccesible",
         },
         {
           id: 1,
@@ -347,7 +549,7 @@ const EDUCATION_LOCATION: FolderLocation = {
     },
     {
       id: 4,
-      name: "Generative AI (Microsoft)",
+      name: "Career Essentials in Generative AI (Microsoft · LinkedIn)",
       kind: "file",
       fileType: "url",
       linkStyle: "certificate",
@@ -360,6 +562,22 @@ const EDUCATION_LOCATION: FolderLocation = {
       fileType: "url",
       linkStyle: "certificate",
       href: "https://cursos.devtalles.com/certificates/omlyvd3d93",
+    },
+    {
+      id: 6,
+      name: "Claude Code 101 (Claude Academy)",
+      kind: "file",
+      fileType: "url",
+      linkStyle: "certificate",
+      href: "https://academy.claude.com/verify/681748e3b7de0278ca80758245928786",
+    },
+    {
+      id: 7,
+      name: "Agentic Frontend Development with Codex (Masterdev)",
+      kind: "file",
+      fileType: "url",
+      linkStyle: "certificate",
+      href: "https://cdn.master.dev/ud/c/e375f55dc8/FJJmMtPYYU/codex-masterdev.pdf",
     },
   ],
 };

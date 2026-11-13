@@ -438,8 +438,9 @@
       @apply mx-auto block h-auto max-h-[26rem] w-auto max-w-full;
     }
 
+    /* The ratio and the visible part come from the data (style attribute). */
     &.is-cropped img {
-      @apply aspect-[1901/866] max-h-none w-full object-cover object-top;
+      @apply max-h-none w-full object-cover;
     }
   }
 
@@ -514,6 +515,10 @@
     li {
       @apply list-disc marker:text-accent;
     }
+  }
+
+  .showcase-facts {
+    @apply mt-4;
   }
 
   .showcase-decisions {

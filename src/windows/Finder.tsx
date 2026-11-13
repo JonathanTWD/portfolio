@@ -7,6 +7,7 @@ import { locations, type FolderLocation, type Location } from "../constants";
 import WindowWrapper from "../hoc/WindowWrapper";
 import { getLocationText, useTranslation } from "../i18n";
 import useLocationStore from "../store/location";
+import useShowcaseStore from "../store/showcase";
 import useWindowStore from "../store/window";
 
 const Finder = () => {
@@ -14,11 +15,15 @@ const Finder = () => {
   const { openWindow } = useWindowStore();
   const { activeLocation, history, setActiveLocation, goBack } =
     useLocationStore();
+  const setShowcaseProject = useShowcaseStore((state) => state.setActiveId);
 
   const openItem = (item: Location) => {
     if (item.kind === "folder") return setActiveLocation(item);
     if (item.fileType === "pdf") return openWindow("resume");
-    if (item.opensWindow) return openWindow(item.opensWindow);
+    if (item.opensWindow) {
+      if (item.showcaseProject) setShowcaseProject(item.showcaseProject);
+      return openWindow(item.opensWindow);
+    }
     if (item.fileType === "url" && item.href)
       return window.open(item.href, "_blank", "noopener,noreferrer");
     if (item.fileType === "txt") return openWindow("txtfile", item);

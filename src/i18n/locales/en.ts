@@ -88,15 +88,15 @@ const en: Dictionary = {
     trash: { name: "Trash" },
     resumePdf: { name: "Resume.pdf" },
     showcaseFile: { name: "Showcase" },
-    // DRAFT: based on your resume. Rewrite it in your own words whenever you like.
     aboutMe: {
       name: "about-me.txt",
       subtitle: "Jonathan Morera",
       meta: "Fullstack developer in Las Palmas de Gran Canaria",
       description: [
-        "I'm a fullstack developer and I mostly work with React, TypeScript, Java and Spring Boot. I care as much about the business logic as about the experience of the people using the application.",
-        "I've built REST APIs, web interfaces and database integrations, and I enjoy refactoring code so it's clearer and easier to maintain.",
-        "During my internship at The Wise Dreams I worked on a billing system for a hotel chain, and my most complete project is CanAccesible, a community platform for reporting accessibility barriers in the Canary Islands.",
+        "I'm a fullstack developer. I work with React and TypeScript on the frontend, and with Spring Boot or NestJS on the backend.",
+        "I've built REST APIs, web interfaces and database integrations, and I've refactored existing code to make it clearer and easier to maintain.",
+        "During my internship at The Wise Dreams I helped build a billing system for a hotel chain.",
+        "On my own I built Tablaria, an inventory app with customisable tables, real-time collaboration and an AI assistant, and as a team we built CanAccesible, a community platform for reporting accessibility barriers in the Canary Islands.",
         "I'm currently taking the AI and Big Data specialization course and looking for my next role as a fullstack developer.",
       ],
       bullets: [
@@ -110,10 +110,10 @@ const en: Dictionary = {
       subtitle: "Fullstack developer intern at The Wise Dreams",
       meta: "January 2026 – May 2026",
       description: [
-        "Billing system for a hotel chain, built end to end with React (TypeScript) and Spring Boot.",
+        "Billing system for a hotel chain, built as a team with React (TypeScript) and Spring Boot.",
       ],
       bullets: [
-        "Built the system end to end, keeping the interface and the business logic consistent.",
+        "Contributed to both the frontend and the backend, keeping the interface and the business logic consistent.",
         "Refactored the codebase to remove duplication, improve readability and reduce complexity.",
         "Implemented REST API services and WebSocket connections for real-time features.",
         "Designed and integrated an interactive tour that made the system easier for its users to adopt.",
@@ -144,6 +144,61 @@ const en: Dictionary = {
         "2021: winner of the regional stage of the 2nd Spanish Youth Science Olympiad.",
       ],
     },
+    tablariaProject: {
+      name: "Project.txt",
+      subtitle: "Tablaria",
+      meta: "Personal project, since October 2026",
+      description: [
+        "Tablaria is a free web app for inventory in customisable tables. Each business creates its own columns, links tables together and works as a team in real time, with the ease of a spreadsheet and the safety of a database.",
+        "A use case: a hardware store prints QR labels for its shelves. Scanning one with a phone opens the product's record with its stock, supplier and price, and from there the store logs a delivery or takes stock.",
+        "I designed, built, deployed and documented it end to end: frontend, API, database, security, tests and infrastructure. The code is open source under the MIT licence, and you can try it without signing up at tablaria.es, with “Try the demo”.",
+      ],
+      bullets: [
+        "Typed columns, links between tables, lookups, rollups and formulas.",
+        "Saved views and bulk editing of several records at once.",
+        "A calendar for date columns, where dragging a record changes its date, plus upcoming-date alerts.",
+        "Stock with a movement history and minimum-level alerts, and metrics with charts.",
+        "Printable QR labels and a QR and barcode scanner that uses the camera, with a WebAssembly fallback for iPhone.",
+        "CSV and Excel import with a preview and duplicate detection, and export of the current view.",
+        "Organisations with roles, shared tables, real time and presence.",
+        "An AI assistant that answers questions about the data, typed or spoken.",
+        "Activity history, attachments (photos and PDFs) and read-only public links.",
+        "Installable app, a help centre, legal pages and a pre-rendered landing page for SEO.",
+      ],
+    },
+    tablariaStack: {
+      name: "Stack.txt",
+      subtitle: "Tablaria technologies by area",
+      description: [
+        "Frontend: React 19, TypeScript, Vite, React Router, TanStack Query and TanStack Table, react-hook-form, Tailwind CSS 4, shadcn/ui (Base UI) and react-i18next.",
+        "Backend: NestJS 11 with TypeScript, validation with zod and WebSocket with ws for real time.",
+        "Database: PostgreSQL 16 with Prisma 7 and migrations, storing each record's values in JSONB.",
+        "Shared code: a pnpm monorepo with a package of zod schemas, types and constants used by both the web app and the API.",
+        "Security: httpOnly cookies, rotating refresh tokens, argon2id passwords, rate limits and headers with a CSP.",
+        "Services: Groq for the AI assistant, Resend for email and Filebase (S3-compatible) for attachments.",
+        "Deployment: Render (static site and Docker API), Neon for PostgreSQL and a custom domain.",
+        "Testing and CI: Jest, Supertest, Vitest, Testing Library, Playwright, axe and CodeQL on GitHub Actions.",
+      ],
+    },
+    tablariaQuality: {
+      name: "Quality.txt",
+      subtitle: "Security, quality and accessibility",
+      description: [
+        "Although I built it alone, Tablaria follows a team workflow: feature branches, pull requests with code review and required CI, and versioned releases with a changelog.",
+      ],
+      bullets: [
+        "About 330 commits, more than 120 reviewed pull requests and 13 releases since 4 October 2026. The latest is v1.11.0.",
+        "51 architecture decisions documented as ADRs, with their context and consequences.",
+        "An OWASP Top 10:2025 security audit before every release, with findings and fixes in the changelog.",
+        "About 200 backend e2e tests against a real PostgreSQL database, including that no user can read or change another user's data on any endpoint.",
+        "Unit tests with Jest and Vitest, and full flows with Playwright: sign-up, email verification, tables, records and the demo.",
+        "Accessibility checked with axe (WCAG 2.2 A and AA) in light and dark themes, including the app's dialogs.",
+        "CodeQL on GitHub Actions, Dependabot and secret scanning with push protection.",
+        "The main branch is protected: it only changes through a pull request with green CI.",
+        "Open source under the MIT licence, with a contributing guide, a security policy, a code of conduct and issue and PR templates.",
+      ],
+    },
+    tablariaDiagram: { name: "Architecture" },
     canaccesibleProject: {
       name: "Project.txt",
       description: [
@@ -175,7 +230,149 @@ const en: Dictionary = {
     title: "Showcase",
     tabs: "Projects",
     openSite: (site) => `Open ${site} in a new tab`,
+    diagram: "Open the interactive diagram",
     projects: {
+      tablaria: {
+        address: "tablaria.es/showcase",
+        hero: {
+          title: "Tablaria",
+          lede: "Inventory in tables made to measure: each business creates its own columns, links tables and works as a team in real time.",
+          role: "Personal project: design, development, deployment and documentation",
+          visit: "Try the demo",
+          code: "View the code",
+        },
+        features: {
+          heading: "What it does",
+          items: [
+            {
+              id: "home",
+              title: "What matters, at a glance",
+              text: "The home page brings together totals, tables and upcoming dates. Low-stock and upcoming-date alerts are also flagged in the cells.",
+            },
+            {
+              id: "calendar",
+              title: "Calendar",
+              text: "Every table with dates has a monthly calendar, and an agenda on phones. Dragging a record to another day changes its date.",
+            },
+            {
+              id: "labels",
+              title: "QR labels and scanner",
+              text: "Printable labels that open the product's record when scanned, and an in-app scanner that reads QR codes and barcodes with the camera, also on iPhone thanks to a WebAssembly fallback reader. It installs on a phone like an app.",
+            },
+            {
+              id: "metrics",
+              title: "Metrics for every table",
+              text: "Totals and averages, products below their minimum, charts by group and trends over time.",
+            },
+          ],
+        },
+        more: {
+          heading: "And also",
+          items: [
+            "An AI assistant that answers questions about the data, typed or spoken, using read-only tools.",
+            "Real time and presence: changes appear without reloading and you can see who is editing each cell.",
+            "Typed columns, links between tables, lookups, rollups and custom formulas.",
+            "Saved views and bulk editing of several records at once.",
+            "Organisations with roles, tables shared by email and read-only public links.",
+            "CSV and Excel import with a preview and duplicate detection, and export of the current view.",
+            "Stock and activity history, and attachments (photos and PDFs) on every record.",
+            "A help centre, legal pages and a pre-rendered landing page with structured data, a sitemap and llms.txt.",
+          ],
+        },
+        architecture: {
+          heading: "Architecture",
+          intro:
+            "A pnpm monorepo: a pre-rendered static web app, a NestJS API and PostgreSQL, with zod schemas shared between frontend and backend.",
+          layers: [
+            {
+              title: "Web",
+              items: [
+                "React 19 and Vite",
+                "TanStack Query and Table",
+                "Tailwind CSS 4 and shadcn/ui",
+                "Pre-rendered public pages",
+              ],
+            },
+            {
+              title: "API",
+              items: [
+                "NestJS 11 and zod",
+                "Sessions in httpOnly cookies",
+                "WebSocket with a ticket",
+                "Read-only AI assistant",
+              ],
+            },
+            {
+              title: "Data",
+              items: [
+                "PostgreSQL 16 on Neon",
+                "Prisma 7 and migrations",
+                "Records in JSONB",
+                "Attachments in a private S3 bucket",
+              ],
+            },
+          ],
+          services: {
+            title: "External services",
+            items: ["Groq", "Resend", "Filebase"],
+          },
+          deploy: {
+            title: "Deployment",
+            items: ["Render", "Docker", "Neon", "GitHub Actions"],
+          },
+        },
+        contribution: {
+          heading: "What I built",
+          items: [
+            "The product and the interface, from the landing page to the demo with sample data.",
+            "The React and TypeScript frontend: editable tables, calendar, metrics, scanner and installable app.",
+            "The NestJS API with Prisma: data model, role-based permissions, real time and the AI assistant.",
+            "Authentication: httpOnly cookies, rotating refresh tokens with theft detection, and argon2id.",
+            "Unit, e2e and accessibility tests, and CI with GitHub Actions and CodeQL.",
+            "Deployment on Render, Neon, Resend and Filebase, with a custom domain.",
+            "The documentation: 51 ADRs, a handover guide, an architecture diagram and a contributing guide.",
+          ],
+        },
+        decisions: {
+          heading: "Technical decisions",
+          items: [
+            {
+              title: "Flexible tables in JSONB",
+              text: "Each user's tables are metadata, not physical tables: values are stored in JSONB by column id. Search, filters and sorting are parameterised SQL built only from columns that exist, and a test checks that user input never reaches the SQL text.",
+            },
+            {
+              title: "Sessions that detect theft",
+              text: "A 15-minute access token and an opaque refresh token, both in httpOnly cookies. Every refresh rotates the token, and reusing one that was already rotated revokes the whole session. Sign-up and sign-in never reveal which emails exist.",
+            },
+            {
+              title: "Real time that leaks no data",
+              text: "The WebSocket only announces that a table changed, and the browser fetches the data again from the API, which checks access. The connection opens with a single-use ticket, because the API lives on a different domain from the web app.",
+            },
+            {
+              title: "An AI that can only read",
+              text: "The assistant uses read-only tools that run with the user's permissions. Even if a record contains malicious instructions, the worst outcome is a wrong answer: never reading someone else's data or changing anything.",
+            },
+            {
+              title: "Formulas without eval",
+              text: "A purpose-built parser shared by the API and the form, with spreadsheet-style functions (IF, ROUND, TODAY…) and size limits so nobody can overload the server.",
+            },
+          ],
+        },
+        team: {
+          heading: "How I worked",
+          text: "Although I built it alone, I followed a team workflow: feature branches, pull requests with code review and required CI, and versioned releases with a changelog.",
+          facts: [
+            "About 330 commits and more than 120 reviewed pull requests since 4 October 2026.",
+            "13 releases published; the latest is v1.11.0.",
+            "51 architecture decisions documented as ADRs.",
+            "An OWASP Top 10:2025 security audit before every release.",
+            "About 200 backend e2e tests against a real PostgreSQL database, plus Vitest, Jest and Playwright.",
+            "Accessibility checked with axe (WCAG 2.2 A and AA) in light and dark themes.",
+            "CodeQL, Dependabot, secret scanning with push protection and a protected main branch with required CI.",
+            "Open source under the MIT licence, with a contributing guide, a security policy and a code of conduct.",
+          ],
+        },
+      },
       canaccesible: {
         address: "canaccesible.es/showcase",
         hero: {
@@ -187,20 +384,23 @@ const en: Dictionary = {
         },
         features: {
           heading: "What it does",
-          items: {
-            report: {
+          items: [
+            {
+              id: "report",
               title: "Report incidents",
               text: "Anyone can post an accessibility barrier with photos. The community comments on it, likes it and follows its progress.",
             },
-            map: {
+            {
+              id: "map",
               title: "Interactive map",
               text: "Incidents are shown on a Leaflet map, and coordinates are turned into addresses with the Nominatim API.",
             },
-            manage: {
+            {
+              id: "manage",
               title: "Management and notifications",
               text: "Dashboards for users and administrators, a support chat and real-time notifications.",
             },
-          },
+          ],
         },
         architecture: {
           heading: "Architecture",
@@ -287,6 +487,14 @@ const en: Dictionary = {
     open: (alt) => `Open ${alt}`,
     imageName: (project, index) => `${project} image ${index}`,
     images: {
+      tablariaTable:
+        "Tablaria products table with categories, linked suppliers and prices",
+      tablariaHome: "Tablaria home with totals, tables and upcoming dates",
+      tablariaCalendar: "Tablaria orders calendar, coloured by status",
+      tablariaLabels: "Sheet of product QR labels in Tablaria",
+      tablariaMetrics:
+        "Metrics for the Tablaria products table, with low-stock alerts and charts",
+      tablariaMobile: "A Tablaria product record on a phone, with its QR label",
       about: "CanAccesible about page",
       login: "CanAccesible login page",
       landing: "CanAccesible landing page",

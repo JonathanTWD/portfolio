@@ -193,8 +193,25 @@
       @apply px-6;
     }
 
+    /* Gallery: the project list becomes a row of chips above the photos. */
+    .gallery-shell {
+      @apply flex-col;
+    }
+
     .gallery-sidebar {
-      @apply hidden;
+      @apply w-full flex-none border-r-0 border-b px-3 py-2;
+
+      h3 {
+        @apply hidden;
+      }
+
+      .sidebar-list {
+        @apply flex gap-1.5 space-y-0 overflow-x-auto;
+
+        li > button {
+          @apply min-h-11 whitespace-nowrap rounded-full border border-line px-3.5;
+        }
+      }
     }
 
     .settings-content {

@@ -1,56 +1,16 @@
 import clsx from "clsx";
-import { ArrowRight, ExternalLink, Lock } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, ExternalLink, Lock, Network } from "lucide-react";
 import BrandIcon from "../components/BrandIcon";
 import WindowControls from "../components/WindowControls";
-import { locations, type FileLocation } from "../constants";
+import {
+  locations,
+  showcaseProjects,
+  type FileLocation,
+  type ShowcaseShot,
+} from "../constants";
 import WindowWrapper from "../hoc/WindowWrapper";
-import { useTranslation, type Dictionary, type GalleryImageId } from "../i18n";
-
-type ShowcaseProjectId = keyof Dictionary["showcase"]["projects"];
-type FeatureId =
-  keyof Dictionary["showcase"]["projects"][ShowcaseProjectId]["features"]["items"];
-
-type Shot = {
-  src: string;
-  alt: GalleryImageId;
-  /** Crop to the same wide ratio as the other screenshots, keeping the top. */
-  crop?: boolean;
-};
-
-type ShowcaseProject = {
-  id: ShowcaseProjectId;
-  /** Finder folder that holds the project's links. */
-  folder: string;
-  hero: Shot;
-  features: { id: FeatureId; shot: Shot }[];
-};
-
-const IMAGES = "/images/canaccesible-project";
-
-/** Add a project here, plus its page under showcase.projects in the dictionaries. */
-const PROJECTS: ShowcaseProject[] = [
-  {
-    id: "canaccesible",
-    folder: "CanAccesible",
-    hero: { src: `${IMAGES}/canaccesible-8.webp`, alt: "landing" },
-    features: [
-      {
-        id: "report",
-        shot: {
-          src: `${IMAGES}/canaccesible-3.webp`,
-          alt: "incident",
-          crop: true,
-        },
-      },
-      { id: "map", shot: { src: `${IMAGES}/canaccesible-1.webp`, alt: "map" } },
-      {
-        id: "manage",
-        shot: { src: `${IMAGES}/canaccesible-2.webp`, alt: "management" },
-      },
-    ],
-  },
-];
+import { useTranslation, type Dictionary } from "../i18n";
+import useShowcaseStore from "../store/showcase";
 
 const projectLinks = (folderName: string) => {
   const folder = locations.work.children.find(
@@ -69,9 +29,10 @@ const projectLinks = (folderName: string) => {
 /** A browser that shows each project as its own web page. */
 const Showcase = () => {
   const t = useTranslation();
-  const [activeId, setActiveId] = useState<ShowcaseProjectId>(PROJECTS[0].id);
+  const { activeId, setActiveId } = useShowcaseStore();
 
-  const project = PROJECTS.find(({ id }) => id === activeId) ?? PROJECTS[0];
+  const project =
+    showcaseProjects.find(({ id }) => id === activeId) ?? showcaseProjects[0];
   const page = t.showcase.projects[project.id];
   const { site, repo } = projectLinks(project.folder);
   const siteHost = site ? new URL(site).host : page.address;
@@ -96,19 +57,19 @@ const Showcase = () => {
         </a>
       </div>
 
-      {PROJECTS.length > 1 && (
+      {showcaseProjects.length > 1 && (
         <div
           className="browser-tabs"
           role="tablist"
           aria-label={t.showcase.tabs}
         >
-          {PROJECTS.map(({ id }) => (
+          {showcaseProjects.map(({ id }) => (
             <button
               key={id}
               type="button"
               role="tab"
-              aria-selected={id === activeId}
-              className={clsx(id === activeId && "active")}
+              aria-selected={id === project.id}
+              className={clsx(id === project.id && "active")}
               onClick={() => setActiveId(id)}
             >
               {t.showcase.projects[id].hero.title}
@@ -148,17 +109,35 @@ const Showcase = () => {
         <section>
           <h2>{page.features.heading}</h2>
           <div className="showcase-features">
-            {project.features.map(({ id, shot }) => (
-              <div key={id} className="showcase-feature">
-                <div>
-                  <h3>{page.features.items[id].title}</h3>
-                  <p>{page.features.items[id].text}</p>
+            {project.features.map(({ id, shot }) => {
+              const feature = page.features.items.find(
+                (item) => item.id === id,
+              );
+              if (!feature) return null;
+
+              return (
+                <div key={id} className="showcase-feature">
+                  <div>
+                    <h3>{feature.title}</h3>
+                    <p>{feature.text}</p>
+                  </div>
+                  <Screenshot shot={shot} t={t} lazy />
                 </div>
-                <Screenshot shot={shot} t={t} lazy />
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
+
+        {page.more && (
+          <section>
+            <h2>{page.more.heading}</h2>
+            <ul className="showcase-list">
+              {page.more.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
+        )}
 
         <section>
           <h2>{page.architecture.heading}</h2>
@@ -186,6 +165,17 @@ const Showcase = () => {
                 ),
               )}
             </div>
+            {project.diagram && (
+              <a
+                className="showcase-button"
+                href={project.diagram}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Network aria-hidden="true" />
+                {t.showcase.diagram}
+              </a>
+            )}
           </div>
         </section>
 
@@ -213,20 +203,29 @@ const Showcase = () => {
         <section>
           <h2>{page.team.heading}</h2>
           <p>{page.team.text}</p>
-          <p className="showcase-note">{page.team.members}</p>
+          {page.team.facts && (
+            <ul className="showcase-list showcase-facts">
+              {page.team.facts.map((fact) => (
+                <li key={fact}>{fact}</li>
+              ))}
+            </ul>
+          )}
+          {page.team.members && (
+            <p className="showcase-note">{page.team.members}</p>
+          )}
         </section>
       </article>
     </>
   );
 };
 
-/** A screenshot at its own proportions, framed like a browser window. */
+/** A screenshot framed like a browser window, at its own proportions or cropped. */
 const Screenshot = ({
   shot,
   t,
   lazy = false,
 }: {
-  shot: Shot;
+  shot: ShowcaseShot;
   t: Dictionary;
   lazy?: boolean;
 }) => (
@@ -240,6 +239,12 @@ const Screenshot = ({
       src={shot.src}
       alt={t.gallery.images[shot.alt]}
       loading={lazy ? "lazy" : undefined}
+      style={
+        shot.crop && {
+          aspectRatio: shot.crop.ratio,
+          objectPosition: shot.crop.position ?? "top",
+        }
+      }
     />
   </figure>
 );
